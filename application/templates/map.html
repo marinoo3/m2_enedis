@@ -6,6 +6,7 @@
     <!-- <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="Marin NAGY"> -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
@@ -15,6 +16,11 @@
      crossorigin=""/>
     <!-- Leaflet Geosearch plugin CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
+    <!-- Leaflet markercluster plugin CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
     <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
     <title>France Energie - Carte interactive</title>
 </head>
@@ -89,7 +95,7 @@
                         </div>
                         <div class="right">
                             <p class="text-second">Type de carte</p>
-                            <select name="type" id="type">
+                            <select name="map-style" id="map-style">
                                 <option value="heatmap">Heat Map</option>
                                 <option value="points">Points</option>
                             </select>
@@ -167,12 +173,12 @@
 <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
 <!-- Leaflet Heatmap plugin JS -->
 <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/leaflet-heat.js') }}"></script>
+<!-- Leaflet markercluster plugin JS -->
+<script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
 
-<!-- Utils functions JS -->
+<!-- Custom JS -->
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-<!-- My map JS -->
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
-<!-- My table JS -->
 <script src="{{ url_for('static', filename='js/table.js') }}"></script>
 
 </body>

@@ -2,12 +2,23 @@
 const map = L.map('map', {maxZoom: 14}).setView([46.603354, 1.888334], 6);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-const mapElement = document.querySelector('#map'); // Map element
-var heat = null; // Heatmap layer
+var layer = null; // Map layer (heatmap or points)
 var irisData = [] // Data for zoomed view
 
 // Load Geosearch provider for searching places
 const provider = new GeoSearch.OpenStreetMapProvider();
+
+// Map element
+const mapElement = document.querySelector('#map');
+// Map form elements
+const mapForm = document.querySelector('form#map-form');
+const placeInput = mapForm.querySelector('input[name="place"]');
+const mapStyleSelect = mapForm.querySelector('select[name="map-style"]')
+// Heatmap value select element
+const mapValueSelect = document.querySelector('#map select#map-value');
+// Map download button element
+const downloadButton = document.querySelector('a.download-button');
+
 
 
 
@@ -21,12 +32,56 @@ function drawHeatMap(value, data=mapData) {
     const selectedKeys = ["latitude", "longitude", value];
     const formatedData = data.map(item => selectedKeys.map(key => item[key]));
 
-    let h = L.heatLayer(formatedData, { radius: 20, blur: 20, max: 15}).addTo(map);
-    return h;
+    let heat = L.heatLayer(formatedData, { radius: 20, blur: 20, max: 15}).addTo(map);
+    return heat;
+}
+
+// Function to draw points layer
+function drawPointsMap(data=mapData) {
+
+    var markers = L.markerClusterGroup();
+
+    data.forEach(function(item) {
+
+        // Create HTML for popup content
+        let popupContent = `<h1>${item.nom_commune}</h1>`;
+
+        var marker = L.marker([item.latitude, item.longitude]).bindPopup(popupContent);
+        markers.addLayer(marker);
+    });
+
+    map.addLayer(markers);
+    return markers
+
+}
+
+// Function to draw map visualisation layer
+function drawMap() {
+    
+    if (layer != null) {
+        map.removeLayer(layer); // remove previous map layer
+    }
+
+    if (mapElement.dataset.currentMapData == "adresse") {
+        data = irisData;
+    } else {
+        data = mapData;
+    }
+
+    const mapStyle = mapStyleSelect.value
+    if (mapStyle == "heatmap") {
+        const mapValue = mapValueSelect.value;
+        layer = drawHeatMap(mapValue, data);
+    } else {
+        layer = drawPointsMap(data);
+    }
+
+    return layer;
+
 }
 
 // Lazy function to requests the python API and progressively fetch the map data
-async function fetchMapData(queryString, mapValue) {
+async function fetchMapData(queryString) {
 
     mapElement.classList.add('waiting');
 
@@ -57,8 +112,7 @@ async function fetchMapData(queryString, mapValue) {
                 const chunk = decoder.decode(value);
                 irisData = JSON.parse(chunk);
     
-                map.removeLayer(heat);
-                heat = drawHeatMap(mapValue, irisData);
+                layer = drawMap();
     
                 mapElement.classList.remove('waiting');
                 mapElement.classList.add('fetching');
@@ -93,33 +147,30 @@ function updateMapAdresses(bbox) {
         maxLatitude: bbox._northEast.lat
     }).toString();
 
-    fetchMapData(queryString, mapValueSelect.value);
+    fetchMapData(queryString);
 }
 
 
 
 
 // Search the map with the search bar
-const mapForm = document.querySelector('form#map-form');
-const input = mapForm.querySelector('input[name="place"]');
 mapForm.addEventListener('submit', async (event) => {
 
     event.preventDefault();
 
-    const results = await provider.search({ query: input.value });
+    const results = await provider.search({ query: placeInput.value });
     map.fitBounds(results[0].bounds)
-    input.blur()
+    placeInput.blur()
+});
+
+// Swtich between map style (heatmap or points map)
+mapStyleSelect.addEventListener('change', (e) => {
+    drawMap();
 });
 
 // Change map value with the select
-const mapValueSelect = document.querySelector('#map select#map-value');
 mapValueSelect.addEventListener('change', (e) => {
-    map.removeLayer(heat);
-    if (mapElement.dataset.currentMapData == "adresse") {
-        heat = drawHeatMap(e.target.value, irisData);
-    } else {
-        heat = drawHeatMap(e.target.value);
-    }
+    drawMap();
 });
 
 // Update map data when zoom point reached
@@ -140,9 +191,7 @@ map.addEventListener('zoomend', () => {
 
         mapElement.dataset.currentMapData = "communes";
         mapElement.classList.remove("waiting", "fetching");
-
-        map.removeLayer(heat);
-        heat = drawHeatMap(mapValueSelect.value);
+        layer = drawMap();
     }
 })
 
@@ -170,7 +219,6 @@ map.addEventListener('moveend', () => {
 });
 
 // Save the map as image when download button is clicked
-const downloadButton = document.querySelector('a.download-button');
 downloadButton.addEventListener('click', async () => {
     const width = mapElement.offsetWidth;
     const height = mapElement.offsetHeight;
@@ -184,4 +232,4 @@ downloadButton.addEventListener('click', async () => {
 
 
 // Create the default heatmap on `conso_moyenne_mwh`
-heat = drawHeatMap('score_moyenne_conso');
+layer = drawMap();
