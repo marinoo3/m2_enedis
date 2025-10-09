@@ -31,7 +31,7 @@ class Data():
         return score
 
 
-    def get_map_data(self) -> list:
+    def get_map(self, filters:dict=None) -> list:
 
         """
         Completes communes data from Enedis API with data from cities dataset (coordinates and names)
@@ -40,6 +40,12 @@ class Data():
 
         # Copy self.communes
         communes = self.communes
+
+        # Filters the data if filtes provided
+        if filters:
+            for column, value in filters.items():
+                if value not in [None, "", "*", "all"]:
+                    communes = communes[communes[column].astype(str).str.startswith(value)]
 
         # Keep only unique `code_commune_INSEE` as index
         cities = self.cities.drop_duplicates('code_commune_INSEE').set_index('code_commune_INSEE')
@@ -57,11 +63,18 @@ class Data():
         communes['score_moyenne_conso'] = self.__compute_score(communes['conso_moyenne_mwh'], scale='log')
         communes['score_total_conso'] = self.__compute_score(communes['conso_total_mwh'], scale='log')
 
+        # Rounding `conso_total_mwh` and `conso_moyenne_mwh` to 3 decimal places
+        communes['conso_total_mwh'] = communes['conso_total_mwh'].round(3)
+        communes['conso_moyenne_mwh'] = communes['conso_moyenne_mwh'].round(3)
+
+        # Rounding average year
+        communes['annee'] = communes['annee'].round()
+
         # Format and return output
-        formatted = communes.to_dict(orient='records')
+        formatted = communes.fillna('NA').to_dict(orient='records')
         return formatted
     
-    def zoomed_map_data(self, streets:list[dict], iris:list[dict]) -> list:
+    def get_zoomed_map(self, streets:list[dict], iris:list[dict]) -> list:
 
         """
         Completes iris data from Enedis API with insee data from edeme API (coordinates and postal codes)

@@ -101,6 +101,7 @@ async function fetchMapData(queryString) {
             const reader = response.body.getReader();
             const decoder = new TextDecoder('utf-8');
             let { value, done } = await reader.read();
+            var chunk = null // TO REMOVE FROM HERE
     
             while (!done) {
     
@@ -109,7 +110,7 @@ async function fetchMapData(queryString) {
                     break
                 }
     
-                const chunk = decoder.decode(value);
+                chunk = decoder.decode(value);
                 irisData = JSON.parse(chunk);
     
                 layer = drawMap();
@@ -129,6 +130,7 @@ async function fetchMapData(queryString) {
             console.log('Request was aborted.');
         } else {
             console.log('Fetch error: ' + error);
+            console.log(chunk);
         }
     } finally {
         mapElement.classList.remove('waiting', 'fetching');
@@ -140,7 +142,7 @@ function updateMapAdresses(bbox) {
 
     mapElement.dataset.bbox = JSON.stringify(bbox);
 
-    let queryString = new URLSearchParams({ // build query
+    const queryString = new URLSearchParams({ // build query
         minLongitude: bbox._southWest.lng,
         minLatitude: bbox._southWest.lat,
         maxLongitude: bbox._northEast.lng,
@@ -177,7 +179,6 @@ mapValueSelect.addEventListener('change', (e) => {
 map.addEventListener('zoomend', () => {
 
     const zoom = map.getZoom()
-    console.log(zoom);
     const currentMapData = mapElement.dataset.currentMapData;
 
     if (zoom > 10 & currentMapData != "adresse") {

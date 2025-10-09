@@ -34,42 +34,42 @@
         <nav class="menu">
             <ol>
                 <li>
-                    <a href="#">
+                    <a href="/context">
                         <img src="{{ url_for('static', filename='images/home.svg') }}" alt="home icon" height="28px">
                         <p>Contexte</p>
                         <div class="highlighter"></div>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="#">
+                    <a href="/map">
                         <img src="{{ url_for('static', filename='images/map.svg') }}" alt="map icon" height="28px">
                         <p>Carte</p>
                         <div class="highlighter"></div>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/statistics">
                         <img src="{{ url_for('static', filename='images/statistics.svg') }}" alt="statistics icon" height="28px">
                         <p>Satistiques</p>
                         <div class="highlighter"></div>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/predict">
                         <img src="{{ url_for('static', filename='images/brain.svg') }}" alt="prediction icon" height="28px">
-                        <p>Prédiction DPE</p>
+                        <p>Prédictions</p>
                         <div class="highlighter"></div>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/inference-api">
                         <img src="{{ url_for('static', filename='images/api.svg') }}" alt="api icon" height="28px">
                         <p>API</p>
                         <div class="highlighter"></div>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/about">
                         <img src="{{ url_for('static', filename='images/info.svg') }}" alt="about icon" height="28px">
                         <p>A propos</p>
                         <div class="highlighter"></div>
@@ -118,30 +118,36 @@
                 </section>
 
                 <section class="table">
-                    <form action="" name="table-form" id="table-form">
+                    <form action="" name="table-form" id="table-form" onsubmit="return false">
                         <h1>Communes</h1>
                         <div class="div-horizontal"></div>
                         <div class="state">
-                            <p class="text-second">Département</p>
-                            <select name="departement" id="departement">
-                                <option value="all">Tous</option>
-                            </select>
+                            <label for="departement">Département</label>
+                            <input type="number" name="departement" id="departement">
                         </div>
                         <div class="year">
-                            <p class="text-second">Année</p>
+                            <label for="year">Année</label>
                             <select name="year" id="year">
-                                <option value="all">--</option>
-                                <option value="all">2025</option>
-                                <option value="all">2024</option>
-                                <option value="all">2023</option>
-                                <option value="all">2022</option>
+                                <option value="">--</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
                             </select>
+                        </div>
+                        <div id="count">
+                            <p>--</p>
+                            <label for="">resultats</label>
                         </div>
                     </form>
                     <table id="data">
                         <tr class="header">
                             <th>Code de commune</th>
                             <th>Nom de commune</th>
+                            <th>Année</th>
                             <th>Nombre de logements</th>
                             <th>Consomation total (mwh)</th>
                             <th>Consomation par habitant (mwh)</th>

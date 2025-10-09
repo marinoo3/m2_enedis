@@ -20,12 +20,35 @@ def simple_query(query:str):
     return
 
 
+@endpoints.route('/map_data/', methods=['GET'])
+def map_data():
+
+    """
+    Filters map data, don't works for zoomed map data yet
+    * `year` and `state` passed as argument
+    Returns the filtered data
+    """
+
+    # Retrieve request parameters
+    code_commune = request.args.get('code_commune')
+    annee = request.args.get('annee')
+
+    # Build filters
+    filters = {}
+    if code_commune: filters['code_commune'] = code_commune
+    if annee: filters['annee'] = annee
+
+    # Filters data
+    data = current_app.data.get_map(filters)
+    return jsonify(data)
+
+
 @endpoints.route('/zoomed_map_data/', methods=['GET'])
 def zoomed_map_data():
 
     """
     Requests precise data for the map giving a specific bounding box
-    * Bounding box passed as 4 parameters: `minLongitude`, `minLatitude`, `maxLongitude`, `maxLatitude`
+    * Bounding box passed as 4 arguments: `minLongitude`, `minLatitude`, `maxLongitude`, `maxLatitude`
     Returns iris data formatted for the map
     """
 
@@ -49,7 +72,7 @@ def zoomed_map_data():
             # Get iris
             batch_iris, offset = current_app.enedis_api.iris_from_insee(insee_codes, offset=offset)
             # Concate and format data
-            data = current_app.data.zoomed_map_data(streets, batch_iris)
+            data = current_app.data.get_zoomed_map(streets, batch_iris)
             if data == []: continue # skip if no data
             # Extend data
             iris_data.extend(data)

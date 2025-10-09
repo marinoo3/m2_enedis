@@ -34,6 +34,10 @@
     color: var(--text-color);
 }
 
+h1 {
+    font-size: 1.5rem;
+}
+
 
 body {
     background-color: var(--bg-color);
@@ -126,16 +130,9 @@ nav.menu {
     margin: 6px 1rem;
 }
 
-input[type="text"] {
-    border: none;
-    background-color: var(--input-bg-color);
-    border-radius: var(--border-radius);
-    padding: 0px .8rem;
-}
-
-input[type="numeric"] {
-    border-radius: var(--border-radius);
-    border: solid 1px var(--border-color);
+label {
+    color: var(--text-color-second);
+    font-size: .8rem;
 }
 
 select {
@@ -143,6 +140,22 @@ select {
     border-radius: var(--border-radius);
     padding: 8px;
     font-weight: 600;
+}
+
+input {
+    border-radius: var(--border-radius);
+    border: 1px solid var(--text-color-second);
+    padding: 0px .8rem;
+}
+
+button.main {
+    height: 3rem;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--accent);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 button.second-button {

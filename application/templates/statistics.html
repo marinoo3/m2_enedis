@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Marin NAGY"> -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/predict.css') }}">
+    <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
+    <title>France Energie - Prédictions DPE et Consomation</title>
+</head>
+
+<header>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="France Energie logo" height="50px">
+</header>
+
+<body>
+    <main>
+        <nav class="menu">
+            <ol>
+                <li>
+                    <a href="/context">
+                        <img src="{{ url_for('static', filename='images/home.svg') }}" alt="home icon" height="28px">
+                        <p>Contexte</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/map">
+                        <img src="{{ url_for('static', filename='images/map.svg') }}" alt="map icon" height="28px">
+                        <p>Carte</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/statistics">
+                        <img src="{{ url_for('static', filename='images/statistics.svg') }}" alt="statistics icon" height="28px">
+                        <p>Satistiques</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/predict">
+                        <img src="{{ url_for('static', filename='images/brain.svg') }}" alt="prediction icon" height="28px">
+                        <p>Prédictions</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/inference-api">
+                        <img src="{{ url_for('static', filename='images/api.svg') }}" alt="api icon" height="28px">
+                        <p>API</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about">
+                        <img src="{{ url_for('static', filename='images/info.svg') }}" alt="about icon" height="28px">
+                        <p>A propos</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+            </ol>
+            <p class="credits">© SISE 2024</p>
+        </nav>
+        <div class="content-wrapper">
+            <div class="content">
+
+            </div>
+        </div>
+    </main>
+
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
+</body>
+</html>

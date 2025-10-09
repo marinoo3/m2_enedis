@@ -14,9 +14,9 @@ class ENEDIS(BaseAPI):
     def __loop_API(self, params:dict, limit:int = 100) -> list[dict]:
 
         """
-        Loop through pages of an API requests.
+        Loop through pages of an API call.
         * Parameters for the requests
-        * Limit of result per requests (default = 100)
+        * Limit of result per call (default = 100)
         Returns all the content as a list of dict
         """
 
@@ -43,6 +43,14 @@ class ENEDIS(BaseAPI):
     
 
     def __chunck_API(self, params:dict, offset:int = 0, limit:int = 50) -> list[dict]:
+         
+        """
+        Make an API call given a specific offset, used for lazy response.
+        * Parameters for the requests
+        * Offset of the call
+        * Limit of result per call (default = 100)
+        Returns the content as a list of dict + a stop signal (bool)
+        """
 
         params['limit'] = limit
         params['offset'] = offset
@@ -60,11 +68,11 @@ class ENEDIS(BaseAPI):
 
         """
         Retrieve all communes.
-        Returns data about each communes: `code_commune`, `nombre_de_logements`, `conso_total_mwh`
+        Returns data about each communes: `code_commune`, `nombre_de_logements`, `conso_total_mwh`, `annee`
         """
 
         params = {
-            'select': 'code_commune, SUM(nombre_de_logements) as nombre_de_logements, SUM(consommation_annuelle_totale_de_l_adresse_mwh) as conso_total_mwh',
+            'select': 'code_commune, SUM(nombre_de_logements) as nombre_de_logements, SUM(consommation_annuelle_totale_de_l_adresse_mwh) as conso_total_mwh, annee',
             'group_by': 'code_commune'
         }
 

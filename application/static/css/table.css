@@ -7,6 +7,22 @@
     .state {
         margin-right: 1rem;
     }
+
+    #count {
+
+        flex-grow: 1;
+        text-align: right;
+
+        p {
+            display: inline;
+        }
+    }
+
+    input {
+        padding: 8px;
+        width: 120px;
+        font-weight: 600;
+    }
 }
 
 table#data {
@@ -23,6 +39,8 @@ form#pagination {
     margin-top: 1rem;
 
     input {
+        border-radius: var(--border-radius);
+        border-color: var(--border-color);
         text-align: center;
         width: 60px;
     }
