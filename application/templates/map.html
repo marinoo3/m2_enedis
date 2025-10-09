@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Marin NAGY"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <!-- Leaflet Geosearch plugin CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
+    <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
+    <title>France Energie - Carte interactive</title>
+</head>
+
+<header>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="France Energie logo" height="50px">
+</header>
+
+<body>
+    <main>
+        <nav class="menu">
+            <ol>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/home.svg') }}" alt="home icon" height="28px">
+                        <p>Contexte</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/map.svg') }}" alt="map icon" height="28px">
+                        <p>Carte</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/statistics.svg') }}" alt="statistics icon" height="28px">
+                        <p>Satistiques</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/brain.svg') }}" alt="prediction icon" height="28px">
+                        <p>Prédiction DPE</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/api.svg') }}" alt="api icon" height="28px">
+                        <p>API</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='images/info.svg') }}" alt="about icon" height="28px">
+                        <p>A propos</p>
+                        <div class="highlighter"></div>
+                    </a>
+                </li>
+            </ol>
+            <p class="credits">© SISE 2024</p>
+        </nav>
+        <div class="content-wrapper">
+            <div class="content">
+
+                <section class="map">
+                    <form action="" name="map-form" id="map-form">
+                        <div class="left">
+                            <h1>Carte</h1>
+                            <div class="div-horizontal"></div>
+                            <div class="place-search">
+                                <label for="place">
+                                    <img src="{{ url_for('static', filename='images/search.svg') }}" alt="search" width="14px">
+                                </label>
+                                <input type="text" name="place" id="place" placeholder="Rechercher un lieu">
+                            </div>
+                        </div>
+                        <div class="right">
+                            <p class="text-second">Type de carte</p>
+                            <select name="type" id="type">
+                                <option value="heatmap">Heat Map</option>
+                                <option value="points">Points</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div id="map" data-current-map-data="communes">
+                        <a href="#" class="download-button custom-map-cta">
+                            <img src="{{ url_for('static', filename='images/download.svg') }}" alt="partager" width="14px">
+                            <p>Télécharger la carte</p>
+                        </a>
+                        <div class="map-value-container">
+                            <select name="map-value" id="map-value" class="custom-map-cta">
+                                <option value="score_moyenne_conso">Consommation par habitant</option>
+                                <option value="score_total_conso">Consommation totale</option>
+                            </select>
+                            <div class="fetching custom-map-cta"><div class="lds-ring" id="loading"><div></div><div></div><div></div><div></div></div></div>
+                        </div>
+                        <div class="lds-ring loading-screen" id="loading"><div></div><div></div><div></div><div></div></div>
+                    </div>
+                </section>
+
+                <section class="table">
+                    <form action="" name="table-form" id="table-form">
+                        <h1>Communes</h1>
+                        <div class="div-horizontal"></div>
+                        <div class="state">
+                            <p class="text-second">Département</p>
+                            <select name="departement" id="departement">
+                                <option value="all">Tous</option>
+                            </select>
+                        </div>
+                        <div class="year">
+                            <p class="text-second">Année</p>
+                            <select name="year" id="year">
+                                <option value="all">--</option>
+                                <option value="all">2025</option>
+                                <option value="all">2024</option>
+                                <option value="all">2023</option>
+                                <option value="all">2022</option>
+                            </select>
+                        </div>
+                    </form>
+                    <table id="data">
+                        <tr class="header">
+                            <th>Code de commune</th>
+                            <th>Nom de commune</th>
+                            <th>Nombre de logements</th>
+                            <th>Consomation total (mwh)</th>
+                            <th>Consomation par habitant (mwh)</th>
+                        </tr>
+                    </table>
+                    <form id="pagination" onsubmit="return false">
+                        <button name="previous" type="button" class="second-button">
+                            <img src="{{ url_for('static', filename='images/left-arrow.svg') }}" alt="previous" height="20px">
+                        </button>
+                        <input name="index" type="numeric" value="1" min="1">
+                        <button name="next" type="button" class="second-button">
+                            <img src="{{ url_for('static', filename='images/right-arrow.svg') }}" alt="next" height="20px">
+                        </button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
+
+<script>
+    var mapData = {{ mapData | tojson }};
+</script>
+
+<!-- DOM to Image plugin JS -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/plugins/dom-to-image.js') }}"></script>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<!-- Leaflet Geosearch plugin JS -->
+<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+<!-- Leaflet Heatmap plugin JS -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/plugins/leaflet-heat.js') }}"></script>
+
+<!-- Utils functions JS -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<!-- My map JS -->
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<!-- My table JS -->
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+
+</body>
+</html>

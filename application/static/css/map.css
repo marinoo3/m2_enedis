@@ -1,0 +1,143 @@
+/* GLOBAL */
+
+.div-horizontal {
+    height: 30px;
+}
+
+
+
+
+/* STRUCTURED */
+
+
+#map-form {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    
+
+    .left {
+
+        display: flex;
+        flex: 1;
+
+        .place-search {
+
+            position: relative;
+            padding: 4px 0px;
+            width: 100%;
+            max-width: 700px;
+
+            input#place {
+                height: 100%;
+                width: 100%;
+            }
+
+            label {
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    .right {
+
+        .text-second {
+            margin-right: .5rem;
+        }
+
+        select {
+            width: 160px;
+        }
+    }
+
+}
+
+#map {
+
+    height: 650px;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+
+    .leaflet-control-zoom {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+
+    .custom-map-cta {
+        z-index: 9999;
+        background-color: var(--bg-color-second);
+        border: solid 2px rgba(0, 0, 0, .2);
+        background-clip: padding-box;
+        padding: .5rem 1rem;
+        font-size: 12px;
+        border-radius: var(--border-radius);
+    }
+
+    a.download-button {
+
+        position: absolute;
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        bottom: 1rem;
+        left: 1rem;
+
+        img {
+            filter: invert(89%) sepia(83%) saturate(1836%) hue-rotate(318deg) brightness(100%) contrast(98%);
+        }
+    }
+
+    .map-value-container {
+        z-index: 999;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        flex-direction: row-reverse;
+        gap: .5rem;
+    }
+
+    .loading-screen {
+        position: absolute;
+        display: none;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, .25);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fetching {
+
+        display: none;
+        height: 40px;
+        width: 40px;
+        padding: 0px;
+
+        .lds-ring {
+
+            padding: 5.25px;
+
+            div {
+                height: 25px;
+                width: 25px;
+                border-color: var(--accent) transparent transparent transparent;
+            }
+        }
+    }
+}
+#map.waiting .loading-screen {
+    display: flex;
+}
+#map.fetching .fetching {
+    display: block;
+}
