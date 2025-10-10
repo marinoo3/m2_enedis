@@ -64,8 +64,6 @@ def zoomed_map_data():
     insee_codes = [ row['code_insee_ban'] for row in streets ]
     insee_codes = list(set(insee_codes)) # remove duplicates
 
-    print('Start sending')
-
     # Get iris data from enedis API
     iris_data = []
     def collect():
@@ -79,15 +77,14 @@ def zoomed_map_data():
                 continue # skip if no data
             # Extend data
             iris_data.extend(data)
-            print(len(iris_data))
             yield json.dumps(iris_data) + '\n'
 
     return Response(
         stream_with_context(collect()),
         content_type = "application/json",
-        headers = {
-            'Cache-Control': 'no-cache',
-            'X-Accel-Buffering': 'no'  # helps bypass Nginx buffering
-        }
+        # headers = {
+        #     'Cache-Control': 'no-cache',
+        #     'X-Accel-Buffering': 'no'  # helps bypass Nginx buffering
+        # }
     )
 
