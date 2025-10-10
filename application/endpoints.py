@@ -76,8 +76,8 @@ def zoomed_map_data():
             if data == []: 
                 continue # skip if no data
             # Extend data
-            iris_data.extend(data)
-            y_data = json.dumps(iris_data) + '\n'
+            # iris_data.extend(data)
+            y_data = json.dumps(data) + '\n'
             print('DATA')
             print(y_data)
             yield y_data
