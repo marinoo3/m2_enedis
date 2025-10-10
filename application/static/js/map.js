@@ -103,7 +103,7 @@ async function fetchMapData(queryString) {
             const reader = response.body.getReader();
             const decoder = new TextDecoder('utf-8');
             let { value, done } = await reader.read();
-            var chunk = null // TO REMOVE FROM HERE
+            let buffer = '';
     
             while (!done) {
     
@@ -111,9 +111,24 @@ async function fetchMapData(queryString) {
                     controller.abort();
                     break
                 }
-    
-                chunk = decoder.decode(value);
-                irisData = JSON.parse(chunk);
+                
+                buffer += decoder.decode(value, { stream: true });
+                const parts = buffer.split('\n');
+
+                parts.forEach((part, index) => {
+                    if (index < parts.length - 1) {
+                        if (part.trim()) {
+                            try {
+                                irisData = JSON.parse(part.trim());
+                                layer = drawMap();
+                            } catch (err) {
+                                console.error('JSON parsing error', err);
+                            }
+                        }
+                    } else {
+                        buffer = part; // Last part could be incomplete
+                    }
+                });
     
                 layer = drawMap();
     
@@ -132,7 +147,6 @@ async function fetchMapData(queryString) {
             console.log('Request was aborted.');
         } else {
             console.log('Fetch error: ' + error);
-            console.log(chunk);
         }
     } finally {
         mapElement.classList.remove('waiting', 'fetching');
