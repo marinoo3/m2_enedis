@@ -77,14 +77,17 @@ def zoomed_map_data():
                 continue # skip if no data
             # Extend data
             iris_data.extend(data)
-            yield json.dumps(iris_data) + '\n'
+            y_data = json.dumps(iris_data) + '\n'
+            print('DATA')
+            print(y_data)
+            yield y_data
 
     return Response(
         stream_with_context(collect()),
         content_type = "application/json",
-        # headers = {
-        #     'Cache-Control': 'no-cache',
-        #     'X-Accel-Buffering': 'no'  # helps bypass Nginx buffering
-        # }
+        headers = {
+            'Cache-Control': 'no-cache',
+            'X-Accel-Buffering': 'no'  # helps bypass Nginx buffering
+        }
     )
 
