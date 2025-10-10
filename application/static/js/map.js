@@ -88,6 +88,8 @@ async function fetchMapData(queryString) {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    console.log('requesting');
+
     const response = await fetch('/api/zoomed_map_data/?' + queryString, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
@@ -166,12 +168,12 @@ mapForm.addEventListener('submit', async (event) => {
 });
 
 // Swtich between map style (heatmap or points map)
-mapStyleSelect.addEventListener('change', (e) => {
+mapStyleSelect.addEventListener('change', () => {
     drawMap();
 });
 
 // Change map value with the select
-mapValueSelect.addEventListener('change', (e) => {
+mapValueSelect.addEventListener('change', () => {
     drawMap();
 });
 

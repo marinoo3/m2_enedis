@@ -64,18 +64,22 @@ def zoomed_map_data():
     insee_codes = [ row['code_insee_ban'] for row in streets ]
     insee_codes = list(set(insee_codes)) # remove duplicates
 
+    print('Start sending')
+
     # Get iris data from enedis API
     iris_data = []
     def collect():
         offset = 0
-        while offset != None:
+        while offset is not None:
             # Get iris
             batch_iris, offset = current_app.enedis_api.iris_from_insee(insee_codes, offset=offset)
             # Concate and format data
             data = current_app.data.get_zoomed_map(streets, batch_iris)
-            if data == []: continue # skip if no data
+            if data == []: 
+                continue # skip if no data
             # Extend data
             iris_data.extend(data)
+            print(len(iris_data))
             yield json.dumps(iris_data) + '\n'
 
     return Response(
