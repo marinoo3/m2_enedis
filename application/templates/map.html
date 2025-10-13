@@ -6,10 +6,6 @@
     <!-- <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="Marin NAGY"> -->
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -21,6 +17,12 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+    <!-- NoUISlider plugin CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
     <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
     <title>France Energie - Carte interactive</title>
 </head>
@@ -122,7 +124,7 @@
                         <h1>Communes</h1>
                         <div class="div-horizontal"></div>
                         <div class="state">
-                            <label for="departement">Département</label>
+                            <label for="departement">Code de commune</label>
                             <input type="number" name="departement" id="departement">
                         </div>
                         <div class="year">
@@ -138,6 +140,10 @@
                                 <option value="2018">2018</option>
                             </select>
                         </div>
+                        <div class="density">
+                            <label for="year">Densité de population</label>
+                            <div id="density-slider"></div>
+                        </div>
                         <div id="count">
                             <p>--</p>
                             <label for="">resultats</label>
@@ -148,7 +154,9 @@
                             <th>Code de commune</th>
                             <th>Nom de commune</th>
                             <th>Année</th>
-                            <th>Nombre de logements</th>
+                            <th>Logements</th>
+                            <th>Densité de population</th>
+                            <th>Altitude</th>
                             <th>Consomation total (mwh)</th>
                             <th>Consomation par habitant (mwh)</th>
                         </tr>
@@ -167,25 +175,29 @@
         </div>
     </main>
 
-<script>
-    var mapData = {{ mapData | tojson }};
-</script>
+    <script>
+        var mapData = {{ mapData | tojson }};
+        var scales = {{ scales | tojson }};
+    </script>
 
-<!-- DOM to Image plugin JS -->
-<script type="text/javascript" src="{{ url_for('static', filename='js/plugins/dom-to-image.js') }}"></script>
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<!-- Leaflet Geosearch plugin JS -->
-<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
-<!-- Leaflet Heatmap plugin JS -->
-<script type="text/javascript" src="{{ url_for('static', filename='js/plugins/leaflet-heat.js') }}"></script>
-<!-- Leaflet markercluster plugin JS -->
-<script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Leaflet Geosearch plugin JS -->
+    <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+    <!-- Leaflet Heatmap plugin JS -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.min.js"></script>
+    <!-- Leaflet markercluster plugin JS -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+    <!-- DOM to Image plugin JS -->
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+    <!-- noUISlider plugin JS  -->
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/wnumb@1.2.0/wNumb.min.js"></script> 
 
-<!-- Custom JS -->
-<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-<script src="{{ url_for('static', filename='js/map.js') }}"></script>
-<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
 
 </body>
 </html>

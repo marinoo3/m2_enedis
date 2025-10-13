@@ -68,13 +68,22 @@
         </nav>
         <div class="content-wrapper">
             <div class="content">
-
+                <div id='test-plot'></div>
             </div>
         </div>
     </main>
 
-<!-- Custom JS -->
-<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
+    <script>
+        var testPlot = {{ testPlot | safe }};
+    </script>
+
+
+    <!-- Plotly JS -->
+    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plots.js') }}"></script>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 from flask import Flask  
 
-from .custom import Data, ENEDIS, ADEME
+from .custom import Data, Plots, ENEDIS, ADEME
 
 
 
@@ -14,6 +14,7 @@ def create_app():
     # Load configuration
     with app.app_context():
         app.data = Data()
+        app.plots = Plots()
         app.enedis_api = ENEDIS()
         app.ademe_api = ADEME()
 

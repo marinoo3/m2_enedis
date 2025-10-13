@@ -192,6 +192,16 @@ tr:first-child > th {
     border-bottom: 1px solid var(--border-color);
 }
 
+.noUi-connect {
+    background-color: var(--accent);
+}
+.noUi-tooltip {
+    font-size: .8rem;
+    border: none;
+    background-color: inherit;
+    padding: 0;
+}
+
 
 /* LOADING | NO RESULT */
 

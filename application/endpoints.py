@@ -3,7 +3,6 @@ import json
 
 
 
-
 endpoints = Blueprint('api', __name__)
 
 
@@ -30,17 +29,17 @@ def map_data():
     """
 
     # Retrieve request parameters
-    code_commune = request.args.get('code_commune')
-    annee = request.args.get('annee')
-
-    # Build filters
-    filters = {}
-    if code_commune: filters['code_commune'] = code_commune
-    if annee: filters['annee'] = annee
+    filters = request.args.get('filters')
+    sort = request.args.get('sort')
+    if filters: filters = json.loads(filters)
+    if sort: sort = json.loads(sort)
 
     # Filters data
-    data = current_app.data.get_map(filters)
-    return jsonify(data)
+    data, scales = current_app.data.get_map(filters=filters, sort=sort)
+    return jsonify({
+        'data': data, 
+        'scales': scales
+    })
 
 
 @endpoints.route('/zoomed_map_data/', methods=['GET'])

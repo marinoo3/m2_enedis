@@ -6,6 +6,7 @@ const filterForm = document.querySelector('#table-form');
 const stateInput = filterForm.querySelector('#departement');
 const yearSelect = filterForm.querySelector('#year');
 const countLabel = document.querySelector('#count > p');
+const densitySlider = filterForm.querySelector('#density-slider');
 
 // Pagination elements
 const indexForm = document.querySelector('form#pagination');
@@ -16,6 +17,34 @@ const pageInput = indexForm.querySelector('input[name="index"]');
 // Table size
 let size = 15
 
+
+
+
+
+
+// Create filter sliders
+noUiSlider.create(densitySlider, {
+	start: [scales['densite']['min'], scales['densite']['max']],
+	connect: true,
+	step: 1,
+	tooltips: [wNumb({decimals: 0}), wNumb({decimals: 0})],
+	range: {
+		'min': scales['densite']['min'],
+		'max': scales['densite']['max']
+	}
+});
+
+
+
+// Update silders range
+function updateSliders() {
+	densitySlider.noUiSlider.updateOptions({
+		start: {
+			'min': scales['densite']['min'],
+			'max': scales['densite']['max']
+		}
+	})
+}
 
 // Function to fill the table with data given a specific page index
 function fillTable(data=mapData, index=0) {
@@ -31,7 +60,7 @@ function fillTable(data=mapData, index=0) {
 
 	const offset = index * size
 	const subset = data.slice(offset, offset + size);
-	const selectedKeys = ["code_commune", "nom_commune", "annee", "nombre_de_logements", "conso_total_mwh", "conso_moyenne_mwh"];
+	const selectedKeys = ["code_commune", "nom_commune", "annee", "nombre_de_logements", "densite", "altitude", "conso_total_mwh", "conso_moyenne_mwh"];
 
 	subset.forEach(item => {
 
@@ -52,12 +81,15 @@ function fillTable(data=mapData, index=0) {
 // Function to update the table when filtered
 async function filterTable() {
 
-	const queryString = new URLSearchParams({ // build query
-        code_commune: stateInput.value,
-        annee: yearSelect.value.toString()
-    }).toString();
+	const filters = JSON.stringify([
+		{ column: 'code_commune', type: 'startwith', value: stateInput.value },
+		{ column: 'annee', type: 'startwith', value: yearSelect.value.toString() },
+		{ column: 'densite', type: 'inrange', value: densitySlider.noUiSlider.get() }
+	]);
 
-	console.log(queryString);
+	const queryString = new URLSearchParams({ // build query
+        filters
+    }).toString();
 
 	// Requests filtered to python API
 
@@ -70,7 +102,11 @@ async function filterTable() {
 		throw new Error('Network response was not ok');
 	}
 
-	mapData = await response.json();
+	content = await response.json();
+	mapData = content['data']
+	scales = content['scales']
+
+	//updateSliders();
 	fillTable();
 	drawMap();
 }
@@ -106,6 +142,9 @@ stateInput.addEventListener('change', () => {
 	filterTable();
 });
 yearSelect.addEventListener('change', () => {
+	filterTable();
+});
+densitySlider.noUiSlider.on('change', () => {
 	filterTable();
 });
 
