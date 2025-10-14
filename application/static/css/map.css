@@ -36,13 +36,21 @@
                 width: 100%;
                 border: none;
                 background-color: var(--input-bg-color);
+                padding-left: 2rem;
             }
 
             label {
+
                 position: absolute;
-                right: 1rem;
+                left: .8rem;
                 top: 50%;
                 transform: translateY(-50%);
+
+                img {
+                    display: block;
+                    filter: invert(40%) sepia(0%) saturate(12%) hue-rotate(187deg) brightness(94%) contrast(89%);
+                }
+
             }
         }
     }

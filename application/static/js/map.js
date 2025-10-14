@@ -1,6 +1,6 @@
 // Init the map
 const map = L.map('map', {maxZoom: 14}).setView([46.603354, 1.888334], 6);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
+var tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
 
 var layer = null; // Map layer (heatmap or points)
 var irisData = [] // Data for zoomed view
@@ -172,6 +172,12 @@ function updateMapAdresses(bbox) {
     fetchMapData(queryString);
 }
 
+function welcomeToHell() {
+    map.removeLayer(tileLayer);
+    tileLayer = L.tileLayer('https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}{r}.png').addTo(map);
+    map.setView([46.603354, 1.888334], 5);
+}
+
 
 
 
@@ -179,6 +185,10 @@ function updateMapAdresses(bbox) {
 mapForm.addEventListener('submit', async (event) => {
 
     event.preventDefault();
+
+    if (placeInput.value == 'HELL') {
+        return welcomeToHell()
+    }
 
     const results = await provider.search({ query: placeInput.value });
     map.fitBounds(results[0].bounds)
