@@ -93,6 +93,12 @@ function fillTable(data=mapData, index=0) {
 	});
 }
 
+// Function to fetch filtered data from python API
+function fetchFilteredData() {
+	//TODO: make the fetch requests of `filterTable` here.
+	// Call this function fromn `filterTable` and from a new function `downloadCSV`
+}
+
 // Function to update the table when filtered
 async function filterTable() {
 
@@ -103,9 +109,7 @@ async function filterTable() {
 		{ column: 'altitude', type: 'inrange', value: altitudeSlider.noUiSlider.get() }
 	]);
 
-	const queryString = new URLSearchParams({ // build query
-        filters
-    }).toString();
+	const queryString = new URLSearchParams({filters}).toString();
 
 	// Requests filtered to python API
 

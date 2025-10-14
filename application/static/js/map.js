@@ -176,6 +176,14 @@ function welcomeToHell() {
     map.removeLayer(tileLayer);
     tileLayer = L.tileLayer('https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}{r}.png').addTo(map);
     map.setView([46.603354, 1.888334], 5);
+    document.documentElement.style.setProperty("--bg-color", "black");
+    document.documentElement.style.setProperty("--bg-color-second", "#290002");
+    document.documentElement.style.setProperty("--text-color", "#c31e1f");
+    document.documentElement.style.setProperty("--text-color-second", "#763939");
+    document.documentElement.style.setProperty("--accent", "#a42b0b");
+    document.documentElement.style.setProperty("--accent-second", "#121212");
+    document.documentElement.style.setProperty("--input-bg-color", "#160c0c");
+    document.documentElement.style.setProperty("--border-color", "black");
 }
 
 
