@@ -7,6 +7,7 @@ const stateInput = filterForm.querySelector('#departement');
 const yearSelect = filterForm.querySelector('#year');
 const countLabel = document.querySelector('#count > p');
 const densitySlider = filterForm.querySelector('#density-slider');
+const altitudeSlider = filterForm.querySelector('#altitude-slider');
 
 // Pagination elements
 const indexForm = document.querySelector('form#pagination');
@@ -34,6 +35,19 @@ noUiSlider.create(densitySlider, {
 		'max': scales['densite']['max']
 	}
 });
+noUiSlider.create(altitudeSlider, {
+	start: [scales['altitude']['min'], scales['altitude']['max']],
+	connect: true,
+	step: 1,
+	tooltips: [wNumb({decimals: 0, suffix: ' m'}), wNumb({decimals: 0, suffix: ' m'})],
+	range: {
+		'min': scales['altitude']['min'],
+		'80%': (scales['altitude']['max'] - scales['altitude']['min']) / 5,
+		'max': scales['altitude']['max']
+	}
+});
+
+
 
 
 
@@ -85,7 +99,8 @@ async function filterTable() {
 	const filters = JSON.stringify([
 		{ column: 'code_commune', type: 'startwith', value: stateInput.value },
 		{ column: 'annee', type: 'startwith', value: yearSelect.value.toString() },
-		{ column: 'densite', type: 'inrange', value: densitySlider.noUiSlider.get() }
+		{ column: 'densite', type: 'inrange', value: densitySlider.noUiSlider.get() },
+		{ column: 'altitude', type: 'inrange', value: altitudeSlider.noUiSlider.get() }
 	]);
 
 	const queryString = new URLSearchParams({ // build query
@@ -146,6 +161,9 @@ yearSelect.addEventListener('change', () => {
 	filterTable();
 });
 densitySlider.noUiSlider.on('change', () => {
+	filterTable();
+});
+altitudeSlider.noUiSlider.on('change', () => {
 	filterTable();
 });
 
