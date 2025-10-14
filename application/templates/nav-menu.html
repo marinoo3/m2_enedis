@@ -1,0 +1,47 @@
+<nav class="menu">
+    <ol>
+        <li class="{% if current_page == 'context' %}active{% endif %}">
+            <a href="/context">
+                <img src="{{ url_for('static', filename='images/home.svg') }}" alt="home icon" height="28px">
+                <p>Contexte</p>
+                <div class="highlighter"></div>
+            </a>
+        </li>
+        <li class="{% if current_page == 'map' %}active{% endif %}">
+            <a href="/map">
+                <img src="{{ url_for('static', filename='images/map.svg') }}" alt="map icon" height="28px">
+                <p>Carte</p>
+                <div class="highlighter"></div>
+            </a>
+        </li>
+        <li class="{% if current_page == 'statistics' %}active{% endif %}">
+            <a href="/statistics">
+                <img src="{{ url_for('static', filename='images/statistics.svg') }}" alt="statistics icon" height="28px">
+                <p>Satistiques</p>
+                <div class="highlighter"></div>
+            </a>
+        </li>
+        <li class="{% if current_page == 'predict' %}active{% endif %}">
+            <a href="/predict">
+                <img src="{{ url_for('static', filename='images/brain.svg') }}" alt="prediction icon" height="28px">
+                <p>Prédictions</p>
+                <div class="highlighter"></div>
+            </a>
+        </li>
+        <li class="{% if current_page == 'api-documentation' %}active{% endif %}"> 
+            <a href="/api-documentation">
+                <img src="{{ url_for('static', filename='images/api.svg') }}" alt="api icon" height="28px">
+                <p>API</p>
+                <div class="highlighter"></div>
+            </a>
+        </li>
+        <li>
+            <a href="/about">
+                <img src="{{ url_for('static', filename='images/info.svg') }}" alt="about icon" height="28px">
+                <p>A propos</p>
+                <div class="highlighter"></div>
+            </a>
+        </li>
+    </ol>
+    <p class="credits">© SISE 2024</p>
+</nav>

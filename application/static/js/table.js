@@ -30,6 +30,7 @@ noUiSlider.create(densitySlider, {
 	tooltips: [wNumb({decimals: 0}), wNumb({decimals: 0})],
 	range: {
 		'min': scales['densite']['min'],
+		'80%': (scales['densite']['max'] - scales['densite']['min']) / 50,
 		'max': scales['densite']['max']
 	}
 });

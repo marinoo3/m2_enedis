@@ -1,6 +1,6 @@
 // Init the map
 const map = L.map('map', {maxZoom: 14}).setView([46.603354, 1.888334], 6);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
 
 var layer = null; // Map layer (heatmap or points)
 var irisData = [] // Data for zoomed view
@@ -32,7 +32,13 @@ function drawHeatMap(value, data=mapData) {
     const selectedKeys = ["latitude", "longitude", value];
     const formatedData = data.map(item => selectedKeys.map(key => item[key]));
 
-    let heat = L.heatLayer(formatedData, { radius: 20, blur: 20, max: 15}).addTo(map);
+    let heat = L.heatLayer(formatedData, { 
+        radius: 20, 
+        blur: 20, 
+        max: 15,
+        gradient: {0.3: '#1007B4', 0.65: '#D5536F', 1: '#F8FF25'}
+    }).addTo(map);
+
     return heat;
 }
 
