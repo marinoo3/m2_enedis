@@ -1,1 +1,0 @@
-web: --chdir web gunicorn --bind :$PORT --timeout 180 app:app
