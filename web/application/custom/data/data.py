@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+from ..volume import Volume
 from .filter import Filter
 
 
@@ -13,12 +14,10 @@ class Data():
         self.cities = self.__load_cities()
 
     def __load_communes(self) -> pd.DataFrame:
-        df = pd.read_csv('application/datasets/communes.csv')
-        df['code_commune'] = df['code_commune'].astype(str)
-        return df
+        return Volume.read_communes()
     
     def __load_cities(self) -> pd.DataFrame:
-        df = pd.read_csv('application/datasets/communes-france-2025.csv')
+        df = pd.read_csv('application/datasets/communes-france-2025.csv', low_memory=False)
         df['code_insee'] = df['code_insee'].astype(str)
         return df
     
@@ -35,13 +34,37 @@ class Data():
         return score
     
 
-    def get_map(self, filters:dict=None, sort:dict=None) -> list:
+    def get_communes(self) -> pd.DataFrame:
 
+        """Returns raw communes data
+
+        Returns:
+            pd.DataFrame: Raw communes data
         """
-        Completes communes data from Enedis API with data from cities dataset (coordinates and names)
-        * filters: a list of filter rules
-        * sort: how to sort the data
-        Returns a list of commune formatted for the map
+
+        return self.communes
+    
+
+    def update_communes(self, communes:list[dict]) -> None:
+
+        """Update the communes dataset on Koyeb volume and reload communes"""
+
+        df = pd.DataFrame(communes)
+        Volume.write_communes(df)
+        # Reload communes
+        self.communes = self.__load_communes()
+    
+
+    def get_map(self, filters:list[dict]=None, sort:dict=None) -> list[dict]:
+        
+        """Completes communes data from Enedis API with data from cities dataset (coordinates and names)
+
+        Keyword Arguments
+            filters {list[dict]} -- List of filter rules (default None)
+            sort {dict} -- How to sort the data (default None)
+
+        Returns:
+            list[dict]: Communes formatted for the map
         """
 
         # Copy self.communes
@@ -94,11 +117,17 @@ class Data():
 
         return formatted, scales
     
-    def get_zoomed_map(self, streets:list[dict], iris:list[dict]) -> list:
+    
+    def get_zoomed_map(self, streets:list[dict], iris:list[dict]) -> list[dict]:
 
-        """
-        Completes iris data from Enedis API with insee data from edeme API (coordinates and postal codes)
-        Returns a list of iris formatted for the map
+        """Completes iris data from Enedis API with insee data from Ademe API (coordinates and postal codes)
+
+        Arguments
+            streets {list[dict]} -- List of streets data from Ademe
+            iris {list[dict]} -- List of iris data from Enedis
+
+        Returns:
+            list[dict]: Irises formatted for the map
         """
 
         def iso_transform(s):
@@ -131,11 +160,6 @@ class Data():
         # Compute scores
         iris['score_moyenne_conso'] = self.__compute_score(iris['conso_moyenne_mwh'], scale='log')
         iris['score_total_conso'] = self.__compute_score(iris['conso_total_mwh'], scale='log')
-
-        if iris['score_moyenne_conso'].isna().any():
-            print("is NaN")
-            print(iris['conso_moyenne_mwh'].values)
-            print(iris['score_moyenne_conso'].values)
 
         # Format and return output
         formatted = iris.to_dict(orient='records')

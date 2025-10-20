@@ -14,9 +14,9 @@ def create_app():
     # Load configuration
     with app.app_context():
         app.data = Data()
-        app.plots = Plots()
         app.enedis_api = ENEDIS()
         app.ademe_api = ADEME()
+        app.plots = Plots()
 
     # Init pages routes (only tye map for now)
     from .routes import main as main_blueprint

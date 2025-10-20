@@ -45,9 +45,54 @@ body {
 
 
 header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
     background-color: var(--bg-color-second);
     border-bottom: solid 1px var(--bg-color);
+
+    .update {
+
+        .action {
+
+            label {
+                padding-right: .5rem;
+                vertical-align: middle;
+            }
+
+            button {
+
+                vertical-align: middle;
+
+                img {
+                    display: block;
+                    margin: 10px;
+                }
+            }
+        }
+
+        .collecting {
+
+            display: none;
+
+            label {
+                padding-bottom: .5rem;
+            }
+        }
+    }
+
+    .update.loading {
+
+        .action {
+            display: none;
+        }
+
+        .collecting {
+            display: block;
+        }
+    }
 }
 
 main {
@@ -133,6 +178,7 @@ nav.menu {
 label {
     color: var(--text-color-second);
     font-size: .8rem;
+    display: inline-block;
 }
 
 select {
@@ -162,7 +208,6 @@ button.second-button {
     border-radius: var(--border-radius);
     border: none;
     background-color: var(--input-bg-color);
-    width: 30px;
     cursor: pointer;
 }
 
@@ -170,6 +215,22 @@ button.second-button {
     font-size: 14px;
     color: var(--text-color-second);
     display: inline;
+}
+
+.progress-container {
+
+    width: 10rem;
+    height: .6rem;
+    background-color: var(--input-bg-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+
+    .progress {
+        height: 100%;
+        width: 5%;
+        background-color: var(--accent);
+        transition: width ease-out .3s;
+    }
 }
 
 table {

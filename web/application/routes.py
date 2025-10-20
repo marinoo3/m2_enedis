@@ -15,7 +15,7 @@ def index():
 
 @main.route('/statistics')
 def statistics():
-    df = current_app.data.communes
+    df = current_app.data.get_communes()
     test_plot = current_app.plots.test_plot(df)
     return render_template('statistics.html', current_page="statistics", testPlot=test_plot)
 

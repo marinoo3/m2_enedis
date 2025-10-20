@@ -55,4 +55,8 @@ form#pagination {
         text-align: center;
         width: 60px;
     }
+
+    button {
+        width: 30px
+    }
 }

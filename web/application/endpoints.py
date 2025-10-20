@@ -7,32 +7,57 @@ endpoints = Blueprint('api', __name__)
 
 
 
+@endpoints.route('/update_data/', methods=['GET'])
+def update_data() -> Response:
 
-@endpoints.route('/simple_query/<query>', methods=['GET'])
-def simple_query(query:str):
+    """Call Enedis API to update the data and save it on the Koyeb volume
 
+    Returns:
+        Response: A streaming response with MIME type 'text/event-stream' to facilitate stream
+
+    Yields:
+        str: Stream progress in the form of "data:{progress}\n\n" where `progress`
+        is the percentage of completion of the API call
     """
-    Simple query exemple
-    """
 
-    print(query)
-    return
+    print('start requests')
+
+    def collect():
+        data = yield from current_app.enedis_api.communes(yield_progress=True)
+        current_app.data.update_communes(data)
+        yield 'data:complete\n\n'
+
+    return Response(
+        stream_with_context(collect()),
+        mimetype = "text/event-stream",
+        headers={
+            'Cache-Control': 'no-cache',
+            'X-Accel-Buffering': 'no'  # for nginx buffering
+        }
+    )
 
 
 @endpoints.route('/map_data/', methods=['GET'])
-def map_data():
+def map_data() -> Response:
 
-    """
-    Filters map data, don't works for zoomed map data yet
-    * `year` and `state` passed as argument
-    Returns the filtered data
+    """Filters map data, don't works for zoomed map data yet
+
+    Args:
+        filters {json} -- List of filter rules (default None)
+        sort {json} -- How to sort the data (default None)
+
+    Returns:
+        Response: Filtered data
     """
 
     # Retrieve request parameters
     filters = request.args.get('filters')
+    if filters: 
+        filters = json.loads(filters)
+
     sort = request.args.get('sort')
-    if filters: filters = json.loads(filters)
-    if sort: sort = json.loads(sort)
+    if sort: 
+        sort = json.loads(sort)
 
     # Filters data
     data, scales = current_app.data.get_map(filters=filters, sort=sort)
@@ -43,12 +68,22 @@ def map_data():
 
 
 @endpoints.route('/zoomed_map_data/', methods=['GET'])
-def zoomed_map_data():
+def zoomed_map_data() -> Response:
 
-    """
-    Requests precise data for the map giving a specific bounding box
-    * Bounding box passed as 4 arguments: `minLongitude`, `minLatitude`, `maxLongitude`, `maxLatitude`
-    Returns iris data formatted for the map
+    """Collect a list of streets from a specific bounding box with Ademe API 
+    and collect the corresponfing streets data with Enedis API.
+
+    Args:
+        minLongitude {float} -- bbox minimum longitude
+        minLatitude {float} -- bbox minimum latitude
+        maxLongitude {float} -- bbox maximum longitude
+        maxLatitude {float} -- bbox maximum latitude
+
+    Returns:
+        Response: Map data from a specific bounding box
+
+    Yields:
+        json: Map data chunk
     """
 
     # Retrieve request parameters
@@ -86,4 +121,3 @@ def zoomed_map_data():
             'X-Accel-Buffering': 'no'  # helps bypass Nginx buffering
         }
     )
-

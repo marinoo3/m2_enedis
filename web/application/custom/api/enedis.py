@@ -11,13 +11,22 @@ class ENEDIS(BaseAPI):
         super().__init__('https://data.enedis.fr/api/explore/v2.1/catalog/datasets/consommation-annuelle-residentielle-par-adresse/records')
 
     
-    def __loop_API(self, params:dict, limit:int = 100) -> list[dict]:
+    def __loop_API(self, params:dict, limit:int = 100, yield_progress=False) -> list[dict]:
 
-        """
-        Loop through pages of an API call.
-        * Parameters for the requests
-        * Limit of result per call (default = 100)
-        Returns all the content as a list of dict
+        """Loop through pages of an API call
+
+        Arguments:
+            params {dict} -- Parameters for the request
+            limit {int} -- Limit of results per request
+
+        Keyword Arguments:
+            yield_progress {bool} -- Whether to yield the progress (in percent) or not
+
+        Returns:
+            list[dict]: The total content of the API request
+
+        Yields:
+            int: Progress [0; 100] if `yield_progress` is set to True
         """
 
         data = []
@@ -29,6 +38,12 @@ class ENEDIS(BaseAPI):
             params['limit'] = limit
             params['offset'] = limit * index
             content = self._get_requests(params=params)
+
+            # yield progress
+            if yield_progress:
+                progress = (int(params['offset']) + len(content['results'])) / int(content['total_count'])
+                print(progress*100)
+                yield f"data:{progress*100}\n\n"
 
             # stop the loop if last page
             if len(content['results']) < limit:
@@ -64,7 +79,7 @@ class ENEDIS(BaseAPI):
         return content['results'], stop
     
 
-    def communes(self) -> list[dict]:
+    def communes(self, yield_progress=False) -> list[dict]:
 
         """
         Retrieve all communes.
@@ -72,11 +87,11 @@ class ENEDIS(BaseAPI):
         """
 
         params = {
-            'select': 'code_commune, SUM(nombre_de_logements) as nombre_de_logements, SUM(consommation_annuelle_totale_de_l_adresse_mwh) as conso_total_mwh, annee',
+            'select': 'code_commune, SUM(nombre_de_logements) as nombre_de_logements, SUM(consommation_annuelle_totale_de_l_adresse_mwh) as conso_total_mwh, AVG(year(annee)) as annee',
             'group_by': 'code_commune'
         }
 
-        communes_data = self.__loop_API(params)
+        communes_data = self.__loop_API(params, yield_progress=yield_progress)
 
         return communes_data
     
