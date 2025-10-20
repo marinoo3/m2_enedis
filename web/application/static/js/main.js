@@ -11,7 +11,7 @@ updateButton.addEventListener('click', () => {
     
     updateContainer.classList.add('loading');
 
-    const eventSource = new EventSource('api/update_data');
+    const eventSource = new EventSource('ajax/update_data');
     eventSource.onmessage = async function(event) {
         if (event.data === 'complete') {
             eventSource.close();

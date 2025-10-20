@@ -113,7 +113,7 @@ async function filterTable() {
 
 	// Requests filtered to python API
 
-	const response = await fetch('/api/map_data/?' + queryString, {
+	const response = await fetch('/ajax/map_data/?' + queryString, {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' }
 	});

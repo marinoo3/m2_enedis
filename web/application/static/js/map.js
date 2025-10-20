@@ -94,7 +94,7 @@ async function fetchMapData(queryString) {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const response = await fetch('/api/zoomed_map_data/?' + queryString, {
+    const response = await fetch('/ajax/zoomed_map_data/?' + queryString, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
         signal: signal

@@ -3,11 +3,11 @@ import json
 
 
 
-endpoints = Blueprint('api', __name__)
+ajax = Blueprint('ajax', __name__)
 
 
 
-@endpoints.route('/update_data/', methods=['GET'])
+@ajax.route('/update_data/', methods=['GET'])
 def update_data() -> Response:
 
     """Call Enedis API to update the data and save it on the Koyeb volume
@@ -20,7 +20,7 @@ def update_data() -> Response:
         is the percentage of completion of the API call
     """
 
-    print('start requests')
+    print('DEBUG: init data update')
 
     def collect():
         data = yield from current_app.enedis_api.communes(yield_progress=True)
@@ -37,7 +37,7 @@ def update_data() -> Response:
     )
 
 
-@endpoints.route('/map_data/', methods=['GET'])
+@ajax.route('/map_data/', methods=['GET'])
 def map_data() -> Response:
 
     """Filters map data, don't works for zoomed map data yet
@@ -67,7 +67,7 @@ def map_data() -> Response:
     })
 
 
-@endpoints.route('/zoomed_map_data/', methods=['GET'])
+@ajax.route('/zoomed_map_data/', methods=['GET'])
 def zoomed_map_data() -> Response:
 
     """Collect a list of streets from a specific bounding box with Ademe API 
@@ -103,12 +103,13 @@ def zoomed_map_data() -> Response:
     def collect():
         offset = 0
         while offset is not None:
-            # Get iris
+
             batch_iris, offset = current_app.enedis_api.iris_from_insee(insee_codes, offset=offset)
-            # Concate and format data
-            data = current_app.data.get_zoomed_map(streets, batch_iris)
+            data = current_app.data.get_zoomed_map(streets, batch_iris) # concate and format data
+
             if data == []: 
                 continue # skip if no data
+
             # Extend data
             iris_data.extend(data)
             yield json.dumps(iris_data) + '\n'
@@ -118,6 +119,6 @@ def zoomed_map_data() -> Response:
         content_type = "application/json",
         headers = {
             'Cache-Control': 'no-cache',
-            'X-Accel-Buffering': 'no'  # helps bypass Nginx buffering
+            'X-Accel-Buffering': 'no'  # helps bypass nginx buffering
         }
     )

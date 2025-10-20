@@ -49,7 +49,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 2rem;
     background-color: var(--bg-color-second);
     border-bottom: solid 1px var(--bg-color);
 

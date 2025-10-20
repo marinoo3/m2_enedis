@@ -2,8 +2,21 @@ from flask import Blueprint, render_template, current_app
 
 
 
-
 main = Blueprint('main', __name__)
+
+
+
+@main.context_processor
+def inject_update_date():
+
+    """Retrieve last update date from volume properties and pass it to each route as `update_date`
+
+    Returns:
+        dict: `update_date` data for the HTML header
+    """
+
+    date = current_app.data.get_property('update')
+    return {'update_date': date}
 
 
 

@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+from datetime import datetime
 
-from ..volume import Volume
+from .volume import Volume
 from .filter import Filter
 
 
@@ -34,6 +35,18 @@ class Data():
         return score
     
 
+    def get_property(self, key) -> str:
+
+        """Read properties from Koyeb volume
+
+        Returns:
+            dict: Volume properties
+        """
+
+        properties = Volume.read_properties()
+        return properties[key]
+    
+
     def get_communes(self) -> pd.DataFrame:
 
         """Returns raw communes data
@@ -53,6 +66,11 @@ class Data():
         Volume.write_communes(df)
         # Reload communes
         self.communes = self.__load_communes()
+
+        # Update volume update date property
+        properties = Volume.read_properties()
+        properties['update'] = datetime.now().strftime('%d-%m-%Y')
+        Volume.write_properties(properties)
     
 
     def get_map(self, filters:list[dict]=None, sort:dict=None) -> list[dict]:

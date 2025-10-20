@@ -18,13 +18,17 @@ def create_app():
         app.ademe_api = ADEME()
         app.plots = Plots()
 
-    # Init pages routes (only tye map for now)
+    # Init pages routes
     from .routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    # Init endpoints 
-    from .endpoints import endpoints as endpoints_blueprint
-    app.register_blueprint(endpoints_blueprint, url_prefix='/api')
+    # Init backend ajax 
+    from .ajax import ajax as ajax_blueprint
+    app.register_blueprint(ajax_blueprint, url_prefix='/ajax')
+
+    # Init API endpoinds
+    from .api import api as api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/api/v1')
 
 
     return app

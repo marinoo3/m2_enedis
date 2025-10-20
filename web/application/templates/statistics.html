@@ -13,14 +13,12 @@
     <title>France Energie - Prédictions DPE et Consomation</title>
 </head>
 
-<header>
-    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="France Energie logo" height="50px">
-</header>
+{% include "elements/header.html" %}
 
 <body>
     <main>
         
-        {% include "nav-menu.html" %}
+        {% include "elements/menu.html" %}
 
         <div class="content-wrapper">
             <div class="content">

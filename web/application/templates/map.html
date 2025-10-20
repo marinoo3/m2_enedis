@@ -27,28 +27,12 @@
     <title>France Energie - Carte interactive</title>
 </head>
 
-<header>
-    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="France Energie logo" height="50px">
-    <div class="update">
-        <div class="action">
-            <label for="update">Denière mise à jour 19/10/25</label>
-            <button id="update" name="update" class="second-button">
-                <img src="{{ url_for('static', filename='images/update.svg') }}" alt="Rafraichir" height="16px">
-            </button>
-        </div>
-        <div class="collecting">
-            <label for="collecting">Collecte des données</label>
-            <div class="progress-container">
-                <div class="progress"></div>
-            </div>
-        </div>
-    </div>
-</header>
+{% include "elements/header.html" %}
 
 <body>
     <main>
         
-        {% include "nav-menu.html" %}
+        {% include "elements/menu.html" %}
         
         <div class="content-wrapper">
             <div class="content">
