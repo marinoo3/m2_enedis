@@ -16,7 +16,7 @@ class Volume:
         """
         
         try:
-            df = pd.read_csv('enedis/communes.csv')
+            df = pd.read_csv('volume/communes.csv')
         except FileNotFoundError:
             print('FileNotFoundError: "communes.csv" not found on volume. Loading from dataset instead')
             df = pd.read_csv('application/datasets/communes.csv')
@@ -27,4 +27,4 @@ class Volume:
     
     @staticmethod
     def write_communes(communes:pd.DataFrame) -> None:
-        communes.to_csv('enedis/communes.csv', index=False)
+        communes.to_csv('volume/communes.csv', index=False)

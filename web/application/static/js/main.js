@@ -17,9 +17,13 @@ updateButton.addEventListener('click', () => {
             eventSource.close();
             location.reload();
         } else {
-            console.log(event);
             const progress = parseInt(event.data);
             updateProgress.style.width = progress + "%";
         }
+    }
+    eventSource.onerror = function() {
+        console.log('EventSource Error: updating data ended with a error.');
+        eventSource.close();
+        updateContainer.classList.remove('loading');
     }
 });
