@@ -58,3 +58,12 @@ python app.py
 ```
 
 5. L'application est hébergée sur le port `8000`, ouvrir un navigateur et se rendre à l'adresse http://0.0.0.0:8000/
+
+<br>
+
+## Crédits
+
+Au-delà des outils et bibliothèques utilisés, ce projet est rendu possible grâce aux projets open source suivants :
+- [Leaflet.heat](https://github.com/Leaflet/Leaflet.heat) par [@jxn-30](https://github.com/jxn-30)
+- [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster) par [@eriknikulski](https://github.com/eriknikulski)
+- [dom-to-image](https://github.com/tsayen/dom-to-image) par [@tsayen](https://github.com/tsayen)
