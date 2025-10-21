@@ -42,7 +42,6 @@ class ENEDIS(API):
             # yield progress
             if yield_progress:
                 progress = (int(params['offset']) + len(content['results'])) / int(content['total_count'])
-                print(progress*100)
                 yield f"data:{progress*100}\n\n"
 
             # stop the loop if last page

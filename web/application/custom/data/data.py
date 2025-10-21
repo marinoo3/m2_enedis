@@ -6,23 +6,9 @@ from .format import MapFormater
 
 
 
+# Decorators
 
-class Data():
-
-    def __init__(self):
-        self.communes = self.__load_communes()
-        self.cities = self.__load_cities()
-        self.map_formater = MapFormater(self.communes, self.cities)
-
-    def __load_communes(self) -> pd.DataFrame:
-        return Volume.read_communes()
-    
-    def __load_cities(self) -> pd.DataFrame:
-        df = pd.read_csv('application/datasets/communes-france-2025.csv', low_memory=False)
-        df['code_insee'] = df['code_insee'].astype(str)
-        return df
-    
-    def __update_volume_date(func:callable) -> callable:
+def update_volume_date(func:callable) -> callable:
 
         """Decorator that sets Volume's `update` date to current date
         
@@ -40,6 +26,26 @@ class Data():
             return func(*args, **kwargs)
         
         return wrapper
+
+
+
+
+# Data interface
+
+class Data():
+
+    def __init__(self):
+        self.communes = self.__load_communes()
+        self.cities = self.__load_cities()
+        self.map_formater = MapFormater(self.communes, self.cities)
+
+    def __load_communes(self) -> pd.DataFrame:
+        return Volume.read_communes()
+    
+    def __load_cities(self) -> pd.DataFrame:
+        df = pd.read_csv('application/datasets/communes-france-2025.csv', low_memory=False)
+        df['code_insee'] = df['code_insee'].astype(str)
+        return df
     
 
     def get_property(self, key) -> str:
@@ -65,7 +71,7 @@ class Data():
         return self.communes
     
 
-    @__update_volume_date
+    @update_volume_date
     def update_communes(self, communes:list[dict]) -> None:
 
         """Update the communes dataset on Koyeb volume and reload communes"""
