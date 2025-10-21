@@ -20,9 +20,13 @@ def update_volume_date(func:callable) -> callable:
         """
 
         def wrapper(*args, **kwargs):
-            properties = Volume.read_properties()
+
+            volume:Volume = args[0].volume # ough that's not pretty
+
+            properties = volume.read_properties()
             properties['update'] = datetime.now().strftime('%d-%m-%Y')
-            Volume.write_properties(properties)
+            volume.write_properties(properties)
+
             return func(*args, **kwargs)
         
         return wrapper
@@ -35,12 +39,13 @@ def update_volume_date(func:callable) -> callable:
 class Data():
 
     def __init__(self):
+        self.volume = Volume()
         self.communes = self.__load_communes()
         self.cities = self.__load_cities()
         self.map_formater = MapFormater(self.communes, self.cities)
 
     def __load_communes(self) -> pd.DataFrame:
-        return Volume.read_communes()
+        return self.volume.read_communes()
     
     def __load_cities(self) -> pd.DataFrame:
         df = pd.read_csv('application/datasets/communes-france-2025.csv', low_memory=False)
@@ -56,7 +61,7 @@ class Data():
             str: Volume property value
         """
 
-        properties = Volume.read_properties()
+        properties = self.volume.read_properties()
         return properties[key]
     
 
@@ -77,7 +82,7 @@ class Data():
         """Update the communes dataset on Koyeb volume and reload communes"""
 
         df = pd.DataFrame(communes)
-        Volume.write_communes(df)
+        self.volume.write_communes(df)
 
         # Reload communes
         self.communes = self.__load_communes()

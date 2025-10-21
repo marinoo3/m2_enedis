@@ -47,10 +47,22 @@ function drawPointsMap(data=mapData) {
 
     var markers = L.markerClusterGroup();
 
+    var title = 'nom_commune';
+    if (mapElement.dataset.currentMapData == "adresse") {
+        title = 'libelle_de_voie';
+    }
+
     data.forEach(function(item) {
 
         // Create HTML for popup content
-        let popupContent = `<h1>${item.nom_commune}</h1>`;
+        let popupContent = `
+            <h1>${item[title]}</h1>
+            <ul>
+                <li>Logements : ${item.nombre_de_logements}</li>
+                <li>Consomation total : ${item.conso_total_mwh} mwh</li>
+                <li>Consomation par habitant : ${item.conso_moyenne_mwh} mwh</li>
+            </ul>
+        `;
 
         var marker = L.marker([item.latitude, item.longitude]).bindPopup(popupContent);
         markers.addLayer(marker);
@@ -77,8 +89,10 @@ function drawMap() {
     const mapStyle = mapStyleSelect.value
     if (mapStyle == "heatmap") {
         const mapValue = mapValueSelect.value;
+        mapElement.dataset.mapType = "heatmap";
         layer = drawHeatMap(mapValue, data);
     } else {
+        mapElement.dataset.mapType = "points";
         layer = drawPointsMap(data);
     }
 

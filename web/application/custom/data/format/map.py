@@ -126,6 +126,10 @@ class MapFormater(Format):
         iris['score_moyenne_conso'] = self._compute_score(iris['conso_moyenne_mwh'], scale='log')
         iris['score_total_conso'] = self._compute_score(iris['conso_total_mwh'], scale='log')
 
+        # Rounding `conso_total_mwh` and `conso_moyenne_mwh` to 3 decimal places
+        iris['conso_total_mwh'] = iris['conso_total_mwh'].round(3)
+        iris['conso_moyenne_mwh'] = iris['conso_moyenne_mwh'].round(3)
+
         # Format and return output
         formatted = iris.to_dict(orient='records')
         return formatted
