@@ -43,10 +43,13 @@ class Filter():
 
     def compute(self, df:pd.DataFrame) -> pd.DataFrame:
 
-        """
-        Filters the dataframe
-        * df: DataFrame
-        Returns the filtered dataframe
+        """Filters the dataframe
+
+        Arguments:
+            df {pd.DataFrame} -- DataFrame to filter
+
+        Returns:
+            pd.DataFrame: Filtered dataframe
         """
 
         for func in self.filter_funcs:

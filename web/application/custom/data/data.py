@@ -22,6 +22,26 @@ class Data():
         df['code_insee'] = df['code_insee'].astype(str)
         return df
     
+    def __update_volume_date(func:callable) -> callable:
+
+        """Decorator that sets Volume's `update` date to current date
+        
+        Arguments:
+            func {callable} -- The function to be decorated
+
+        Returns:
+            callable: The wrapped function update the date and then calls the original function
+        """
+
+        def wrapper(*args, **kwargs):
+            properties = Volume.read_properties()
+            properties['update'] = datetime.now().strftime('%d-%m-%Y')
+            Volume.write_properties(properties)
+            return func(*args, **kwargs)
+        
+        return wrapper
+
+    
     def __compute_score(self, serie:pd.Series, scale='original') -> pd.Series:
 
         if serie.size == 1:
@@ -57,20 +77,16 @@ class Data():
 
         return self.communes
     
-
+    @__update_volume_date
     def update_communes(self, communes:list[dict]) -> None:
 
         """Update the communes dataset on Koyeb volume and reload communes"""
 
         df = pd.DataFrame(communes)
         Volume.write_communes(df)
+
         # Reload communes
         self.communes = self.__load_communes()
-
-        # Update volume update date property
-        properties = Volume.read_properties()
-        properties['update'] = datetime.now().strftime('%d-%m-%Y')
-        Volume.write_properties(properties)
     
 
     def get_map(self, filters:list[dict]=None, sort:dict=None) -> list[dict]:
