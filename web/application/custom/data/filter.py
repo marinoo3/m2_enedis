@@ -4,55 +4,59 @@ import pandas as pd
 
 class Filter():
 
-    def __init__(self, filters:dict):
-        self.filter_funcs = self.__create_filters(filters)
-
-    def __equal(self, df, col:str, value:str) -> pd.DataFrame:
+    @staticmethod
+    def __equal(df, col:str, value:str) -> pd.DataFrame:
         return df[df[col] == value]
     
-    def __startwith(self, df:pd.DataFrame, col:str, value:str) -> pd.DataFrame:
+    @staticmethod
+    def __startwith(df:pd.DataFrame, col:str, value:str) -> pd.DataFrame:
         return df[df[col].astype(str).str.startswith(value)]
     
-    def __inrange(self, df:pd.DataFrame, col:str, value:list) -> pd.DataFrame:
+    @staticmethod
+    def __inrange(df:pd.DataFrame, col:str, value:list) -> pd.DataFrame:
         low = float(value[0])
         hight = float(value[1])
         return df[(df[col] >= low) & (df[col] <= hight)]
 
-    def __create_filters(self, filters:list[dict]):
+    @staticmethod
+    def __create_filters(rules:list[dict]) -> list[callable]:
 
-        filter_funcs = []
-        for f in filters:
+        ffuncs = []
+        for r in rules:
 
-            c = f['column']
-            v = f['value']
+            c = r['column']
+            v = r['value']
 
             if not v:
                 continue
             
-            if f['type'] == 'equal':
-                func = lambda df, col=c, value=v: self.__equal(df, col, value)
-            elif f['type'] == 'startwith':
-                func = lambda df, col=c, value=v: self.__startwith(df, col, value)
-            elif f['type'] == 'inrange':
-                func = lambda df, col=c, value=v: self.__inrange(df, col, value)
+            if r['type'] == 'equal':
+                filter = lambda df, col=c, value=v: Filter.__equal(df, col, value)
+            elif r['type'] == 'startwith':
+                filter = lambda df, col=c, value=v: Filter.__startwith(df, col, value)
+            elif r['type'] == 'inrange':
+                filter = lambda df, col=c, value=v: Filter.__inrange(df, col, value)
 
-            filter_funcs.append(func)
+            ffuncs.append(filter)
 
-        return filter_funcs
+        return ffuncs
     
-
-    def compute(self, df:pd.DataFrame) -> pd.DataFrame:
+    @staticmethod
+    def apply(df:pd.DataFrame, rules:list[dict]) -> pd.DataFrame:
 
         """Filters the dataframe
 
         Arguments:
             df {pd.DataFrame} -- DataFrame to filter
+            rules {list[dict]} -- Filter rules to apply
 
         Returns:
             pd.DataFrame: Filtered dataframe
         """
 
-        for func in self.filter_funcs:
-            df = func(df)
+        ffuncs = Filter.__create_filters(rules)
+
+        for filter in ffuncs:
+            df = filter(df)
 
         return df

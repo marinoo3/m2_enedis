@@ -1,8 +1,8 @@
-from .base_api import BaseAPI
+from .api import API
 
 
 
-class ADEME(BaseAPI):
+class ADEME(API):
 
     def __init__(self):
         # Pass base_url argument to the parent class

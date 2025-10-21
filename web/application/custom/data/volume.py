@@ -7,7 +7,7 @@ import json
 
 class Volume:
 
-    mount_path = '/volume'
+    mount_path = 'volume'
 
     @staticmethod
     def read_properties() -> dict:

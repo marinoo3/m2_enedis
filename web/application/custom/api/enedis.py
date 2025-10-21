@@ -1,10 +1,10 @@
-from .base_api import BaseAPI
+from .api import API
 
 
 
 
 
-class ENEDIS(BaseAPI):
+class ENEDIS(API):
 
     def __init__(self):
         # Pass base_url argument to the parent class
