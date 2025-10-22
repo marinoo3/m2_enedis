@@ -1,7 +1,7 @@
 import pandas as pd
 from datetime import datetime
 
-from .volume import Volume
+from ..volume import Volume
 from .format import MapFormater
 
 
