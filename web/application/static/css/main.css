@@ -15,9 +15,14 @@
     --text-color-second: #626262;
     --border-radius: 12px;
     --accent: #fdc848;
+    --accent-dark : #d79800;
     --accent-second: #fff9ec;
+    --color-disabled: grey;
     --input-bg-color: #f2f2f2;
-    --border-color: #dcdcdc
+    --border-color: #dcdcdc;
+    --good: #afff8f;
+    --bad: #ffa48f;
+    --url-color: #206aff;
 }
 
 * {
@@ -36,6 +41,9 @@
 
 h1 {
     font-size: 1.5rem;
+}
+h2 {
+    font-size: 1.2rem;
 }
 
 
@@ -194,6 +202,28 @@ input {
     padding: 0px .8rem;
 }
 
+.input-group {
+    display: flex;
+    gap: 2rem;
+}
+
+.form-input {
+
+    margin-bottom: 1rem;
+    width: 100%;
+
+    input {
+        background-color: var(--bg-color);
+        height: 3rem;
+        width: 100%;
+        margin-top: .5rem;
+        border-color: var(--border-color);
+    }
+    input:focus {
+        border-color: var(--accent);
+    }
+}
+
 button.main {
     height: 3rem;
     border: none;
@@ -202,6 +232,7 @@ button.main {
     color: white;
     font-weight: 600;
     cursor: pointer;
+    padding: 1rem 4rem;
 }
 
 button.second-button {
@@ -215,6 +246,10 @@ button.second-button {
     font-size: 14px;
     color: var(--text-color-second);
     display: inline;
+}
+
+.text-light {
+    font-weight: 300;
 }
 
 .progress-container {
@@ -261,6 +296,29 @@ tr:first-child > th {
     border: none;
     background-color: inherit;
     padding: 0;
+}
+
+.tabmenu {
+
+    border-bottom: solid 1px var(--border-color);
+    padding-bottom: 6px;
+
+    li {
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    li > * {
+        color: var(--color-disabled);
+        cursor: pointer;
+    }
+    li.active > * {
+        color: var(--text-color);
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: 10px;
+        text-decoration-thickness: 2px;
+    }
 }
 
 

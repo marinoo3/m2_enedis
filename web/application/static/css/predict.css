@@ -12,28 +12,6 @@ h1 {
     margin-bottom: 2rem;
 }
 
-.input-group {
-    display: flex;
-    gap: 2rem;
-}
-
-.input {
-
-    margin-bottom: 1rem;
-    width: 100%;
-
-    input {
-        background-color: var(--bg-color);
-        height: 3rem;
-        width: 100%;
-        margin-top: .5rem;
-        border-color: var(--border-color);
-    }
-    input:focus {
-        border-color: var(--accent);
-    }
-}
-
 button.main {
     width: 100%;
     margin-top: 1rem;

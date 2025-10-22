@@ -1,0 +1,173 @@
+.content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.content {
+    padding: 2rem;
+}
+.content.documentation {
+    flex: 0 0 calc(50% - .5rem);
+    max-height: 80%;
+    overflow: auto;
+}
+.content.other {
+    flex: 0 0 calc(50% - .5rem);
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+
+
+/* REUSABLE */
+
+.method {
+
+    display: inline-block;
+    border: solid 1px var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 4px 8px;
+    margin-right: .5rem;
+
+    p {
+        color: var(--url-color);
+    }
+}
+
+
+/* SECTION */
+
+#endpoints-menu {
+    margin-bottom: 2rem;
+}
+
+#base-url {
+
+    margin: 3rem 0;
+
+    #endpoint-url {
+        display: inline-block;
+    }
+}
+
+#requests {
+
+    display: flex;
+    gap: 2rem;
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .forms-wrapper, .response {
+        flex: 1;
+        width: 50%;
+    }
+
+    .forms-wrapper form {
+        display: none;
+    }
+    .forms-wrapper[data-tab-view="cout_chauffage"] form.cout-chauffage {
+        display: block;
+    }
+    .forms-wrapper[data-tab-view="etiquette_dpe"] form.etiquette-dpe {
+        display: block;
+    }
+    .forms-wrapper {
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+    
+        button.main {
+            width: 100%;
+            margin-top: 1rem;
+        }
+    }
+
+    .response {
+
+        .status-code {
+            padding: 4px 8px;
+            border-radius: var(--border-radius);
+            background-color: var(--good);
+            display: table;
+            margin-bottom: .5rem;
+            font-size: .8rem;
+            font-weight: 600;
+        }
+    
+        .json-wrapper {
+
+            background-color: var(--input-bg-color);
+            border-radius: var(--border-radius);
+            margin-top: .5rem;
+            max-height: 100%;
+
+            .json-content {
+                overflow: auto;
+                white-space: nowrap;
+                padding: 1rem;
+            }
+        }
+    }
+
+}
+
+
+section.description {
+
+    .api-url {
+
+        margin-top: 1rem;
+        
+        > * {
+            display: inline-block;
+            margin-top: .5rem
+        }
+    }
+
+    .doc-endpoint {
+
+        margin-top: 2rem;
+    
+        h2 {
+            margin-bottom: 1rem;
+        }
+    
+        .endpoint {
+            margin-bottom: 1rem;
+        }
+    
+        .endpoint > * {
+            display: inline-block;
+        }
+
+        .parameters li {
+
+            border-top: solid 1px var(--border-color);
+            padding-top: .5rem;
+            margin-top: .5rem;
+
+            .key {
+                background-color: var(--accent-second);
+                color: var(--accent-dark);
+                padding: .2rem .5rem;
+                border-radius: 4px;
+                margin: 4px 0;
+                display: inline-block;
+            }
+
+            label {
+                margin-left: 6px;
+                display: block;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Marin NAGY"> -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/api-documentation.css') }}">
+    <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
+    <title>France Energie - Prédictions DPE et Consomation</title>
+</head>
+
+{% include "elements/header.html" %}
+
+<body>
+    <main>
+
+        {% include "elements/menu.html" %}
+
+        <div class="content-wrapper">
+            <div class="content documentation">
+                <h1>Documentation</h1>
+                <section class="description">
+                    <p>Cette API permet d'évaluer la performance énergétique des logements situés dans le département du Rhône. Elle est conçue pour obtenir rapidement une estimation du coût annuel de chauffage ainsi qu'une prédiction de l’étiquette DPE (Diagnostic de Performance Énergétique) d’un bien immobilier.</p>
+                    <div class="api-url">
+                        <div><p>URL :</p></div>
+                        <p class="text-light">https://france-energie.koyeb.app/api/v1</p>
+                    </div>
+                    <div class="doc-endpoint">
+                        <h2>Prédiction du cout du chauffage</h2>
+                        <div class="endpoint">
+                            <div class="method">
+                                <p>GET</p>
+                            </div>
+                            <p class="text-light">/cout_chauffage</p>
+                        </div>
+                        <div class="parameters">
+                            <p>Paramètres :</p>
+                            <ul>
+                                <li>
+                                    <span class="key">valeur_1</span>
+                                    <label>Description du parametre ici</label>
+                                </li>
+                                <li>
+                                    <span class="key">valeur_2</span>
+                                    <label>Description du parametre ici</label>
+                                </li>
+                                <li>
+                                    <span class="key">valeur_3</span>
+                                    <label>Description du parametre ici</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="doc-endpoint">
+                        <h2>Prédiction de l'étiquette DPE</h2>
+                        <div class="endpoint">
+                            <div class="method">
+                                <p>GET</p>
+                            </div>
+                            <p class="text-light">/etiquette_dpe</p>
+                        </div>
+                        <div class="parameters">
+                            <p>Paramètres :</p>
+                            <ul>
+                                <li>
+                                    <span class="key">valeur_1</span>
+                                    <label>Description du parametre ici</label>
+                                </li>
+                                <li>
+                                    <span class="key">valeur_2</span>
+                                    <label>Description du parametre ici</label>
+                                </li>
+                                <li>
+                                    <span class="key">valeur_3</span>
+                                    <label>Description du parametre ici</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="content other">
+                <p>Hello there</p>
+            </div>
+            <div class="content playground">
+                <h1>Playground</h1>
+                <section id="endpoints-menu">
+                    <ul class="tabmenu">
+                        <li class="active">
+                            <p>Cout de chauffage</p>
+                        </li>
+                        <li>
+                            <p>Etiquette DPE</p>
+                        </li>
+                    </ul>
+                </section>
+                <section id="base-url">
+                    <div class="method">
+                        <p>GET</p>
+                    </div>
+                    <p id="endpoint-url" class="text-light">https://france-energie.koyeb.app/api/v1/cout_chauffage</p>
+                </section>
+                <section id="requests">
+                    <div class="forms-wrapper" data-tab-view="cout_chauffage">
+                        <h2>Paramètres</h2>
+                        <form action="" class="cout-chauffage">
+                            <div class="form-input">
+                                <label for="value1">Valeur 1</label>
+                                <input type="text" name="value1" id="value1" placeholder="Exemple de valeur">
+                            </div>
+                            <div class="form-input">
+                                <label for="value2">Valeur 2</label>
+                                <input type="text" name="value2" id="value2" placeholder="Exemple de valeur">
+                            </div>
+                            <div class="form-input">
+                                <label for="value3">Valeur 3</label>
+                                <input type="text" name="value3" id="value3" placeholder="Exemple de valeur">
+                            </div>
+                            <button class="main" type="submit">Executer</button>
+                        </form>
+                        <form action="" class="etiquette-dpe">
+                            <p>Hello</p>
+                        </form>
+                    </div>
+                    <div class="response">
+                        <div class="head">
+                            <h2>Réponse</h2>
+                            <p class="status-code">200</p>
+                        </div>
+                        <div class="json-wrapper">
+                            <div class="json-content">
+                                <pre>
+                                    <code class="prettyprint">
+{
+    "inference_time_sec": 0.1,
+    "result": [
+        "prediction" : {
+            "cout_chauffage_eur": 20
+        },
+        "informations": {
+            "adresse": "30 rue de la République, 69001 Lyon",
+            "insee": 69123
+            "coordinates": [
+                "longitude": 34.564830,
+                "latitude": 4.586023
+            ]
+        }
+    ]
+}
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+<!-- Code Pretty plugin JS -->
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
+</body>
+</html>

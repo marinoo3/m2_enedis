@@ -2,7 +2,7 @@
     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="France Energie logo" height="50px">
     <div class="update">
         <div class="action">
-            <label for="update">Denière mise à jour {{ update_date }}</label>
+            <label for="update">Données mises à jour le <b>{{ update_date }}</b></label>
             <button id="update" name="update" class="second-button">
                 <img src="{{ url_for('static', filename='images/update.svg') }}" alt="Rafraichir" height="16px">
             </button>

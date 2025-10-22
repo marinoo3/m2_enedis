@@ -35,3 +35,7 @@ def statistics():
 @main.route('/predict')
 def predict():
     return render_template('predict.html', current_page="predict")
+
+@main.route('/api-documentation')
+def api_documentation():
+    return render_template('api-documentation.html', current_page="api-documentation")
