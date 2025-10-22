@@ -19,7 +19,7 @@ Visualisez la consommation des Français sur une carte et à l'aide de graphique
 - Graphiques : **Plotly**
 - Gestion des données : **Pandas**
 - Création des modèles : **scikit-learn**
-- Déploiement : **Koyeb**
+- Déploiement : **Docker** + **Koyeb**
 
 <br>
 
