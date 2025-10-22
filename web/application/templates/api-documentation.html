@@ -109,15 +109,15 @@
                         <h2>Paramètres</h2>
                         <form action="" class="cout-chauffage">
                             <div class="form-input">
-                                <label for="value1">Valeur 1</label>
+                                <label for="value1">valeur_1</label>
                                 <input type="text" name="value1" id="value1" placeholder="Exemple de valeur">
                             </div>
                             <div class="form-input">
-                                <label for="value2">Valeur 2</label>
+                                <label for="value2">valeur_2</label>
                                 <input type="text" name="value2" id="value2" placeholder="Exemple de valeur">
                             </div>
                             <div class="form-input">
-                                <label for="value3">Valeur 3</label>
+                                <label for="value3">valeur_3</label>
                                 <input type="text" name="value3" id="value3" placeholder="Exemple de valeur">
                             </div>
                             <button class="main" type="submit">Executer</button>
@@ -132,28 +132,7 @@
                             <p class="status-code">200</p>
                         </div>
                         <div class="json-wrapper">
-                            <div class="json-content">
-                                <pre>
-                                    <code class="prettyprint">
-{
-    "inference_time_sec": 0.1,
-    "result": [
-        "prediction" : {
-            "cout_chauffage_eur": 20
-        },
-        "informations": {
-            "adresse": "30 rue de la République, 69001 Lyon",
-            "insee": 69123
-            "coordinates": [
-                "longitude": 34.564830,
-                "latitude": 4.586023
-            ]
-        }
-    ]
-}
-                                    </code>
-                                </pre>
-                            </div>
+                                <pre class="json-content"></pre>
                         </div>
                     </div>
                 </section>
@@ -161,10 +140,9 @@
         </div>
     </main>
 
-<!-- Code Pretty plugin JS -->
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <!-- Custom JS -->
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/api-documentation.js') }}"></script>
 
 </body>
 </html>

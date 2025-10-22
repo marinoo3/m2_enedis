@@ -15,14 +15,12 @@
     --text-color-second: #626262;
     --border-radius: 12px;
     --accent: #fdc848;
-    --accent-dark : #d79800;
     --accent-second: #fff9ec;
     --color-disabled: grey;
     --input-bg-color: #f2f2f2;
     --border-color: #dcdcdc;
-    --good: #afff8f;
-    --bad: #ffa48f;
-    --url-color: #206aff;
+    --good: #d4f5e7;
+    --bad: #fee9e8;
 }
 
 * {

@@ -1,3 +1,12 @@
+:root {
+    --blue: #4b3df7;
+    --blue-second: #edecff;
+    --teal: #1b6780;
+    --teal-second: #ebf4fa;
+}
+
+
+
 .content-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -27,13 +36,15 @@ h1 {
 .method {
 
     display: inline-block;
-    border: solid 1px var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 4px 8px;
+    border: solid 1px var(--blue);
+    border-radius: 6px;
+    padding: 0 6px;
     margin-right: .5rem;
+    background-color: var(--blue-second);
 
     p {
-        color: var(--url-color);
+        color: var(--blue);
+        font-weight: 600;
     }
 }
 
@@ -104,14 +115,13 @@ h1 {
     
         .json-wrapper {
 
-            background-color: var(--input-bg-color);
+            background-color: var(--bg-color);
             border-radius: var(--border-radius);
             margin-top: .5rem;
             max-height: 100%;
 
             .json-content {
                 overflow: auto;
-                white-space: nowrap;
                 padding: 1rem;
             }
         }
@@ -129,6 +139,14 @@ section.description {
         > * {
             display: inline-block;
             margin-top: .5rem
+        }
+        
+        > p {
+            border: solid 1px #0d4151;
+            border-radius: 4px;
+            background-color: #fafbfb;
+            padding: 0 4px;
+            color: #0d4151;
         }
     }
 
@@ -155,19 +173,36 @@ section.description {
             margin-top: .5rem;
 
             .key {
-                background-color: var(--accent-second);
-                color: var(--accent-dark);
-                padding: .2rem .5rem;
+                background-color: var(--teal-second);
+                color: var(--teal);
+                padding: 0 4px;
                 border-radius: 4px;
                 margin: 4px 0;
                 display: inline-block;
+                font-weight: 600;
             }
 
             label {
-                margin-left: 6px;
+                margin-left: 4px;
                 display: block;
             }
 
         }
     }
+}
+
+
+
+/* JSON syntax hightlight */
+
+pre {
+
+    color: grey;
+    font-family: monospace;
+
+    .string { color: brown; }
+    .number { color: cornflowerblue; }
+    .boolean { color: lightseagreen; }
+    .null { color: indigo }
+    .key { color: #1b1b1b; }
 }
