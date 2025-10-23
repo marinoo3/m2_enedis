@@ -250,6 +250,17 @@ button.second-button {
     font-weight: 300;
 }
 
+.leaflet-control-zoom {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.leaflet-popup-content ul > li {
+    list-style: inside;
+    padding: 2px;
+    margin: inherit;
+}
+
 .progress-container {
 
     width: 10rem;
@@ -260,7 +271,7 @@ button.second-button {
 
     .progress {
         height: 100%;
-        width: 5%;
+        width: 1%;
         background-color: var(--accent);
         transition: width ease-out .3s;
     }

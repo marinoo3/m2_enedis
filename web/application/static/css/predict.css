@@ -12,6 +12,14 @@ h1 {
     margin-bottom: 2rem;
 }
 
+
+#map {
+    height: 250px;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+
 button.main {
     width: 100%;
     margin-top: 1rem;

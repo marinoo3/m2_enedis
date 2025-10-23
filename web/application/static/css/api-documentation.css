@@ -16,13 +16,10 @@
 .content {
     padding: 2rem;
 }
-.content.documentation {
+.content.documentation, .content.code-snippet {
     flex: 0 0 calc(50% - .5rem);
-    max-height: 80%;
+    max-height: 70%;
     overflow: auto;
-}
-.content.other {
-    flex: 0 0 calc(50% - .5rem);
 }
 
 h1 {
@@ -48,6 +45,19 @@ h1 {
     }
 }
 
+.code {
+
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    margin-top: .5rem;
+    position: relative;
+
+    pre {
+        overflow: auto;
+        padding: 1rem;
+    }
+}
+
 
 /* SECTION */
 
@@ -62,6 +72,10 @@ h1 {
     #endpoint-url {
         display: inline-block;
     }
+}
+
+.code-snippet .snippet {
+    margin-top: 1rem;
 }
 
 #requests {
@@ -113,18 +127,13 @@ h1 {
             font-weight: 600;
         }
     
-        .json-wrapper {
-
-            background-color: var(--bg-color);
-            border-radius: var(--border-radius);
-            margin-top: .5rem;
-            max-height: 100%;
-
-            .json-content {
-                overflow: auto;
-                padding: 1rem;
+        .json-wrapper #copy-json {
+                height: 20px;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                cursor: pointer;
             }
-        }
     }
 
 }

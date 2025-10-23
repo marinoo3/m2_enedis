@@ -83,8 +83,58 @@
                     </div>
                 </section>
             </div>
-            <div class="content other">
-                <p>Hello there</p>
+            <div class="content code-snippet">
+                <h1>Utilisation</h1>
+                <div class="curl snippet">
+                    <p>cURL</p>
+                    <div class="code">
+                        <pre>
+curl -G "https://france-energie.koyeb.app/api/v1/cout_chauffage" \
+    --data-urlencode "valeur_1=30 rue de la republique, lyon" \
+    --data-urlencode "valeur_2=55" \
+    --data-urlencode "valeur_3=2024"
+                        </pre>
+                    </div>
+                </div>
+                <div class="python snippet">
+                    <p>Python</p>
+                    <div class="code">
+                        <pre>
+import requests
+
+base_url = "https://france-energie.koyeb.app/api/v1"
+endpoint = "/cout_chauffage"
+
+params = {
+    'valeur_1': "30 rue de la republique, lyon",
+    'valeur_2': 55,
+    'valeur_3': 2024
+}
+
+response = requests.get(base_url + endpoint, params=params)
+                        </pre>
+                    </div>
+                </div>
+                <div class="r snippet">
+                    <p>R</p>
+                    <div class="code">
+                        <pre>
+library(httr)
+
+base_url <- "https://france-energie.koyeb.app/api/v1"
+endpoint <- "/cout_chauffage"
+
+response <- GET(
+    url = paste0(base_url, endpoint),
+    query = list(
+    valeur_1 = "30 rue de la republique, lyon",
+    valeur_2 = 55,
+    valeur_3 = 2024
+    )
+)
+                        </pre>
+                    </div>
+                </div>
             </div>
             <div class="content playground">
                 <h1>Playground</h1>
@@ -131,8 +181,9 @@
                             <h2>Réponse</h2>
                             <p class="status-code">200</p>
                         </div>
-                        <div class="json-wrapper">
-                                <pre class="json-content"></pre>
+                        <div class="json-wrapper code">
+                            <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" id="copy-json" height="20px">
+                            <pre class="json-content"></pre>
                         </div>
                     </div>
                 </section>

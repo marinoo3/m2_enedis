@@ -74,17 +74,6 @@
     border-radius: var(--border-radius);
     margin-bottom: 2rem;
 
-    .leaflet-control-zoom {
-        border-radius: var(--border-radius);
-        overflow: hidden;
-    }
-
-    .leaflet-popup-content ul > li {
-        list-style: inside;
-        padding: 2px;
-        margin: inherit;
-    }
-
     .custom-map-cta {
         z-index: 9999;
         background-color: var(--bg-color-second);
