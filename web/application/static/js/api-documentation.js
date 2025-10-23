@@ -1,4 +1,9 @@
-const jsonContainer = document.querySelector('pre.json-content');
+const baseURL = 'https://france-energie.koyeb.app/api/v1'
+// Playground
+const jsonContainer = document.querySelector('#requests pre.json-content');
+const playgroundTabsForm = document.querySelector('form#endpoints-menu');
+const playgroundRequestsUrl = document.querySelector('#requests-url')
+const playgroundRequestsForms = document.querySelector('#requests form');
 
 
 
@@ -18,6 +23,16 @@ const data = {
         }
     }
 }
+
+// Function to create the API requests URL
+function getRequestsURL(endpoint) {
+
+    // TODO: call python to compute the URL instead
+    // or do it in JS but compoute the URL with the params (?value_1=)
+    return baseURL + '/' + endpoint
+
+}
+
 
 // Function to format the json API response (color highlighting)
 function syntaxHighlight(json) {
@@ -41,3 +56,29 @@ function syntaxHighlight(json) {
 
 var str = JSON.stringify(data, undefined, 4);
 jsonContainer.innerHTML = syntaxHighlight(str);
+
+
+
+
+// Switch between Playground tabs when clicked
+const playgroundTabs = playgroundTabsForm.querySelectorAll('li');
+playgroundTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+
+        const endpoint = tab.dataset.view;
+        playgroundRequestsForms.dataset.tabView = endpoint;
+
+        playgroundRequestsUrl.textContent = getRequestsURL(endpoint);
+
+        const currentActive = playgroundTabsForm.querySelector('.active');
+        currentActive.classList.remove('active');
+        tab.classList.add('active');
+    });
+});
+
+// Copy json when clicked
+const copyButton = document.querySelector('#copy-json');
+copyButton.addEventListener('click', () => {
+    const text = jsonContainer.textContent;
+    copyToClipboard(text);
+});

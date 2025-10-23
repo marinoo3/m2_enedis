@@ -320,6 +320,7 @@ tr:first-child > th {
     li > * {
         color: var(--color-disabled);
         cursor: pointer;
+        transition: color .3s ease;
     }
     li.active > * {
         color: var(--text-color);

@@ -138,26 +138,26 @@ response <- GET(
             </div>
             <div class="content playground">
                 <h1>Playground</h1>
-                <section id="endpoints-menu">
+                <form id="endpoints-menu">
                     <ul class="tabmenu">
-                        <li class="active">
+                        <li class="active" data-view="cout_chauffage">
                             <p>Cout de chauffage</p>
                         </li>
-                        <li>
+                        <li data-view="etiquette_dpe">
                             <p>Etiquette DPE</p>
                         </li>
                     </ul>
-                </section>
+                </form>
                 <section id="base-url">
                     <div class="method">
                         <p>GET</p>
                     </div>
-                    <p id="endpoint-url" class="text-light">https://france-energie.koyeb.app/api/v1/cout_chauffage</p>
+                    <p id="requests-url" class="text-light">https://france-energie.koyeb.app/api/v1/cout_chauffage</p>
                 </section>
                 <section id="requests">
-                    <div class="forms-wrapper" data-tab-view="cout_chauffage">
+                    <form action="" data-tab-view="cout_chauffage">
                         <h2>Paramètres</h2>
-                        <form action="" class="cout-chauffage">
+                        <div class="cout-chauffage sub-form">
                             <div class="form-input">
                                 <label for="value1">valeur_1</label>
                                 <input type="text" name="value1" id="value1" placeholder="Exemple de valeur">
@@ -171,11 +171,11 @@ response <- GET(
                                 <input type="text" name="value3" id="value3" placeholder="Exemple de valeur">
                             </div>
                             <button class="main" type="submit">Executer</button>
-                        </form>
-                        <form action="" class="etiquette-dpe">
+                        </div>
+                        <div class="etiquette-dpe sub-form">
                             <p>Hello</p>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                     <div class="response">
                         <div class="head">
                             <h2>Réponse</h2>

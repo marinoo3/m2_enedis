@@ -69,7 +69,7 @@ h1 {
 
     margin: 3rem 0;
 
-    #endpoint-url {
+    #requests-url {
         display: inline-block;
     }
 }
@@ -89,21 +89,21 @@ h1 {
         margin-bottom: 1rem;
     }
 
-    .forms-wrapper, .response {
+    form, .response {
         flex: 1;
         width: 50%;
     }
 
-    .forms-wrapper form {
+    form .sub-form {
         display: none;
     }
-    .forms-wrapper[data-tab-view="cout_chauffage"] form.cout-chauffage {
+    form[data-tab-view="cout_chauffage"] .cout-chauffage {
         display: block;
     }
-    .forms-wrapper[data-tab-view="etiquette_dpe"] form.etiquette-dpe {
+    form[data-tab-view="etiquette_dpe"] .etiquette-dpe {
         display: block;
     }
-    .forms-wrapper {
+    form {
 
         h2 {
             margin-bottom: 1rem;
@@ -130,10 +130,17 @@ h1 {
         .json-wrapper #copy-json {
                 height: 20px;
                 position: absolute;
-                top: 1rem;
-                right: 1rem;
+                top: .5rem;
+                right: .5rem;
                 cursor: pointer;
-            }
+                padding: .5rem;
+                border-radius: var(--border-radius);
+                height: calc(20px + 1rem);
+        }
+        .json-wrapper #copy-json:hover {
+            transition: background-color .125s ease;
+            background-color: var(--border-color);
+        }
     }
 
 }
