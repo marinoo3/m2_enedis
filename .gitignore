@@ -3,5 +3,6 @@
 __pycache__/
 enedis-env/
 web/volume/
+models/data/*.csv
 test.py
 test2.py
