@@ -142,8 +142,12 @@ playgroundRequestsForms.addEventListener('submit', async function(event) {
 });
 
 // Copy json when clicked
-const copyButton = document.querySelector('#copy-json');
-copyButton.addEventListener('click', () => {
-    const text = jsonContainer.textContent;
-    copyToClipboard(text);
+const copyButtons = document.querySelectorAll('#copy-json');
+copyButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const parentElement = event.currentTarget.parentElement;
+        const codeElement = parentElement.querySelector('pre');
+        const text = codeElement.textContent;
+        copyToClipboard(text);
+    });
 });

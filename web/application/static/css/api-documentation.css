@@ -58,6 +58,21 @@ h1 {
     }
 }
 
+.copy-button {
+    height: 20px;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    cursor: pointer;
+    padding: .5rem;
+    border-radius: var(--border-radius);
+    height: calc(20px + 1rem);
+}
+.copy-button:hover {
+    transition: background-color .125s ease;
+    background-color: var(--border-color);
+}
+
 
 /* SECTION */
 
@@ -130,27 +145,8 @@ h1 {
             background-color: var(--good);
         }
     
-        .json-wrapper {
-
-            pre {
-                min-height: 120px;
-            }
-        
-            #copy-json {
-                    height: 20px;
-                    position: absolute;
-                    top: .5rem;
-                    right: .5rem;
-                    cursor: pointer;
-                    padding: .5rem;
-                    border-radius: var(--border-radius);
-                    height: calc(20px + 1rem);
-            }
-            
-            #copy-json:hover {
-                transition: background-color .125s ease;
-                background-color: var(--border-color);
-            }
+        .json-wrapper pre {
+            min-height: 120px;
         }
     }
 

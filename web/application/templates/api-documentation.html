@@ -88,6 +88,7 @@
                 <div class="curl snippet">
                     <p>cURL</p>
                     <div class="code">
+                        <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
                         <pre>
 curl -G "https://france-energie.koyeb.app/api/v1/cout_chauffage" \
     --data-urlencode "valeur_1=30 rue de la republique, lyon" \
@@ -99,6 +100,7 @@ curl -G "https://france-energie.koyeb.app/api/v1/cout_chauffage" \
                 <div class="python snippet">
                     <p>Python</p>
                     <div class="code">
+                        <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
                         <pre>
 import requests
 
@@ -118,6 +120,7 @@ response = requests.get(base_url + endpoint, params=params)
                 <div class="r snippet">
                     <p>R</p>
                     <div class="code">
+                        <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
                         <pre>
 library(httr)
 
@@ -182,7 +185,7 @@ response <- GET(
                             <p class="status-code"></p>
                         </div>
                         <div class="json-wrapper code">
-                            <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" id="copy-json" height="20px">
+                            <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
                             <pre class="json-content">//</pre>
                         </div>
                     </div>
