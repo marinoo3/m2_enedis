@@ -1,5 +1,8 @@
-const baseURL = 'https://france-energie.koyeb.app/api/v1'
+let baseURL = 'https://france-energie.koyeb.app/api/v1'
+// baseURL = 'api/v1' // TRY IT OUT ONLY !!!
+
 // Playground
+const statusCodeElement = document.querySelector('.status-code');
 const jsonContainer = document.querySelector('#requests pre.json-content');
 const playgroundTabsForm = document.querySelector('form#endpoints-menu');
 const playgroundRequestsUrl = document.querySelector('#requests-url')
@@ -7,32 +10,70 @@ const playgroundRequestsForms = document.querySelector('#requests form');
 
 
 
-const data = {
-    inference_time_sec: 0.1,
-    result: {
-        prediction: {
-            cout_chauffage_eur: 20
-        },
-        informations: {
-            adresse: "30 rue de la République, 69001 Lyon",
-            insee: 69123,
-            coordinates: {
-                longitude: 34.564830,
-                latitude: 4.586023
-            }
+// const data = {
+//     inference_time_sec: 0.1,
+//     result: {
+//         prediction: {
+//             cout_chauffage_eur: 20
+//         },
+//         informations: {
+//             adresse: "30 rue de la République, 69001 Lyon",
+//             insee: 69123,
+//             coordinates: {
+//                 longitude: 34.564830,
+//                 latitude: 4.586023
+//             }
+//         }
+//     }
+// }
+
+// Function to get the values of active playground subform
+function getSubFormValues() {
+
+    const endpoint = playgroundRequestsForms.dataset.tabView;
+    const currentSubForm = playgroundRequestsForms.querySelector(`.sub-form[data-tab="${endpoint}"]`);
+    const inputs = currentSubForm.querySelectorAll('input');
+
+    const formData = new FormData();
+    inputs.forEach(input => {
+        if (input.value != "") {
+            formData.append(input.name, input.value);
         }
-    }
+    });
+
+    return [endpoint, Object.fromEntries(formData.entries())];
 }
 
 // Function to create the API requests URL
-function getRequestsURL(endpoint) {
+function getRequestsURL(endpoint, values) {
 
-    // TODO: call python to compute the URL instead
-    // or do it in JS but compoute the URL with the params (?value_1=)
-    return baseURL + '/' + endpoint
+    const searchParams = new URLSearchParams(values);
+    const requestUrl = `${baseURL}/${endpoint}?${searchParams.toString()}`;
+    return requestUrl
 
 }
 
+// Function to request an API call
+async function requestsAPI(url) {
+
+    try {
+        const response = await fetch(url,  {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        return {
+          statusCode: response.status,
+          json
+        };
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+
+}
 
 // Function to format the json API response (color highlighting)
 function syntaxHighlight(json) {
@@ -54,8 +95,8 @@ function syntaxHighlight(json) {
     });
 }
 
-var str = JSON.stringify(data, undefined, 4);
-jsonContainer.innerHTML = syntaxHighlight(str);
+// var str = JSON.stringify(data, undefined, 4);
+// jsonContainer.innerHTML = syntaxHighlight(str);
 
 
 
@@ -74,6 +115,30 @@ playgroundTabs.forEach(tab => {
         currentActive.classList.remove('active');
         tab.classList.add('active');
     });
+});
+
+// Requests API when `Executer` button clicked
+playgroundRequestsForms.addEventListener('submit', async function(event) {
+
+    event.preventDefault();
+
+    const [endpoint, values] = getSubFormValues();
+    const url = getRequestsURL(endpoint, values);
+    const response = await requestsAPI(url);
+
+    if (!response) {
+        statusCodeElement.textContent = "";
+        return
+    }
+    
+    // Update requests URL
+    playgroundRequestsUrl.textContent = url;
+    // Display status code
+    statusCodeElement.textContent = response.statusCode;
+    statusCodeElement.dataset.status = response.statusCode;
+    // Display content in json element
+    const str = JSON.stringify(response.json, undefined, 4);
+    jsonContainer.innerHTML = syntaxHighlight(str);
 });
 
 // Copy json when clicked

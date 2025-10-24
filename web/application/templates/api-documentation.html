@@ -157,33 +157,33 @@ response <- GET(
                 <section id="requests">
                     <form action="" data-tab-view="cout_chauffage">
                         <h2>Paramètres</h2>
-                        <div class="cout-chauffage sub-form">
+                        <div class="sub-form" data-tab="cout_chauffage">
                             <div class="form-input">
                                 <label for="value1">valeur_1</label>
-                                <input type="text" name="value1" id="value1" placeholder="Exemple de valeur">
+                                <input type="text" name="valeur_1" id="value1" placeholder="Exemple de valeur">
                             </div>
                             <div class="form-input">
                                 <label for="value2">valeur_2</label>
-                                <input type="text" name="value2" id="value2" placeholder="Exemple de valeur">
+                                <input type="text" name="valeur_2" id="value2" placeholder="Exemple de valeur">
                             </div>
                             <div class="form-input">
                                 <label for="value3">valeur_3</label>
-                                <input type="text" name="value3" id="value3" placeholder="Exemple de valeur">
+                                <input type="text" name="valeur_3" id="value3" placeholder="Exemple de valeur">
                             </div>
                             <button class="main" type="submit">Executer</button>
                         </div>
-                        <div class="etiquette-dpe sub-form">
+                        <div class="sub-form" data-tab="etiquette_dpe">
                             <p>Hello</p>
                         </div>
                     </form>
                     <div class="response">
                         <div class="head">
                             <h2>Réponse</h2>
-                            <p class="status-code">200</p>
+                            <p class="status-code"></p>
                         </div>
                         <div class="json-wrapper code">
                             <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" id="copy-json" height="20px">
-                            <pre class="json-content"></pre>
+                            <pre class="json-content">//</pre>
                         </div>
                     </div>
                 </section>

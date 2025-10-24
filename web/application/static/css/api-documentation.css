@@ -97,10 +97,10 @@ h1 {
     form .sub-form {
         display: none;
     }
-    form[data-tab-view="cout_chauffage"] .cout-chauffage {
+    form[data-tab-view="cout_chauffage"] .sub-form[data-tab="cout_chauffage"] {
         display: block;
     }
-    form[data-tab-view="etiquette_dpe"] .etiquette-dpe {
+    form[data-tab-view="etiquette_dpe"] .sub-form[data-tab="etiquette_dpe"] {
         display: block;
     }
     form {
@@ -120,26 +120,37 @@ h1 {
         .status-code {
             padding: 4px 8px;
             border-radius: var(--border-radius);
-            background-color: var(--good);
+            background-color: var(--wrong);
             display: table;
             margin-bottom: .5rem;
             font-size: .8rem;
             font-weight: 600;
         }
-    
-        .json-wrapper #copy-json {
-                height: 20px;
-                position: absolute;
-                top: .5rem;
-                right: .5rem;
-                cursor: pointer;
-                padding: .5rem;
-                border-radius: var(--border-radius);
-                height: calc(20px + 1rem);
+        .status-code[data-status="200"] {
+            background-color: var(--good);
         }
-        .json-wrapper #copy-json:hover {
-            transition: background-color .125s ease;
-            background-color: var(--border-color);
+    
+        .json-wrapper {
+
+            pre {
+                min-height: 120px;
+            }
+        
+            #copy-json {
+                    height: 20px;
+                    position: absolute;
+                    top: .5rem;
+                    right: .5rem;
+                    cursor: pointer;
+                    padding: .5rem;
+                    border-radius: var(--border-radius);
+                    height: calc(20px + 1rem);
+            }
+            
+            #copy-json:hover {
+                transition: background-color .125s ease;
+                background-color: var(--border-color);
+            }
         }
     }
 
