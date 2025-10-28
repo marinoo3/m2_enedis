@@ -28,9 +28,9 @@ def index():
 
 @main.route('/statistics')
 def statistics():
-    df = current_app.data.get_communes()
-    test_plot = current_app.plots.test_plot(df)
-    return render_template('statistics.html', current_page="statistics", testPlot=test_plot)
+    df = current_app.data.get_plot()
+    plot_jsons = current_app.plots.get_jsons(df=df)
+    return render_template('statistics.html', current_page="statistics", **plot_jsons)
 
 @main.route('/predict')
 def predict():

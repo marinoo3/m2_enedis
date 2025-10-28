@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 
 from ..volume import Volume
-from .format import MapFormater
+from .format import MapFormater, PlotFormater
 
 
 
@@ -42,7 +42,9 @@ class Data():
         self.volume = Volume()
         self.communes = self.__load_communes()
         self.cities = self.__load_cities()
+        self.logements = self.__load_logements()
         self.map_formater = MapFormater(self.communes, self.cities)
+        self.plot_formater = PlotFormater(self.logements)
 
     def __load_communes(self) -> pd.DataFrame:
         return self.volume.read_communes()
@@ -50,6 +52,10 @@ class Data():
     def __load_cities(self) -> pd.DataFrame:
         df = pd.read_csv('application/datasets/communes-france-2025.csv', low_memory=False)
         df['code_insee'] = df['code_insee'].astype(str)
+        return df
+    
+    def __load_logements(self) -> pd.DataFrame:
+        df = pd.read_csv('application/datasets/logements_74.csv', low_memory=False)
         return df
     
 
@@ -67,13 +73,23 @@ class Data():
 
     def get_communes(self) -> pd.DataFrame:
 
-        """Returns raw communes data
+        """Returns raw communes.csv data
 
         Returns:
             pd.DataFrame: Raw communes data
         """
 
         return self.communes
+    
+    def get_logements(self) -> pd.DataFrame:
+
+        """Returns raw logements_74.csv data
+
+        Returns:
+            pd.DataFrame: Raw logements 74 data
+        """
+
+        return self.logements
     
 
     @update_volume_date
@@ -94,7 +110,7 @@ class Data():
 
         """Format the data to display on the map
 
-        Arguments:
+        Keyword Arguments:
             filters {list[dict]} -- List of filter rules (default None)
             sort {dict} -- How to sort the data (default None)
 
@@ -118,4 +134,18 @@ class Data():
         """
 
         data = self.map_formater.get_zoomed(streets, iris)
+        return data
+    
+    def get_plot(self, filters:list[dict]=None) -> pd.DataFrame:
+
+        """Format the data to send to the plots
+
+        Keywords Arguments:
+            filters {list[dict]} -- List of filter rules (default None)
+
+        Returns:
+            pd.DataFrame: A selection of columns for the plots
+        """
+
+        data = self.plot_formater.get_selected(filters)
         return data

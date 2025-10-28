@@ -1,0 +1,7 @@
+.grouped {
+    display: flex;
+}
+
+.grouped > div {
+    flex: 1;
+}

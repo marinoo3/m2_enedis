@@ -8,7 +8,7 @@
     <meta name="author" content="Marin NAGY"> -->
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/predict.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/statistics.css') }}">
     <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
     <title>France Energie - Statistique Dashboard</title>
 </head>
@@ -22,14 +22,26 @@
 
         <div class="content-wrapper">
             <div class="content">
-                <div id='test-plot'></div>
+                <div class="grouped">
+                    <div id='scatter-plot'></div>
+                    <div id='box-plot'></div>
+                </div>
+                <div class="grouped">
+                    <div id='bar-plot'></div>
+                    <div id='bar-dpe-plot'></div>
+                </div>
+                <div id='heatmap-plot'></div>
             </div>
         </div>
     </main>
 
 
     <script>
-        var testPlot = {{ testPlot | safe }};
+        var scatterPlot = {{ scatterPlot | safe }};
+        var boxPlot = {{ boxPlot | safe }};
+        var barPlot = {{ barPlot | safe }};
+        var barDPEPlot = {{ barDPEPlot | safe }};
+        var heatmapPlot = {{ heatmapPlot | safe }};
     </script>
 
 

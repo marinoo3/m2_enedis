@@ -1,6 +1,6 @@
 from flask import Flask  
 
-from .custom import Data, Plots, ENEDIS, ADEME
+from .custom import Data, ENEDIS, ADEME, PlotsManager
 
 
 
@@ -16,7 +16,7 @@ def create_app():
         app.data = Data()
         app.enedis_api = ENEDIS()
         app.ademe_api = ADEME()
-        app.plots = Plots()
+        app.plots = PlotsManager()
 
     # Init pages routes
     from .routes import main as main_blueprint
