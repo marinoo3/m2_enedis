@@ -2,6 +2,23 @@
     display: flex;
 }
 
-.grouped > div {
+.grouped > .plot {
     flex: 1;
+}
+
+.plot.loading {
+    height: 650px;
+    margin: 2rem;
+    background-color: var(--input-bg-color);
+    border-radius: var(--border-radius);
+    animation: 1s fade ease;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0
+    } 
+    to {
+        opacity: 1
+    }
 }
