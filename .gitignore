@@ -1,8 +1,64 @@
-.DS_Store
-.vscode/
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env_projet_ml/
 enedis-env/
-web/volume/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Données générées (peuvent être recréées)
+data/processed/
+graphiques/*.html
+graphiques/*.png
 models/data/*.csv
+web/volume/
+
+# Fichiers de données brutes trop volumineux (> 100 MB)
+data/raw/*.csv
+
+# Sauvegardes et archives
+*_BACKUP_*/
+*.bak
+_archive/
+
+# Logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+.cache/
 test.py
 test2.py

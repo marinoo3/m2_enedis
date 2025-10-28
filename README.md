@@ -28,7 +28,45 @@ Les données utilisées par l'application proviennent des APIs de l'[ADEME](http
 
 <br>
 
-## Exécuter l'app en local
+## 🏔️ Analyse Complémentaire : Mountain Energy Score - Haute-Savoie
+
+Ce dépôt contient également une analyse détaillée de l'impact de l'altitude sur la consommation énergétique des logements en Haute-Savoie (département 74).
+
+### 📊 Résultats Clés
+- **+8,5 kWh/m²/an** de consommation par 100m d'altitude supplémentaire
+- **61,3%** des logements situés en vallée (< 600m)
+- **72,9%** des logements en classe énergétique C ou D
+
+### 📁 Structure de l'Analyse
+
+Les scripts d'analyse se trouvent à la racine du projet :
+- `01_preparation_donnees.py` - Préparation et nettoyage des données
+- `02_graphique_scatter.py` - Régression altitude × consommation
+- `03_graphique_boxplot.py` - Distribution par tranche d'altitude
+- `04_graphique_barplot.py` - Consommation moyenne par altitude
+- `05_graphique_barres_dpe.py` - Répartition des étiquettes DPE
+- `06_graphique_periode_construction.py` - Évolution temporelle
+- `99_regenerer_tout.py` - Régénère tous les graphiques
+
+### 🚀 Utilisation de l'Analyse
+
+```bash
+# Installer les dépendances pour l'analyse
+pip install -r requirements.txt
+
+# Préparer les données
+python 01_preparation_donnees.py
+
+# Générer tous les graphiques
+python 99_regenerer_tout.py
+
+# Consulter le rapport
+# Ouvrir graphiques/mountain_energy_score_rapport_complet.html
+```
+
+<br>
+
+## Exécuter l'app web en local
 
 1. Aller dans le dossier `web`
 ```bash
