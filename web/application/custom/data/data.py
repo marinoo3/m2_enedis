@@ -51,7 +51,6 @@ class Data():
     
     def __load_cities(self) -> pd.DataFrame:
         df = pd.read_csv('application/datasets/communes-france-2025-light.csv', dtype={1: str})
-        df['code_insee'] = df['code_insee'].astype(str)
         return df
     
     def __load_logements(self) -> pd.DataFrame:

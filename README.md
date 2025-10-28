@@ -1,6 +1,6 @@
 # M2 SISE - Enedis
 > [!NOTE]
-> Ce travail est un projet scolaire réalisé dans le cadre de ma 2<sup>ème</sup> année de Master en SISE.
+> Ce travail est un projet scolaire réalisé dans le cadre de notre 2<sup>ème</sup> année de Master en SISE.
 
 <br>
 
