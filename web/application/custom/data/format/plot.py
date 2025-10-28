@@ -17,12 +17,9 @@ class PlotFormater(Format):
     def get_selected(self, filters:list[dict]=None) -> pd.DataFrame:
 
         selected_columns = [
-            'numero_dpe',                          # Identifiant unique du DPE
-            'code_insee_ban',                      # Code commune
             'nom_commune_ban',                     # Nom de la commune
             'etiquette_dpe',                       # Classe énergétique (A à G)
             'conso_5_usages_par_m2_ep',            # Consommation en kWh/m²/an
-            'surface_habitable_logement',          # Surface en m² (pour calculs de coûts)
             'type_batiment',                       # Maison ou appartement
             'periode_construction',                # Époque de construction
             'periode_categorie',                   # Categorie de periode de construction

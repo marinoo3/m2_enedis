@@ -12,11 +12,13 @@ def create_app():
     app = Flask(__name__)
 
     # Load configuration
+    print('start')
     with app.app_context():
         app.data = Data()
         app.enedis_api = ENEDIS()
         app.ademe_api = ADEME()
         app.plots = PlotsManager()
+    print('done')
 
     # Init pages routes
     from .routes import main as main_blueprint
