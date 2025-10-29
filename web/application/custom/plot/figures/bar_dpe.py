@@ -106,7 +106,7 @@ class BarDPE(Plot):
             title={
                 'text': (
                     '<b>Concentration des passoires thermiques selon l\'altitude</b><br>'
-                    '<sub>Mountain Energy Score - Département Haute-Savoie (74)</sub>'
+                    '<sub>Département Haute-Savoie (74)</sub>'
                 ),
                 'font': {'size': 22, 'family': 'Arial, sans-serif', 'color': '#2c3e50'},
                 'x': 0.5,
@@ -142,18 +142,18 @@ class BarDPE(Plot):
             ),
             
             # Dimensions
-            height=700,
+            height=self.HEIGHT,
             
             # Marges
-            margin=dict(l=80, r=80, t=140, b=160)
+            margin=dict(l=80, r=80, t=180, b=160)
         )
 
         fig.add_annotation(
             text=(
-                f"<b>🔥 Insight clé :</b> Les passoires thermiques (F/G) représentent "
+                "<b>🔥 Insight clé :</b> Les passoires thermiques (F/G) représentent <br>"
                 f"<b>{pct_vallee:.1f}%</b> des logements en vallée contre <b>{pct_montagne_max:.1f}%</b> en montagne,<br>"
-                f"soit <b>×{ratio:.1f}</b> plus de risque d'avoir un logement énergivore en altitude. "
-                f"Cette concentration révèle un enjeu majeur de rénovation énergétique en zone de montagne."
+                f"soit <b>×{ratio:.1f}</b> plus de risque d'avoir un logement énergivore en altitude.<br>"
+                "Cette concentration révèle un enjeu majeur de rénovation énergétique en zone de montagne."
             ),
             xref="paper", yref="paper",
             x=0.5, y=-0.19,

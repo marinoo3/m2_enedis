@@ -95,7 +95,7 @@ class Box(Plot):
             ),
 
             # Dimension
-            height=700,
+            height=self.HEIGHT,
             
             # Style
             plot_bgcolor='white',
@@ -103,16 +103,14 @@ class Box(Plot):
             showlegend=False,  # Pas de légende nécessaire (noms sur l'axe X)
             
             # Marges pour l'annotation
-            margin=dict(l=80, r=80, t=100, b=160)
+            margin=dict(l=80, r=80, t=120, b=180)
         )
 
         fig.add_annotation(
             text=(
-                f"<b>📊 Insight clé :</b> La consommation médiane augmente de "
-                f"<b>{ecart_vallee_montagne:.0f} kWh/m²/an</b> entre la vallée "
-                f"({stats_par_tranche[0]['mediane']:.0f} kWh/m²/an) et la haute montagne "
-                f"({stats_par_tranche[-1]['mediane']:.0f} kWh/m²/an), soit une hausse de "
-                f"<b>{pct_augmentation:.1f}%</b>.<br>"
+                f"<b>📊 Insight clé :</b> La consommation médiane augmente de <b>{ecart_vallee_montagne:.0f} kWh/m²/an</b> <br>"
+                f"entre la vallée ({stats_par_tranche[0]['mediane']:.0f} kWh/m²/an) "
+                f"et la haute montagne ({stats_par_tranche[-1]['mediane']:.0f} kWh/m²/an), soit une hausse de <b>{pct_augmentation:.1f}%</b>.<br>"
                 f"La dispersion augmente également avec l'altitude, révélant une plus grande hétérogénéité des situations en montagne."
                 ),
                 xref="paper", yref="paper",

@@ -137,10 +137,10 @@ class HeatMap(Plot):
             paper_bgcolor='white',
             
             # Dimensions
-            height=700,
+            height=self.HEIGHT,
             
             # Marges
-            margin=dict(l=120, r=150, t=120, b=160)
+            margin=dict(l=120, r=150, t=180, b=160)
         )
 
         fig.add_annotation(

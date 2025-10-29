@@ -117,18 +117,18 @@ class Bar(Plot):
             showlegend=False,
             
             # Dimensions
-            height=700,
+            height=self.HEIGHT,
             
             # Marges
-            margin=dict(l=80, r=80, t=120, b=160)
+            margin=dict(l=80, r=80, t=180, b=160)
         )
 
         fig.add_annotation(
             text=(
-                f"<b>💰 Insight clé :</b> Vivre en {tranche_max.lower()} coûte <b>+{surcout_max:.0f}€/an</b> "
+                f"<b>💰 Insight clé :</b> Vivre en {tranche_max.lower()} coûte <b>+{surcout_max:.0f}€/an</b><br>"
                 f"de plus en énergie par rapport à la vallée pour un logement de {self.SURFACE_REFERENCE}m².<br>"
-                f"Cela représente l'équivalent de <b>{surcout_max/12:.0f}€ par mois</b> de facture énergétique supplémentaire, "
-                f"soit un budget non négligeable pour les ménages vivant en altitude."
+                f"Cela représente l'équivalent de <b>{surcout_max/12:.0f}€ par mois</b> de facture énergétique supplémentaire,<br>"
+                "soit un budget non négligeable pour les ménages vivant en altitude."
             ),
             xref="paper", yref="paper",
             x=0.5, y=-0.19,

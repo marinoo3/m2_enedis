@@ -41,6 +41,7 @@ class Plot(ABC):
     TAILLE_ECHANTILLON = 10000
     PRIX_ELECTRICITE = 0.20  # €/kWh
     SURFACE_REFERENCE = 70  # m²
+    HEIGHT = 700
 
 
     def __init__(self, df):

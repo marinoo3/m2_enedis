@@ -88,7 +88,7 @@ class Scatter(Plot):
 
         fig.update_layout(
             # Dimensions
-            height=700,
+            height=self.HEIGHT,
             
             # Style de fond
             plot_bgcolor='white',
@@ -142,13 +142,13 @@ class Scatter(Plot):
             ),
             
             # Marges pour l'annotation en bas
-            margin=dict(l=80, r=80, t=100, b=140)
+            margin=dict(l=80, r=80, t=120, b=180)
         )
 
         fig.add_annotation(
-            text=f"<b>📊 Insight clé :</b> Chaque 100m d'altitude supplémentaire augmente "
+            text=f"<b>📊 Insight clé :</b> Chaque 100m d'altitude supplémentaire augmente<br>"
                 f"la consommation de <b>{reg['stats']['slope']*100:.1f} kWh/m²/an</b> en moyenne "
-                f"<i>(R² = {reg['stats']['r_squared']:.3f}, p < 0.001)</i>. "
+                f"<i>(R² = {reg['stats']['r_squared']:.3f}, p < 0.001)</i>.<br>"
                 "Cette corrélation significative démontre l'impact direct de l'altitude sur les besoins énergétiques.",
             xref="paper", yref="paper",
             x=0.5, y=-0.17,
