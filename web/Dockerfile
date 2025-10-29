@@ -1,5 +1,5 @@
-# Use an official Python runtime as a parent image
 FROM python:3.10.6
+RUN mkdir -p /tmp && chmod -R 1777 /tmp
 
 # Set environment to non-interactive
 ENV PYTHONUNBUFFERED=1
