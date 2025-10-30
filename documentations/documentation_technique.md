@@ -45,3 +45,30 @@ L’API, également développée avec Flask, expose publiquement les modèles de
 **HTML / CSS / JS :** Pour la conception de l’interface utilisateur.
 
 **Gunicorn :** Serveur de déploiement utilisé pour faire tourner l’application.
+
+## Structure de l'application
+```bash
+web/
+    ├── application/
+        ├── custom/
+            ... app modules
+        ├── datasets/
+            ├── communes-france-2025-light.csv
+            ├── communes.csv
+            └── logement-74-light.csv
+        ├── static/
+            ├── css/
+                ... CSS files
+            ├── images/
+                ... Images and SVGs
+            └── js/
+                ... JavaScript files
+        ├── templates/
+            ... HTML files
+        ├── __init__.py
+        ├── ajax.py
+        ├── api.py
+        └── routes.py
+    ├── app.py
+    └── requirements.txt
+```
