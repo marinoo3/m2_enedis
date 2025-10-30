@@ -61,6 +61,14 @@ python app.py
 
 <br>
 
+## Cahier des charges
+
+![charge_1](https://github.com/user-attachments/assets/aa0d8716-70fc-40de-98e3-9a2aa5f333e5)
+![charge_2](https://github.com/user-attachments/assets/981dfeb0-ea55-4bca-b54e-2fcde34ef018)
+
+
+<br>
+
 ## Crédits
 
 Au-delà des outils et bibliothèques utilisés, ce projet est rendu possible grâce aux projets open source suivants :
