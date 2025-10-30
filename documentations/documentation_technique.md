@@ -1,7 +1,9 @@
 # Documentation technique – Application web France Énergie
 
 ## Aperçu général
-
+<p align="center" margin="2rem">
+  <img src="https://raw.githubusercontent.com/marinoo3/m2_enedis/refs/heads/main/documentations/Schema%20Architercture.svg">
+</p>
 
 ## Gestion des données
 
