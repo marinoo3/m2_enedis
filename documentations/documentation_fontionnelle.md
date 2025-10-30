@@ -15,12 +15,14 @@
 **Intérêt** : Point d'entrée principal offrant une vue géographique des données de consommation énergétique par commune.
 
 **Fonctionnalités** :
-- Cartographie interactive Leaflet avec heatmap de consommation (navigation, zoom, déplacement)
+- Cartographie interactive Leaflet avec heatmap de consommation ou clustering de points (navigation, zoom, info-bulle)
 - Tableau des communes avec 8 colonnes : code commune, nom, année, logements, densité population, altitude, consommation totale (MWh), consommation par habitant (MWh)
-- **Filtres dynamiques** : code de commune, année, densité de population (slider 0-28220), altitude (slider 0-4808m)
+- **Filtres dynamiques** : code de commune (input), année (select), densité de population (slider 0-28220), altitude (slider 0-4808m)
 - Téléchargement de la carte en PNG
+- Recherche de lieux depuis la barre de recherche
+- Requête de données plus précise au zoom
 
-**Utilisation** : Visualisation de la heatmap pour identifier les zones de forte/faible consommation. Utilisation des filtres (sliders et champs) pour affiner l'affichage du tableau des communes.
+**Utilisation** : Visualisation de la heatmap pour identifier les zones de forte/faible consommation ou du clustering de points pour avoir des informations sur des adresses. Utilisation des filtres (sliders et champs) pour affiner l'affichage du tableau des communes.
 
 ---
 
