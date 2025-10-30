@@ -32,7 +32,7 @@ Le backend, construit avec Flask, utilise des blueprints pour structurer les dif
 - **Main** [ `/` ] : Sert les routes de l’application pour rendre les différentes pages HTML.
 - **Ajax** [ `/ajax` ] : Composé de plusieurs fonctions destinées à être appelées par le JavaScript. Il constitue l’API interne de l’application.
 
-## API REST
+## REST API
 
 L’API, également développée avec Flask, expose publiquement les modèles de machine learning. Elle est accessible depuis la route `/api/v1` et comprend deux endpoints qui permettent d’inférence sur les modèle avec les variables renseignées par l’utilisateur. Renvoi le résultat au format JSON.
 
