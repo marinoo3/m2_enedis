@@ -18,6 +18,10 @@ def inject_update_date():
     date = current_app.data.get_property('update')
     return {'update_date': date}
 
+@main.route('/context')
+def context():
+    data, scales = current_app.data.get_map()
+    return render_template('context.html', current_page="context", mapData=data, scales=scales)
 
 
 @main.route('/')

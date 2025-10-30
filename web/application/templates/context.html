@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Marin NAGY"> -->
+     <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/context.css') }}">
+    <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
+    <title>France Energie - Prédictions DPE et Consomation</title>
+</head>
+
+{% include "elements/header.html" %}
+
+<body>
+    <main>
+
+        {% include "elements/menu.html" %}
+
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="description">
+                    <img src="{{ url_for('static', filename='images/enedis.png') }}" alt="">
+                    <div class="text">
+                        <h1>Contexte</h1>
+                        <p>GreenTech Solutions est une société de service fictive qui développe des applications. Avec l’accélération du changement climatique et la hausse des prix de l’énergie, la sobriété énergétique est au cœur des préoccupations des Français.</p>
+                        <p>C’est pourquoi Enedis nous sollicite en vue d’évaluer l’impact de la classe de Diagnostic de Performance Energétique (DPE) sur les consommations électriques de logements. Vous devez créer une application qui permet à des particuliers d’évaluer le DPE d’un logement et la consommation d’énergie.</p>
+                    </div>
+                </div>
+                <div class="shortcuts">
+                    <ul>
+                        <li>
+                            <a href="/map">
+                                <img src="{{ url_for('static', filename='images/preview_map.jpg') }}" alt="">
+                                <!-- <button class="main">Visiter</button> -->
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/statistics">
+                                <img src="{{ url_for('static', filename='images/preview_statistics.jpg') }}" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/predict">
+                                <img src="{{ url_for('static', filename='images/preview_predict.jpg') }}" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/api-documentation">
+                                <img src="{{ url_for('static', filename='images/preview_api.jpg') }}" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
