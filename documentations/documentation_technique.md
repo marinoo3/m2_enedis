@@ -1,3 +1,7 @@
+# Documentation technique – Application web France Énergie
+
+## Aperçu général
+
 ## Gestion des données
 
 1. **Sources de données**
@@ -8,7 +12,7 @@
 
 **data.gouv** : Le dataset "communes-france-2025" est utilisé pour compléter les données d’ENEDIS et de l’ADEME. Il contient des variables démographiques pour chaque commune de France.
 
-1. **Stockage des données**
+2. **Stockage des données**
 
 Toutes les données sont stockées au format CSV. Les jeux de données initiaux se trouvent dans le répertoire `application/datasets`. Les versions actualisées sont stockées dans le volume de l’application, par défaut `/volume` (il est possible de modifier le chemin de ce répertoire avec la variable d’environnement `MOUNT_PATH`).
 
@@ -18,7 +22,7 @@ Toutes les données sont stockées au format CSV. Les jeux de données initiaux 
 
 L’interface utilisateur est conçue en HTML/CSS. Des scripts JavaScript assurent la communication avec le backend Python. Jinja2 est utilisé dans les templates HTML pour générer dynamiquement le contenu.
 
-1. **Backend**
+2. **Backend**
 
 Le backend, construit avec Flask, utilise des blueprints pour structurer les différentes parties de l'application :
 
