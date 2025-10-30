@@ -36,15 +36,45 @@ Le backend, construit avec Flask, utilise des blueprints pour structurer les dif
 
 L’API, également développée avec Flask, expose publiquement les modèles de machine learning. Elle est accessible depuis la route `/api/v1` et comprend deux endpoints qui permettent d’inférence sur les modèle avec les variables renseignées par l’utilisateur. Renvoi le résultat au format JSON.
 
-## Technologies utilisées
+## Packages utilisés
 
-**Python :** Langage principal utilisé pour la collecte et la gestion des données, le développement des modèles ainsi que pour le backend de l’application.
+- **Flask** : Framework web utilisé pour développer l'API et structurer le backend de l'application.
+- **gunicorn** : Serveur WSGI utilisé pour déployer l'application en production.
+- **requests** : Librairie pour effectuer des requêtes HTTP vers des APIs externes.
+- **pandas** + **numpy** : Outils de manipulation et d'analyse de données, permettant un traitement efficace des datasets.
+- **scipy** : Fournit des algorithmes et des fonctions mathématiques avancés pour les calculs statistiques.
+- **scikit-learn** : Bibliothèque de machine learning pour la création et l'entraînement des modèles.
+- **plotly** : Outil de création de graphiques interactifs intégrés dans l'interface de l'application.
 
-**Flask :** Utilisé pour développer l’API ainsi que pour construire l’application web.
 
-**HTML / CSS / JS :** Pour la conception de l’interface utilisateur.
+## Exécuter l'app en local
 
-**Gunicorn :** Serveur de déploiement utilisé pour faire tourner l’application.
+1. Aller dans le dossier `web`
+```bash
+cd web
+```
+
+2. Installer les dépendances
+```bash
+pip install -r requirements.txt
+```
+
+3. Créer un dossier pour stocker le volume et renseigner son emplacement dans la variable d'environnement `MOUNT_PATH`
+> macOS / linux
+```bash
+mkdir volume
+export MOUNT_PATH="volume"
+```
+> Windows
+```bash
+mkdir volume
+set MOUNT_PATH="volume"
+```
+
+4. Lancer l'app
+```bash
+python app.py
+```
 
 ## Structure de l'application
 ```bash
