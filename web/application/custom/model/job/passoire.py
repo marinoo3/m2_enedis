@@ -4,7 +4,7 @@ from .model import Model
 
 class PassoireModel(Model):
 
-    pickle_name = 'classification_randomforest_20251029_145215.pkl'
+    pickle_name = 'classification_randomforest_20251031_191718.pkl'
 
     features = {
         'surface_habitable_logement': None,
@@ -15,8 +15,7 @@ class PassoireModel(Model):
         'logement_traversant': None,
         'protection_solaire_exterieure': None,
         'zone_climatique': None,
-        'classe_altitude': None,
-        'apport_interne_saison_chauffe': 1000
+        'classe_altitude': None
     }
 
     def load(self):

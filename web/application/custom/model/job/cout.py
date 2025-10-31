@@ -3,7 +3,7 @@ from .model import Model
 
 class CoutModel(Model):
 
-    pickle_name = 'regression_gradientboosting_20251029_145215.pkl'
+    pickle_name = 'regression_randomforest_20251031_191718.pkl'
 
     features = {
         'surface_habitable_logement': None,
@@ -14,8 +14,7 @@ class CoutModel(Model):
         'logement_traversant': None,
         'protection_solaire_exterieure': None,
         'zone_climatique': None,
-        'classe_altitude': None,
-        'apport_interne_saison_chauffe': 1000
+        'classe_altitude': None
     }
 
     def load(self):
