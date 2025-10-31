@@ -1,5 +1,7 @@
 from .job import CoutModel, PassoireModel
 
+import time
+
 
 
 """
@@ -14,24 +16,40 @@ Docstrings in this class endup epic
 
 class ModelsManager():
 
-    cout: CoutModel = None
-    passoire: PassoireModel = None
+    cout = CoutModel()
+    passoire = PassoireModel()
 
     def load_cout(self) -> None:
 
         """Load CoutModel is not loaded yet"""
 
-        if self.cout is None:
-            self.cout = CoutModel()
+        if self.cout.model is None:
+            self.cout.load()
 
     def load_passoire(self) -> None:
 
         """Load PassoireModel is not loaded yet"""
 
-        if self.passoire is None:
-            self.passoire = PassoireModel()
+        if self.passoire.model is None:
+            self.passoire.load()
 
-    def predict_cout(self, values) -> float:
+    def get_features(self, model) -> dict:
+
+        """Retrive a dict of features from a model
+
+        Arguments:
+            model {str} -- the name of the model ['cout', 'passoire']
+
+        Returns:
+            dict: Features of the model
+        """
+
+        if model == 'cout':
+            return self.cout.features.copy()
+        elif model == 'passoire':
+            return self.passoire.features.copy()
+
+    def predict_cout(self, values) -> tuple[float, float]:
 
         """Predict the cost of the accomodation
 
@@ -40,15 +58,19 @@ class ModelsManager():
 
         Returns:
             float: Predicted cost
+            float: Inference duration
         """
 
         # Load CoutModel if not loaded yet
         self.load_cout()
 
+        start_time = time.perf_counter()
         response = self.cout.predict(values)
-        return response['result']
+        total_time = round(time.perf_counter() - start_time, 3)
+
+        return response['result'], total_time
     
-    def predict_passoire(self, values) -> bool:
+    def predict_passoire(self, values) -> tuple[bool, float]:
 
         """Predict the wether the accomodation is a passoire or not
 
@@ -57,11 +79,15 @@ class ModelsManager():
 
         Returns:
             bool: Is a passoire
+            float: Inference duration
         """
 
         # Load CoutModel if not loaded yet
         self.load_passoire()
 
+        start_time = time.perf_counter()
         response = self.passoire.predict(values)
-        return bool(response['result'])
+        total_time = round(time.perf_counter() - start_time, 3)
+
+        return bool(response['result']), total_time
 

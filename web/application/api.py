@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 
 
 
@@ -7,31 +7,60 @@ api = Blueprint('api/v1', __name__)
 
 
 
+# Decorator factory function
+def check_arguments(model:str):
+    def decorator(f):
+        def wrapper(*args, **kwargs):
+
+            values = request.args.to_dict()
+            features:dict = current_app.models.get_features(model)
+
+            # Replace variables that will be computed later on
+            features['annee_construction'] = features.pop('periode_construction')
+            features['altitude'] = features.pop('classe_altitude')
+            features.pop('apport_interne_saison_chauffe') # temp cause will not use this variable in prod model
+
+            if values.keys() != features.keys():
+                return jsonify({'error': "Missing or incorrect request parameters"})
+            
+            return f(*args, **kwargs)
+        return wrapper
+    return decorator
+
+
+
+
+
 
 @api.route('/cout_chauffage')
+@check_arguments('cout')
 def cout_chauffage():
 
-    value_1 = request.args.get('value1')
-    value_2 = request.args.get('value2')
-    value_3 = request.args.get('value3')
+    values = request.args.to_dict()
+    # convert to numeric
+    values['annee_construction'] = int(values['annee_construction'])
+    values['altitude'] = int(values['altitude'])
+    
+    # Compute periode class from year
+    periode_class = current_app.data.compute_perdiode_class(values['annee_construction'])
+    values['periode_construction'] = periode_class
+    # Compute altitude class from altitude
+    altitude_class = current_app.data.compute_altitude_class(values['altitude'])
+    values['classe_altitude'] = altitude_class
+
+    # Inference
+    cout, time = current_app.models.predict_cout(values)
 
     # TODO: process value_1, value_2 and value_3 to get the data
     
     # dummy data
     data = {
-        'inference_time_sec': 0.1,
+        'inference_time_sec': time,
         'result': {
             'prediction': {
-                'cout_chauffage_eur': 20
+                'cout_chauffage_eur': cout
             },
-            'informations': {
-                'adresse': "30 rue de la République, 69001 Lyon",
-                'insee': 69123,
-                'coordinates': {
-                    'longitude': 34.564830,
-                    'latitude': 4.586023
-                }
-            }
+            'inputs': values
         }
     }
 

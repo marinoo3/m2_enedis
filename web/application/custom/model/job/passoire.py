@@ -19,8 +19,8 @@ class PassoireModel(Model):
         'apport_interne_saison_chauffe': 1000
     }
 
-    def __init__(self):
-        super().__init__(self.pickle_name)
+    def load(self):
+        self._load(self.pickle_name)
 
     def predict(self, values):
         valid_values = self._validate_values(values)

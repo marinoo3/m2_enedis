@@ -1,5 +1,5 @@
 let baseURL = 'https://france-energie.koyeb.app/api/v1'
-// baseURL = 'api/v1' // TRY IT OUT ONLY !!!
+baseURL = 'api/v1' // TRY IT OUT ONLY !!!
 
 // Playground
 const statusCodeElement = document.querySelector('.status-code');
@@ -18,11 +18,17 @@ function getSubFormValues() {
     const endpoint = playgroundRequestsForms.dataset.tabView;
     const currentSubForm = playgroundRequestsForms.querySelector(`.sub-form[data-tab="${endpoint}"]`);
     const inputs = currentSubForm.querySelectorAll('input');
+    const selects = currentSubForm.querySelectorAll('select');
 
     const formData = new FormData();
     inputs.forEach(input => {
         if (input.value != "") {
             formData.append(input.name, input.value);
+        }
+    });
+    selects.forEach(select => {
+        if (select.value != "") {
+            formData.append(select.name, select.value);
         }
     });
 

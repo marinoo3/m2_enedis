@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+
+
 from sklearn.pipeline import Pipeline
 import pandas as pd
 import joblib
@@ -10,15 +12,13 @@ import os
 class Model(ABC):
 
     models_path = 'application/models'
+    model:Pipeline = None
     features:dict = None
 
-    def __init__(self, pickle_name:str) -> None:
-        self.model = self.__load_pickle(pickle_name)
-
-    def __load_pickle(self, pickle_name) -> Pipeline:
+    def _load(self, pickle_name) -> None:
         pickle_path = os.path.join(self.models_path, pickle_name)
         model = joblib.load(pickle_path)
-        return model
+        self.model = model
     
     def _validate_values(self, values:dict) -> dict:
 
@@ -29,6 +29,10 @@ class Model(ABC):
                 valid[key] = value
 
         return pd.DataFrame([valid])
+    
+    @abstractmethod
+    def load(self) -> None:
+        ...
     
     @abstractmethod
     def predict(self, values:dict) -> dict:

@@ -18,7 +18,7 @@ async function fetchPredict(values) {
 
     const queryString = new URLSearchParams(values).toString();
 
-    const response = await fetch('/ajax/predict_cout/?' + queryString, {
+    const response = await fetch('/ajax/predict?' + queryString, {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' }
 	});
@@ -28,6 +28,7 @@ async function fetchPredict(values) {
 	}
 
 	content = await response.json();
+    return content
 }
 
 

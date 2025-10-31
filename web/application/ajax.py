@@ -134,18 +134,21 @@ def zoomed_map_data() -> Response:
     )
 
 
-@ajax.route('/predict/', methods=['GET'])
+@ajax.route('/predict', methods=['GET'])
 def predict() -> Response:
 
     values = request.args.to_dict()
     # convert coordinates to float
     values['latitude'] = float(values['latitude'])
     values['longitude'] = float(values['longitude'])
+    # convert year to int
+    values['annee_construction'] = int(values['annee_construction'])
 
     # Collect data from cities dataset
     insee = current_app.data.get_nearest_insee(values['latitude'], values['longitude'])
     data = current_app.data.get_from_insee(insee)
-    periode = current_app.compute_perdiode_class(values['annee_construction'])
+    # Compute periode class from year
+    periode = current_app.data.compute_perdiode_class(values['annee_construction'])
 
     # Add data to the model values
     values['zone_climatique'] = data['zone_climatique']
@@ -153,7 +156,9 @@ def predict() -> Response:
     values['periode_construction'] = periode
 
     # Inference on the models
-    cout = current_app.models.predict_cout(values)
-    passoire = current_app.models.predict_passoire(values)
+    cout, _ = current_app.models.predict_cout(values)
+    passoire, _ = current_app.models.predict_passoire(values)
+
+    print(cout, passoire)
 
     return jsonify({'cout': cout, 'passoire': passoire})

@@ -230,3 +230,33 @@ class Data():
         # Après 2012 (RT 2012, RE 2020)
         else:
             return 'Après 2012'
+        
+    def compute_altitude_class(self, altitude:int) -> str:
+
+        """
+        Affecte chaque logement à une tranche d'altitude
+        
+        Cette fonction permet de regrouper les logements selon leur altitude
+        pour faciliter les analyses comparatives entre vallées et montagnes.
+        
+        Args:
+            altitude (float): Altitude du logement en mètres
+            
+        Returns:
+            str: Label de la tranche d'altitude correspondante
+        """
+        # Gestion des valeurs manquantes
+        if pd.isna(altitude):
+            return pd.NA
+        
+        # Attribution de la tranche selon les seuils définis
+        if altitude < 600:
+            return "0-600"
+        elif altitude < 1200:
+            return "600-1200"
+        elif altitude < 1800:
+            return "1200-1800"
+        elif altitude < 2500:
+            return "1800-2500"
+        else:
+            return ">2500m"

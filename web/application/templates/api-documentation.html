@@ -162,16 +162,78 @@ response <- GET(
                         <h2>Paramètres</h2>
                         <div class="sub-form" data-tab="cout_chauffage">
                             <div class="form-input">
-                                <label for="value1">valeur_1</label>
-                                <input type="text" name="valeur_1" id="value1" placeholder="Exemple de valeur">
+                                <label for="surface_habitable_logement">surface_habitable_logement</label>
+                                <input type="number" name="surface_habitable_logement" id="surface_habitable_logement" placeholder="int">
                             </div>
                             <div class="form-input">
-                                <label for="value2">valeur_2</label>
-                                <input type="text" name="valeur_2" id="value2" placeholder="Exemple de valeur">
+                                <label for="altitude">altitude</label>
+                                <input type="number" name="altitude" id="altitude" placeholder="int">
                             </div>
                             <div class="form-input">
-                                <label for="value3">valeur_3</label>
-                                <input type="text" name="valeur_3" id="value3" placeholder="Exemple de valeur">
+                                <label for="annee_construction">annee_construction</label>
+                                <input type="number" name="annee_construction" id="annee_construction" placeholder="int">
+                            </div>
+                            <div class="form-input">
+                                <label for="zone_climatique">zone_climatique</label>
+                                <select name="zone_climatique" id="zone_climatique">
+                                    <option value="H1a">H1a</option>
+                                    <option value="H1b">H1b</option>
+                                    <option value="H1c">H1c</option>
+                                    <option value="H2a">H2a</option>
+                                    <option value="H2b">H2b</option>
+                                    <option value="H2c">H2c</option>
+                                    <option value="H2d">H2d</option>
+                                    <option value="H3">H3</option>
+                                </select>
+                            </div>
+                            <div class="form-input">
+                                <label for="type_batiment">type_batiment</label>
+                                <select name="type_batiment" id="type_batiment">
+                                    <option value="appartement">appartement</option>
+                                    <option value="immeuble">immeuble</option>
+                                    <option value="maison">maison</option>
+                                </select>
+                            </div>
+                            <div class="form-input">
+                                <label for="qualite_isolation_enveloppe">qualite_isolation_enveloppe</label>
+                                <select name="qualite_isolation_enveloppe" id="qualite_isolation_enveloppe">
+                                    <option value="très bonne">très bonne</option>
+                                    <option value="bonne">bonne</option>
+                                    <option value="moyenne">moyenne</option>
+                                    <option value="insuffisante">insuffisante</option>
+                                </select>
+                            </div>
+                            <div class="form-input">
+                                <label for="type_energie_principale_chauffage">type_energie_principale_chauffage</label>
+                                <select name="type_energie_principale_chauffage" id="type_energie_principale_chauffage">
+                                    <option value="Bois – Bûches">Bois – Bûches</option>
+                                    <option value="Bois – Granulés (pellets) ou briquettes">Bois – Granulés (pellets) ou briquettes</option>
+                                    <option value="Bois – Plaquettes d’industrie">Bois – Plaquettes d’industrie</option>
+                                    <option value="Bois – Plaquettes forestières">Bois – Plaquettes forestières</option>
+                                    <option value="Butane">Butane</option>
+                                    <option value="Charbon">Charbon</option>
+                                    <option value="Fioul domestique">Fioul domestique</option>
+                                    <option value="GPL">GPL</option>
+                                    <option value="Propane">Propane</option>
+                                    <option value="Réseau de Chauffage urbain">Réseau de Chauffage urbain</option>
+                                    <option value="Réseau de Froid Urbain">Réseau de Froid Urbain</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <div class="form-input">
+                                    <label for="logement_traversant">logement_traversant</label>
+                                    <select name="logement_traversant" id="logement_traversant">
+                                        <option value="1">1</option>
+                                        <option value="0">0</option>
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="protection_solaire_exterieure">protection_solaire_exterieure</label>
+                                    <select name="protection_solaire_exterieure" id="protection_solaire_exterieure">
+                                        <option value="1">1</option>
+                                        <option value="0">0</option>
+                                    </select>
+                                </div>
                             </div>
                             <button class="main" type="submit">Executer</button>
                         </div>
