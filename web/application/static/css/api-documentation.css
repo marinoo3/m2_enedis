@@ -130,6 +130,11 @@ h1 {
         }
     }
 
+    .container {
+        position: sticky;
+        top: 1rem;
+    }
+
     .response {
 
         .status-code {
@@ -146,7 +151,7 @@ h1 {
         }
     
         .json-wrapper pre {
-            min-height: 120px;
+            min-height: 320px;
         }
     }
 

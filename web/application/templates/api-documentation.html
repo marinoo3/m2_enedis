@@ -316,13 +316,15 @@ response <- GET(
                         </div>
                     </form>
                     <div class="response">
-                        <div class="head">
-                            <h2>Réponse</h2>
-                            <p class="status-code"></p>
-                        </div>
-                        <div class="json-wrapper code">
-                            <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
-                            <pre class="json-content">//</pre>
+                        <div class="container">
+                            <div class="head">
+                                <h2>Réponse</h2>
+                                <p class="status-code"></p>
+                            </div>
+                            <div class="json-wrapper code">
+                                <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
+                                <pre class="json-content">//</pre>
+                            </div>
                         </div>
                     </div>
                 </section>
