@@ -3,6 +3,7 @@ from datetime import datetime
 
 from ..volume import Volume
 from .format import MapFormater, PlotFormater
+from .pipeline import LogementsPipe
 
 
 
@@ -43,6 +44,7 @@ class Data():
         self.communes = self.__load_communes()
         self.cities = self.__load_cities()
         self.logements = self.__load_logements()
+        self.logements_pipe = LogementsPipe(self.cities)
         self.map_formater = MapFormater(self.communes, self.cities)
         self.plot_formater = PlotFormater(self.logements)
 
@@ -54,6 +56,7 @@ class Data():
         return df
     
     def __load_logements(self) -> pd.DataFrame:
+        # TODO: load from volume
         df = pd.read_csv('application/datasets/logement-74-light.csv', dtype={4: str, 5: str})
         return df
     
@@ -104,6 +107,19 @@ class Data():
         # Update MapFormater
         self.map_formater.set_communes(self.communes)
 
+    def update_logements(self, existing_logements:list[dict], new_logements:list[dict]) -> None:
+
+        existing_df = pd.DataFrame(existing_logements)
+        new_df = pd.DataFrame(new_logements)
+        formatted_df = self.logements_pipe.process(existing_df, new_df)
+
+        concated = pd.concat([self.logements, formatted_df], ignore_index=True) # TODO: remove duplicates
+        self.volume.write_logements(concated)
+
+        # Reload logements
+        self.logements = self.__load_logements()
+        # Update plot formater
+        self.plot_formater.set_logements(self.logements)
     
     def get_map(self, filters:list[dict]=None, sort:dict=None) -> list[dict]:
 

@@ -6,9 +6,11 @@ from .api import API
 
 class ENEDIS(API):
 
+    records_endpoint = '/records'
+
     def __init__(self):
         # Pass base_url argument to the parent class
-        super().__init__('https://data.enedis.fr/api/explore/v2.1/catalog/datasets/consommation-annuelle-residentielle-par-adresse/records')
+        super().__init__('https://data.enedis.fr/api/explore/v2.1/catalog/datasets/consommation-annuelle-residentielle-par-adresse')
 
     
     def __loop_API(self, params:dict, limit:int = 100, yield_progress=False) -> list[dict]:
@@ -37,7 +39,7 @@ class ENEDIS(API):
 
             params['limit'] = limit
             params['offset'] = limit * index
-            content = self._get_requests(params=params)
+            content = self._get_requests(self.records_endpoint, params=params)
 
             # yield progress
             if yield_progress:
@@ -68,7 +70,7 @@ class ENEDIS(API):
 
         params['limit'] = limit
         params['offset'] = offset
-        content = self._get_requests(params=params)
+        content = self._get_requests(self.records_endpoint, params=params)
 
         # stop the loop if last page
         stop = False

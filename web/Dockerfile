@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8000
 
 # Run gunicorn when the container launches
-CMD ["gunicorn", "--bind", ":8000", "--timeout", "180", "--worker-tmp-dir", "/tmp", "app:app"]
+CMD ["gunicorn", "--bind", ":8000", "--timeout", "180", "app:app"]

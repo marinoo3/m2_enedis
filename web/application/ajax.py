@@ -1,5 +1,6 @@
 from flask import Blueprint, Response, request, jsonify, stream_with_context, current_app
 import json
+from datetime import datetime
 
 
 
@@ -23,8 +24,17 @@ def update_data() -> Response:
     print('DEBUG: init data update')
 
     def collect():
-        data = yield from current_app.enedis_api.communes(yield_progress=True)
-        current_app.data.update_communes(data)
+
+        # last_update = current_app.data.get_property('update')
+        # date = datetime.strptime(last_update, '%d-%m-%Y')
+
+        enedis_data = yield from current_app.enedis_api.communes(yield_progress=True)
+        current_app.data.update_communes(enedis_data)
+
+        # TODO: Update the logements data, format it with the pipeline and save it to volume
+        # ademe_data = yield from current_app.ademe_api.addresses_from_date(date, yield_progress=True)
+        # current_app.data.update_logements(ademe_data['existing'], ademe_data['new'])
+
         yield 'data:complete\n\n'
 
     return Response(
@@ -35,6 +45,39 @@ def update_data() -> Response:
             'X-Accel-Buffering': 'no'  # for nginx buffering
         }
     )
+
+@ajax.route('/update_data1/', methods=['GET'])
+def update_data1() -> Response:
+
+    """Call Enedis API to update the data and save it on the Koyeb volume
+
+    Returns:
+        Response: A streaming response with MIME type 'text/event-stream' to facilitate stream
+
+    Yields:
+        str: Stream progress in the form of "data:{progress}\n\n" where `progress`
+        is the percentage of completion of the API call
+    """
+
+    print('DEBUG: init data update')
+
+    def collect():
+
+        last_update = current_app.data.get_property('update')
+        date = datetime.strptime(last_update, '%d-%m-%Y')
+
+        enedis_data = yield from current_app.enedis_api.communes(yield_progress=True)
+        current_app.data.update_communes(enedis_data)
+
+        # ademe_existing = current_app.ademe_api.addresses_from_date(date, yield_progress=True)
+        # print(len(ademe_existing))
+        #current_app.data.update_logements(ademe_existing, ademe_new)
+        ## TODO: clean the data here through a pipe line then append to the existing one and save it on the volume
+
+
+    collect()
+
+    return jsonify('complete')
 
 
 @ajax.route('/map_data/', methods=['GET'])

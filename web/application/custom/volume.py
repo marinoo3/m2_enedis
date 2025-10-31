@@ -88,3 +88,14 @@ class Volume:
 
         communes_path = os.path.join(self.mount_path, 'communes.csv')
         communes.to_csv(communes_path, index=False)
+
+    def write_logements(self, logements:pd.DataFrame):
+
+        """Update the logements-74 dataset in Koyeb Volume
+
+        Arguments:
+            communes {pd.DataFrame} -- The new logement dataframe to write in volume
+        """
+
+        logements_path = os.path.join(self.mount_path, 'logements-74-light.csv')
+        logements.to_csv(logements_path, index=False)
