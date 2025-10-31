@@ -25,13 +25,13 @@ def update_data() -> Response:
 
     def collect():
 
-        # last_update = current_app.data.get_property('update')
-        # date = datetime.strptime(last_update, '%d-%m-%Y')
-
         enedis_data = yield from current_app.enedis_api.communes(yield_progress=True)
         current_app.data.update_communes(enedis_data)
 
         # TODO: Update the logements data, format it with the pipeline and save it to volume
+
+        # last_update = current_app.data.get_property('update')
+        # date = datetime.strptime(last_update, '%d-%m-%Y')
         # ademe_data = yield from current_app.ademe_api.addresses_from_date(date, yield_progress=True)
         # current_app.data.update_logements(ademe_data['existing'], ademe_data['new'])
 
@@ -45,39 +45,6 @@ def update_data() -> Response:
             'X-Accel-Buffering': 'no'  # for nginx buffering
         }
     )
-
-@ajax.route('/update_data1/', methods=['GET'])
-def update_data1() -> Response:
-
-    """Call Enedis API to update the data and save it on the Koyeb volume
-
-    Returns:
-        Response: A streaming response with MIME type 'text/event-stream' to facilitate stream
-
-    Yields:
-        str: Stream progress in the form of "data:{progress}\n\n" where `progress`
-        is the percentage of completion of the API call
-    """
-
-    print('DEBUG: init data update')
-
-    def collect():
-
-        last_update = current_app.data.get_property('update')
-        date = datetime.strptime(last_update, '%d-%m-%Y')
-
-        enedis_data = yield from current_app.enedis_api.communes(yield_progress=True)
-        current_app.data.update_communes(enedis_data)
-
-        # ademe_existing = current_app.ademe_api.addresses_from_date(date, yield_progress=True)
-        # print(len(ademe_existing))
-        #current_app.data.update_logements(ademe_existing, ademe_new)
-        ## TODO: clean the data here through a pipe line then append to the existing one and save it on the volume
-
-
-    collect()
-
-    return jsonify('complete')
 
 
 @ajax.route('/map_data/', methods=['GET'])
@@ -165,3 +132,28 @@ def zoomed_map_data() -> Response:
             'X-Accel-Buffering': 'no'  # helps bypass nginx buffering
         }
     )
+
+
+@ajax.route('/predict/', methods=['GET'])
+def predict() -> Response:
+
+    values = request.args.to_dict()
+    # convert coordinates to float
+    values['latitude'] = float(values['latitude'])
+    values['longitude'] = float(values['longitude'])
+
+    # Collect data from cities dataset
+    insee = current_app.data.get_nearest_insee(values['latitude'], values['longitude'])
+    data = current_app.data.get_from_insee(insee)
+    periode = current_app.compute_perdiode_class(values['annee_construction'])
+
+    # Add data to the model values
+    values['zone_climatique'] = data['zone_climatique']
+    values['classe_altitude'] = data['classe_altitude']
+    values['periode_construction'] = periode
+
+    # Inference on the models
+    cout = current_app.models.predict_cout(values)
+    passoire = current_app.models.predict_passoire(values)
+
+    return jsonify({'cout': cout, 'passoire': passoire})

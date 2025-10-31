@@ -10,22 +10,7 @@ const playgroundRequestsForms = document.querySelector('#requests form');
 
 
 
-// const data = {
-//     inference_time_sec: 0.1,
-//     result: {
-//         prediction: {
-//             cout_chauffage_eur: 20
-//         },
-//         informations: {
-//             adresse: "30 rue de la République, 69001 Lyon",
-//             insee: 69123,
-//             coordinates: {
-//                 longitude: 34.564830,
-//                 latitude: 4.586023
-//             }
-//         }
-//     }
-// }
+
 
 // Function to get the values of active playground subform
 function getSubFormValues() {
@@ -95,8 +80,6 @@ function syntaxHighlight(json) {
     });
 }
 
-// var str = JSON.stringify(data, undefined, 4);
-// jsonContainer.innerHTML = syntaxHighlight(str);
 
 
 

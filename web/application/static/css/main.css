@@ -209,6 +209,7 @@ input {
 
     margin-bottom: 1rem;
     width: 100%;
+    flex: 1;
 
     input {
         background-color: var(--bg-color);

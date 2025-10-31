@@ -1,4 +1,5 @@
 import pandas as pd
+from scipy.spatial.distance import cdist
 from datetime import datetime
 
 from ..volume import Volume
@@ -52,7 +53,7 @@ class Data():
         return self.volume.read_communes()
     
     def __load_cities(self) -> pd.DataFrame:
-        df = pd.read_csv('application/datasets/communes-france-2025-light.csv', dtype={1: str})
+        df = pd.read_csv('application/datasets/communes-france-2025-light.csv', dtype={0: str, 1: float, 2: float})
         return df
     
     def __load_logements(self) -> pd.DataFrame:
@@ -164,3 +165,68 @@ class Data():
 
         data = self.plot_formater.get_selected(filters)
         return data
+    
+    def get_nearest_insee(self, latitude:float, longitude:float) -> int:
+
+        """Find the nearest insee code from `communes-france-2025` dataset by latitude and longitude
+
+        Arguments:
+            latitude {float} -- Target latitude
+            longitude {float} -- Target longitude
+
+        Returns:
+            int: Nearest insee code
+        """
+
+        # Skip communes with missing coordinates
+        cities = self.cities.dropna(subset=['latitude_centre', 'longitude_centre'])
+
+        # Extract coordinates from DataFrame
+        coords = cities[['latitude_centre', 'longitude_centre']].values
+        # Calculate distances
+        distances = cdist([(latitude, longitude)], coords, metric='euclidean')
+
+        # Find the index of the nearest point
+        min_index = distances.argmin()
+        # Get the insee code of the nearest point
+        nearest_code = cities.iloc[min_index]['code_insee']
+
+        return int(nearest_code)
+    
+    def get_from_insee(self, insee:int) -> dict:
+
+        """Retrieve data from `communes-france-2025` dataset by insee code
+
+        Arguments:
+            insee {int} -- Target insee code
+
+        Returns:
+            dict: Data of the insee code
+        """
+
+        serie = self.cities[self.cities['code_insee'] == str(insee)]
+        return serie.to_dict(orient='records')[0]
+    
+    def compute_perdiode_class(self, year:int) -> str:
+
+        """Classify a year into a periode
+        
+        Arguments:
+            year {int} -- Year to classify
+
+        Returns:
+            str: The perdiode
+        """
+
+        # Avant 1975 (première réglementation thermique)
+        if year < 1975:
+            return 'Avant 1975' 
+        # 1975-2000 (RT 1974, 1988, 2000)
+        elif year <= 2000:
+            return '1975-2000'
+        # 2001-2012 (RT 2005, 2012)
+        elif year <= 2012:
+            return '2001-2012'
+        # Après 2012 (RT 2012, RE 2020)
+        else:
+            return 'Après 2012'

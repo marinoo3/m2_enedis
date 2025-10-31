@@ -27,19 +27,70 @@
                 <section>
                     <h1>Informations du logement</h1>
                     <div id="map"></div>
-                    <form action="">
+                    <form action="" id="predict-form">
                         <div class="form-input">
-                            <label for="value1">Valeur 1</label>
-                            <input type="text" name="value1" id="value1" placeholder="Exemple de valeur">
+                            <label for="address">Code postal</label>
+                            <input type="numeric" name="address" id="address" placeholder="69001">
                         </div>
                         <div class="input-group">
                             <div class="form-input">
-                                <label for="value2">Valeur 2</label>
-                                <input type="text" name="value2" id="value2" placeholder="Exemple de valeur">
+                                <label for="surface_habitable_logement">Surface habitable (m2)</label>
+                                <input type="number" name="surface_habitable_logement" id="surface_habitable_logement" placeholder="75">
                             </div>
                             <div class="form-input">
-                                <label for="value3">Valeur 3</label>
-                                <input type="text" name="value3" id="value3" placeholder="Exemple de valeur">
+                                <label for="annee_construction">Année de construction</label>
+                                <input type="number" name="annee_construction" id="annee_construction" placeholder="2010">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="form-input">
+                                <label for="type_batiment">Type de batiment</label>
+                                <select name="type_batiment" id="type_batiment">
+                                    <option value="appartement">Appartement</option>
+                                    <option value="immeuble">Immeuble</option>
+                                    <option value="maison">Maison</option>
+                                </select>
+                            </div>
+                            <div class="form-input">
+                                <label for="qualite_isolation_enveloppe">Qualité d'isolation (enveloppe)</label>
+                                <select name="qualite_isolation_enveloppe" id="qualite_isolation_enveloppe">
+                                    <option value="très bonne">Très bonne</option>
+                                    <option value="bonne">Bonne</option>
+                                    <option value="moyenne">Moyenne</option>
+                                    <option value="insuffisante">Insuffisante</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="form-input">
+                                <label for="type_energie_principale_chauffage">Type d'énergie de chauffage</label>
+                                <select name="type_energie_principale_chauffage" id="type_energie_principale_chauffage">
+                                    <option value="Bois – Bûches">Bois – Bûches</option>
+                                    <option value="Bois – Granulés (pellets) ou briquettes">Bois – Granulés (pellets) ou briquettes</option>
+                                    <option value="Bois – Plaquettes d’industrie">Bois – Plaquettes d’industrie</option>
+                                    <option value="Bois – Plaquettes forestières">Bois – Plaquettes forestières</option>
+                                    <option value="Butane">Butane</option>
+                                    <option value="Charbon">Charbon</option>
+                                    <option value="Fioul domestique">Fioul domestique</option>
+                                    <option value="GPL">GPL</option>
+                                    <option value="Propane">Propane</option>
+                                    <option value="Réseau de Chauffage urbain">Réseau de Chauffage urbain</option>
+                                    <option value="Réseau de Froid Urbain">Réseau de Froid Urbain</option>
+                                </select>
+                            </div>
+                            <div class="form-input">
+                                <label for="logement_traversant">Logement traversant</label>
+                                <select name="logement_traversant" id="logement_traversant">
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="protection_solaire_exterieure">Isolation exterieur</label>
+                                <select name="protection_solaire_exterieure" id="protection_solaire_exterieure">
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
                             </div>
                         </div>
                         <button class="main" type="submit">Predire</button>
@@ -56,6 +107,8 @@
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<!-- Leaflet Geosearch plugin JS -->
+<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
 <!-- Custom JS -->
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
