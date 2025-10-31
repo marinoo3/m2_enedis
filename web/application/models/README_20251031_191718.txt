@@ -1,0 +1,68 @@
+
+# Modèles User-Friendly pour Webapp
+Date de génération : 20251031_191718
+
+## Modèles sauvegardés
+
+### 1. RÉGRESSION (Prédiction consommation)
+- Modèle : RandomForest
+- R² Score : 0.5924
+- RMSE : 35,350.93 kWh/m²/an
+- Fichier : regression_randomforest_20251031_191718.pkl
+
+### 2. CLASSIFICATION (Détection passoires DPE F/G)
+- Modèle : RandomForest
+- ROC-AUC : 0.9310
+- F1-Score : 0.6053
+- Fichier : classification_randomforest_20251031_191718.pkl
+
+## Features utilisées (9)
+1. surface_habitable_logement
+2. periode_construction
+3. type_batiment
+4. qualite_isolation_enveloppe
+5. type_energie_principale_chauffage
+6. logement_traversant
+7. protection_solaire_exterieure
+8. zone_climatique
+9. classe_altitude
+
+## Utilisation dans la webapp
+
+```python
+import joblib
+import pandas as pd
+
+# Charger le modèle
+model = joblib.load('regression_{best_reg_model_name.lower()}_{timestamp}.pkl')
+
+# Préparer les données utilisateur
+user_data = pd.DataFrame({{
+    'surface_habitable_logement': [85.0],
+    'periode_construction': ['1990-2000'],
+    # ... autres features
+}})
+
+# Mode / Mediane des features pour les valeurs non fournies
+✓ surface_habitable_logement                         =           66.00  (médiane)
+✓ periode_construction                               =       1948-1974  (mode - 21.8%)
+✓ type_batiment                                      =     appartement  (mode - 80.2%)
+✓ qualite_isolation_enveloppe                        =           bonne  (mode - 29.6%)
+✓ type_energie_principale_chauffage                  =     Gaz naturel  (mode - 40.1%)
+✓ logement_traversant                                =             1.0  (mode - 63.5% de 1)
+✓ protection_solaire_exterieure                      =             1.0  (mode - 62.2% de 1)
+✓ zone_climatique                                    =             H1c  (mode - 88.9%)
+✓ classe_altitude                                    =        400-800m  (mode - 70.5%)
+
+# Prédire
+prediction = model.predict(user_data)
+print(f"Consommation prédite : {{prediction[0]:,.0f}} kWh/m²/an")
+```
+
+## Notes importantes
+- Le modèle inclut déjà le preprocessing (ColumnTransformer)
+- Les features doivent être dans le même ordre que lors de l'entraînement
+- Les valeurs manquantes seront imputées automatiquement
+- Variables binaires : 0/1 (float ou int)
+- Variables catégorielles : strings exactes
+
