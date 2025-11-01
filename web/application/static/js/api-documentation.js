@@ -1,5 +1,5 @@
 let baseURL = 'https://france-energie.koyeb.app/api/v1'
-// baseURL = 'api/v1' // TRY IT OUT ONLY !!!
+baseURL = 'api/v1' // TRY IT OUT ONLY !!!
 
 // Playground
 const statusCodeElement = document.querySelector('.status-code');
@@ -96,6 +96,9 @@ function syntaxHighlight(json) {
 const playgroundTabs = playgroundTabsForm.querySelectorAll('li');
 playgroundTabs.forEach(tab => {
     tab.addEventListener('click', () => {
+
+        // Empty response preview
+        jsonContainer.textContent = '//';
 
         const endpoint = tab.dataset.view;
         playgroundRequestsForms.dataset.tabView = endpoint;
