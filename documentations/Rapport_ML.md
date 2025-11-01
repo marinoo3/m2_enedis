@@ -251,9 +251,9 @@ Pipeline([
 ### 3.1 Résultats de la Cross-Validation
 #### **Régression (36 features - modèle de référence)**
 
-================================================================================
-RÉSUMÉ DES RÉSULTATS - RÉGRESSION
-================================================================================
+
+##### **RÉSUMÉ DES RÉSULTATS - RÉGRESSION**
+
           Modèle         RMSE          MAE       R²
 GradientBoosting 15859.252033  4491.280118 0.917968
          XGBoost 15939.436265  4503.246191 0.917137
@@ -264,9 +264,9 @@ GradientBoosting 15859.252033  4491.280118 0.917968
 
 #### **Régression (9 features - modèle simplifié)**
 
-================================================================================
-RÉSUMÉ DES PERFORMANCES (USER-FRIENDLY)
-================================================================================
+
+##### **RÉSUMÉ DES PERFORMANCES (USER-FRIENDLY)**
+
 
           Modèle R² Train R² Test RMSE Train RMSE Test MAE Train MAE Test Temps (s)
            Ridge   0.4646  0.4094     40,996    42,553    10,987   10,934      5.74
@@ -282,9 +282,9 @@ GradientBoosting   0.6945  0.5883     30,967    35,530     6,703    6,915    157
 
 #### **Classification (10 features)**
 
-================================================================================
-RÉSUMÉ - MODÈLES CLASSIFICATION (10 FEATURES)
-================================================================================
+
+##### **RÉSUMÉ - MODÈLES CLASSIFICATION (10 FEATURES)**
+
             Modèle  Accuracy  Precision   Recall  F1-Score  ROC-AUC  Temps (s)
       RandomForest  0.827253   0.455997 0.899983  0.605303 0.930999  54.286304
   GradientBoosting  0.895729   0.725911 0.468411  0.569402 0.928165 119.644875
