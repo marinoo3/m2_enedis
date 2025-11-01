@@ -64,7 +64,7 @@ une fois cette étape réalisée, les variables ont été réduites d'avantage p
 'surface_habitable_desservie_par_installation_ecs_n1'
 qui sont dans la majeure partie des cas extremement proche de la surface du logement elle même)
 
-![Graphique du VIF des différentes variables](image-2.png)
+![Graphique du VIF des différentes variables](plot_VIF.png)
 
 **Résultat Phase 1** : 36 features sélectionnées, performance de référence établie
 
@@ -277,7 +277,7 @@ GradientBoosting   0.6945  0.5883     30,967    35,530     6,703    6,915    157
 
 #### Comparatif des performances (36 vs 9 features)
 
-![graphiques de comparaison des performances des deux modèles](image-3.png)
+![graphiques de comparaison des performances des deux modèles](plot_comparaison.png)
 
 
 #### **Classification (10 features)**
@@ -298,7 +298,7 @@ Gradient boosting est le modèle avec la meilleur accuracy, mais avec un recall 
 XGBoost offre des performances intermédiaires. avec le meilleur F1-score (0.629) il aurait pu être un bon choix si l'on cherchait a prioriser le f1-score pour un modèle plus équilibré entre precision et recall.
 
 
-![Graphique des performances des modèles de classification](image-4.png)
+![Graphique des performances des modèles de classification](plot_classification.png)
 
 ### 3.3 Analyse comparative
 
