@@ -1,6 +1,5 @@
 from flask import Blueprint, Response, request, jsonify, stream_with_context, current_app
 import json
-from datetime import datetime
 
 
 
@@ -137,6 +136,15 @@ def zoomed_map_data() -> Response:
 @ajax.route('/predict', methods=['GET'])
 def predict() -> Response:
 
+    """Run inference on models from user inputs
+
+    Args:
+        User form values
+
+    Returns:
+        json: consommation and passoire results
+    """
+
     values = request.args.to_dict()
     # convert coordinates to float
     values['latitude'] = float(values['latitude'])
@@ -156,9 +164,10 @@ def predict() -> Response:
     values['periode_construction'] = periode
 
     # Inference on the models
-    cout, _ = current_app.models.predict_cout(values)
+    consommation, _ = current_app.models.predict_consommation(values)
     passoire, _ = current_app.models.predict_passoire(values)
 
-    print(cout, passoire)
+    # Round up consommation value
+    consommation = round(consommation)
 
-    return jsonify({'cout': cout, 'passoire': passoire})
+    return jsonify({'consommation': consommation, 'passoire': passoire})

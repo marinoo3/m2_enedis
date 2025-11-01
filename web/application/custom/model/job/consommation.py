@@ -1,7 +1,7 @@
 from .model import Model
 
 
-class CoutModel(Model):
+class ConsommationModel(Model):
 
     pickle_name = 'regression_randomforest_20251031_191718.pkl'
 

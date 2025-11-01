@@ -112,7 +112,7 @@ h1 {
     form .sub-form {
         display: none;
     }
-    form[data-tab-view="cout_chauffage"] .sub-form[data-tab="cout_chauffage"] {
+    form[data-tab-view="consommation_chauffage"] .sub-form[data-tab="consommation_chauffage"] {
         display: block;
     }
     form[data-tab-view="etiquette_dpe"] .sub-form[data-tab="etiquette_dpe"] {

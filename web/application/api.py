@@ -31,9 +31,9 @@ def check_arguments(model:str):
 
 
 
-@api.route('/cout_chauffage')
-@check_arguments('cout')
-def cout_chauffage():
+@api.route('/consommation_chauffage')
+@check_arguments('consommation')
+def consommation_chauffage():
 
     values = request.args.to_dict()
     # convert to numeric
@@ -48,7 +48,7 @@ def cout_chauffage():
     values['classe_altitude'] = altitude_class
 
     # Inference
-    cout, time = current_app.models.predict_cout(values)
+    consommation, time = current_app.models.predict_consommation(values)
 
     # TODO: process value_1, value_2 and value_3 to get the data
     
@@ -57,7 +57,7 @@ def cout_chauffage():
         'inference_time_sec': time,
         'result': {
             'prediction': {
-                'cout_chauffage_eur': cout
+                'consommation_chauffage_kwh': consommation
             },
             'inputs': values
         }

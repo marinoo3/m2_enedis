@@ -1,4 +1,4 @@
-from .job import CoutModel, PassoireModel
+from .job import ConsommationModel, PassoireModel
 
 import time
 
@@ -16,15 +16,15 @@ Docstrings in this class endup epic
 
 class ModelsManager():
 
-    cout = CoutModel()
+    consommation = ConsommationModel()
     passoire = PassoireModel()
 
-    def load_cout(self) -> None:
+    def load_consommation(self) -> None:
 
-        """Load CoutModel is not loaded yet"""
+        """Load ConsommationModel is not loaded yet"""
 
-        if self.cout.model is None:
-            self.cout.load()
+        if self.consommation.model is None:
+            self.consommation.load()
 
     def load_passoire(self) -> None:
 
@@ -38,34 +38,34 @@ class ModelsManager():
         """Retrive a dict of features from a model
 
         Arguments:
-            model {str} -- the name of the model ['cout', 'passoire']
+            model {str} -- the name of the model ['consommation', 'passoire']
 
         Returns:
             dict: Features of the model
         """
 
-        if model == 'cout':
-            return self.cout.features.copy()
+        if model == 'consommation':
+            return self.consommation.features.copy()
         elif model == 'passoire':
             return self.passoire.features.copy()
 
-    def predict_cout(self, values) -> tuple[float, float]:
+    def predict_consommation(self, values) -> tuple[float, float]:
 
-        """Predict the cost of the accomodation
+        """Predict the consumption of the accomodation
 
         Arguments:
             values {dict} -- The accomodation values to pass to the model
 
         Returns:
-            float: Predicted cost
+            float: Predicted consumption
             float: Inference duration
         """
 
-        # Load CoutModel if not loaded yet
-        self.load_cout()
+        # Load ConsommationModel if not loaded yet
+        self.load_consommation()
 
         start_time = time.perf_counter()
-        response = self.cout.predict(values)
+        response = self.consommation.predict(values)
         total_time = round(time.perf_counter() - start_time, 3)
 
         return response['result'], total_time
@@ -82,7 +82,7 @@ class ModelsManager():
             float: Inference duration
         """
 
-        # Load CoutModel if not loaded yet
+        # Load PassoireModel if not loaded yet
         self.load_passoire()
 
         start_time = time.perf_counter()

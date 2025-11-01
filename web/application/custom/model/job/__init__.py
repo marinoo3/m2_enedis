@@ -1,2 +1,2 @@
-from .cout import CoutModel
+from .consommation import ConsommationModel
 from .passoire import PassoireModel

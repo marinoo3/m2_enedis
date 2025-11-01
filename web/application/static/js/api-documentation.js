@@ -47,8 +47,10 @@ function getRequestsURL(endpoint, values) {
 // Function to request an API call
 async function requestsAPI(url) {
 
+    console.log(url);
+
     try {
-        const response = await fetch(url,  {
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

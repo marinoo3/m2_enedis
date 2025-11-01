@@ -12,12 +12,111 @@ h1 {
     margin-bottom: 2rem;
 }
 
+h2 {
+    margin-bottom: .5rem;
+}
+
 
 #map {
     height: 250px;
     border-radius: var(--border-radius);
     margin-bottom: 1rem;
 }
+
+
+
+.content.result {
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        border: solid 1px var(--border-color);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+    }
+
+    .dpe {
+
+        margin-top: 2rem;
+
+        .container {
+            justify-content: space-between;
+        }
+
+        .etiquettes li {
+            width: fit-content;
+            overflow: hidden;
+
+            img {
+                margin-left: -100%;
+                opacity: .2;
+                transition: margin .5s ease;
+            }
+        }
+
+        .is-passoire {
+
+            opacity: 0;
+            transition: opacity .5s ease;
+
+            p {
+                display: none;
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .dpe[data-selection="passoire"], .dpe[data-selection="non-passoire"] {
+
+        .etiquettes li img {
+            margin-left: 0;
+        }
+
+        .is-passoire {
+            opacity: 1;
+        }
+    }
+
+    .dpe[data-selection="non-passoire"] {
+
+        .etiquettes li.non-passoire img {
+            opacity: 1;
+        }
+
+        .is-passoire p.non-passoire {
+            display: block;
+        }
+    }
+    .dpe[data-selection="passoire"] {
+
+        .etiquettes li.passoire img {
+            opacity: 1;
+        }
+
+        .is-passoire p.passoire {
+            display: block;
+        }
+    }
+
+    .consommation {
+
+        margin-top: 2rem;
+
+        .euro {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+    }
+
+} 
+
+
+
 
 
 button.main {

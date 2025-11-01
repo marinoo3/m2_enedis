@@ -8,9 +8,13 @@ const provider = new GeoSearch.OpenStreetMapProvider();
 const mapElement = document.querySelector('#map');
 // Form
 const form = document.querySelector('#predict-form');
+let place = null;
+// DPE
+const dpeElement = document.querySelector('.result .dpe');
+const euroElement = document.querySelector('.result .consommation .euro');
 
 
-
+dpeElement
 
 
 // Function to requests python predict
@@ -31,7 +35,36 @@ async function fetchPredict(values) {
     return content
 }
 
+// Function to update the result on the HTML
+function updateResult(result) {
 
+    let dpe_type = 'passoire';
+
+    if (result.passoire == false) {
+        dpe_type = 'non-passoire';
+    }
+
+    dpeElement.dataset.selection = dpe_type;
+    euroElement.textContent = result.consommation;
+}
+
+
+
+// Search place when searching postal code
+const searchInput = form.querySelector('#address');
+searchInput.addEventListener('change', async function(event) {
+
+    const address = event.currentTarget.value + ', France'
+
+    // Store first result in `place`
+    const results = await provider.search({ query: address + ', France' });
+    place = results[0];
+
+    // Add point marker to map
+    map.fitBounds(place.bounds);
+    const marker = L.marker([place.y, place.x]).addTo(map);
+    marker.bindPopup(`<h1>${address}</h1><p>${place.label}</p>`);
+});
 
 
 // Predict on form submit
@@ -47,19 +80,11 @@ form.addEventListener('submit', async function(event) {
         formValues[key] = value;
     });
 
-    // Get coordinates from address
-    const results = await provider.search({ query: formValues.address + ', France' });
-    const place = results[0];
-
     // Add coordinates to formValues
     formValues['latitude'] = place.y;
     formValues['longitude'] = place.x;
 
-    // Add marker to map
-    map.fitBounds(place.bounds);
-    const marker = L.marker([place.y, place.x]).addTo(map);
-    marker.bindPopup(`<h1>${place.label}</h1>`);
-
     // Call python to predict results
     const result = await fetchPredict(formValues);
+    updateResult(result);
 })

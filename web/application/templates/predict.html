@@ -29,8 +29,8 @@
                     <div id="map"></div>
                     <form action="" id="predict-form">
                         <div class="form-input">
-                            <label for="address">Code postal</label>
-                            <input type="numeric" name="address" id="address" placeholder="69001" required>
+                            <label for="address">Adresse ou code postal</label>
+                            <input type="text" name="address" id="address" placeholder="69001" required>
                         </div>
                         <div class="input-group">
                             <div class="form-input">
@@ -88,9 +88,36 @@
                     </form>
                 </section>
             </div>
-            <div class="content regression">
+            <div class="content result">
                 <section>
                     <h1>Prédictions</h1>
+                    <div class="dpe">
+                        <h2>Etiquette DPE</h2>
+                        <label for="">Votre logement est-il une passoire énergétique ? Le diagnostic de performance énergétique permet d'estimer la consommation d'un logement. Les scores F et G sont considérés comme passoires énergétiques.</label>
+                        <div class="container">
+                            <ul class="etiquettes">
+                                <li class="non-passoire"><img src="{{ url_for('static', filename='images/etiquette_A.svg') }}" alt="" height="40px"></li>
+                                <li class="non-passoire"><img src="{{ url_for('static', filename='images/etiquette_B.svg') }}" alt="" height="40px"></li>
+                                <li class="non-passoire"><img src="{{ url_for('static', filename='images/etiquette_C.svg') }}" alt="" height="40px"></li>
+                                <li class="non-passoire"><img src="{{ url_for('static', filename='images/etiquette_D.svg') }}" alt="" height="40px"></li>
+                                <li class="non-passoire"><img src="{{ url_for('static', filename='images/etiquette_E.svg') }}" alt="" height="40px"></li>
+                                <li class="passoire"><img src="{{ url_for('static', filename='images/etiquette_F.svg') }}" alt="" height="40px"></li>
+                                <li class="passoire"><img src="{{ url_for('static', filename='images/etiquette_G.svg') }}" alt="" height="40px"></li>
+                            </ul>
+                            <div class="is-passoire">
+                                <p class="non-passoire">👍 Pas une passoire</p>
+                                <p class="passoire">👎 Passoire</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="consommation">
+                        <h2>Consomation de chauffage</h2>
+                        <label for="">À combien s'élève l'estimation de votre consommation de chauffage annuelle en kWh ?</label>
+                        <div class="container">
+                            <p class="euro">--</p>
+                            <p>kwh</p>
+                        </div>
+                    </div>                 
                 </section>
             </div>
         </div>
