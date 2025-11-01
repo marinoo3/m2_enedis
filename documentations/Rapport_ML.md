@@ -252,27 +252,25 @@ Pipeline([
 #### **Régression (36 features - modèle de référence)**
 
 
-##### **RÉSUMÉ DES RÉSULTATS - RÉGRESSION**
-
-          Modèle         RMSE          MAE       R²
-GradientBoosting 15859.252033  4491.280118 0.917968
-         XGBoost 15939.436265  4503.246191 0.917137
-    RandomForest 26427.912160  5212.191746 0.772206
-           Ridge 39335.147997 10277.786640 0.495363
+| Modèle | RMSE | MAE | R² |
+|--------|------|-----|-----|
+| GradientBoosting | 15,859 | 4,491 | 0.918 |
+| XGBoost | 15,939 | 4,503 | 0.917 |
+| RandomForest | 26,428 | 5,212 | 0.772 |
+| Ridge | 39,335 | 10,278 | 0.495 |
 
 **→ Gradient Boosting** montre la meilleure capacité de généralisation.
 
 #### **Régression (9 features - modèle simplifié)**
 
 
-##### **RÉSUMÉ DES PERFORMANCES (USER-FRIENDLY)**
+| Modèle | R² Train | R² Test | RMSE Train | RMSE Test | MAE Train | MAE Test | Temps (s) |
+|--------|----------|---------|------------|-----------|-----------|----------|-----------|
+| Ridge | 0.465 | 0.409 | 40,996 | 42,553 | 10,987 | 10,934 | 5.74 |
+| RandomForest | 0.673 | 0.592 | 32,034 | 35,351 | 6,007 | 6,544 | 25.87 |
+| GradientBoosting | 0.695 | 0.588 | 30,967 | 35,530 | 6,703 | 6,915 | 157.53 |
+| XGBoost | 0.613 | 0.583 | 34,850 | 35,757 | 6,853 | 7,024 | 34.96 |
 
-
-          Modèle R² Train R² Test RMSE Train RMSE Test MAE Train MAE Test Temps (s)
-           Ridge   0.4646  0.4094     40,996    42,553    10,987   10,934      5.74
-    RandomForest   0.6731  0.5924     32,034    35,351     6,007    6,544     25.87
-GradientBoosting   0.6945  0.5883     30,967    35,530     6,703    6,915    157.53
-         XGBoost   0.6131  0.5830     34,850    35,757     6,853    7,024     34.96
 **→ Random Forest** et **Gradient Boosting** restent performants malgré la réduction des features. Random Forest étant plus rapide à entraîner ce sera le modèle retenu pour l'application web.
 
 #### Comparatif des performances (36 vs 9 features)
@@ -283,13 +281,12 @@ GradientBoosting   0.6945  0.5883     30,967    35,530     6,703    6,915    157
 #### **Classification (10 features)**
 
 
-##### **RÉSUMÉ - MODÈLES CLASSIFICATION (10 FEATURES)**
-
-            Modèle  Accuracy  Precision   Recall  F1-Score  ROC-AUC  Temps (s)
-      RandomForest  0.827253   0.455997 0.899983  0.605303 0.930999  54.286304
-  GradientBoosting  0.895729   0.725911 0.468411  0.569402 0.928165 119.644875
-           XGBoost  0.883339   0.591176 0.672279  0.629124 0.926439  62.221985
-LogisticRegression  0.888221   0.670527 0.472912  0.554643 0.915158  10.153797
+| Modèle | Accuracy | Precision | Recall | F1-Score | ROC-AUC | Temps (s) |
+|--------|----------|-----------|--------|----------|---------|-----------|
+| RandomForest | 0.827 | 0.456 | 0.900 | 0.605 | 0.931 | 54.29 |
+| GradientBoosting | 0.896 | 0.726 | 0.468 | 0.569 | 0.928 | 119.64 |
+| XGBoost | 0.883 | 0.591 | 0.672 | 0.629 | 0.926 | 62.22 |
+| LogisticRegression | 0.888 | 0.671 | 0.473 | 0.555 | 0.915 | 10.15 |
 
 **→ Random Forest** offre le meilleur compromis entre précision et rappel, crucial pour la détection des passoires énergétiques.
 
