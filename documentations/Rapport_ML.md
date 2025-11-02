@@ -18,8 +18,7 @@ L'application web impose d'utiliser un modèle de machine learning avec des cont
 
 ### 1.3 Dataset
 
-<!-- A faire revoir par Marin sur les précisions à apporter -->
-- **Source** : `logements_74.csv` - Données issues de l'API de l'ADEME (Agence de la transition écologique) enrichies avec des données géographiques
+- **Source** : `logements_74.csv` - Données issues de l'API de l'ADEME (Agence de la transition écologique) enrichies avec des données géographiques issues du dataset [communes-france-2025.csv](https://www.data.gouv.fr/datasets/communes-et-villes-de-france-en-csv-excel-json-parquet-et-feather/)
 - **Taille** : 203 792 observations (logements)
 - **Variables initiales** : 236 colonnes
 - **Cible régression** : `conso_5_usages_ep` (consommation énergétique en kWhep/an)
@@ -449,5 +448,6 @@ L'application permettra aux utilisateurs de :
 ### 5.4 Bilan final
 
 Nous avons développé deux modèles Random Forest pour prédire la consommation énergétique et détecter les passoires énergétiques à partir de seulement 9 variables accessibles aux utilisateurs (contre 236 initialement). Le modèle de régression affiche une erreur moyenne de ±35 000 kWhep/an avec un R² de 0.59 : cela reste correct pour une estimation approximative, mais necessiterait d'être complété par des données supplémentaires pour une prédiction plus précise (ex : Conso energetique finale, conso energetique par m2, etc...). Le modèle de classification détecte correctement 90% des vraies passoires énergétiques (F/G) avec un ROC-AUC de 0.93, ce qui en fait un excellent outil de détection. En résumé : la classification est performante pour identifier les passoires, tandis que la régression fournit un ordre de grandeur satisfaisant de la consommation, compte tenu de la forte simplification du modèle (9 variables sur les 236 présentes dans le jeu de données).
+
 
 
