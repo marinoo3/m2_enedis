@@ -69,7 +69,7 @@ class Box(Plot):
             # Titre
             title={
                 'text': (
-                    '<b>Distribution de la consommation énergétique par tranche d\'altitude</b><br>'
+                    '<b>Distribution de la consommation énergétique<br>par tranche d\'altitude</b><br>'
                     '<sub>Département Haute-Savoie (74)</sub>'
                 ),
                 'font': {'size': 22, 'family': 'Arial, sans-serif', 'color': '#2c3e50'},

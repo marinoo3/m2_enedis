@@ -11,7 +11,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/predict.css') }}">
-    <!-- <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.jpg') }}"> -->
+    <link rel="icon" type="" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <title>France Energie - Prédictions DPE et Consomation</title>
 </head>
 
@@ -44,7 +44,7 @@
                         </div>
                         <div class="input-group">
                             <div class="form-input">
-                                <label for="type_batiment">Type de batiment</label>
+                                <label for="type_batiment">Type de bâtiment</label>
                                 <select name="type_batiment" id="type_batiment">
                                     <option value="appartement">Appartement</option>
                                     <option value="immeuble">Immeuble</option>
@@ -77,7 +77,7 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="protection_solaire_exterieure">Isolation exterieur</label>
+                                <label for="protection_solaire_exterieure">Isolation extérieure</label>
                                 <select name="protection_solaire_exterieure" id="protection_solaire_exterieure">
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
