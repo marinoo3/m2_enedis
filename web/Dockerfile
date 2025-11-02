@@ -1,23 +1,25 @@
 FROM python:3.10.6
-RUN mkdir -p /tmp && chmod -R 1777 /tmp
 
-# Set environment to non-interactive
-ENV PYTHONUNBUFFERED=1
-
-# Set work directory
+# Set the working directory
 WORKDIR /app
 
-# Copy requirements.txt
-COPY requirements.txt .
+# Copy the requirements file into the container
+COPY web/requirements.txt .
 
-# Install dependencies
+# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source files
-COPY . .
+# Copy the application code into the container
+COPY web/ .
 
-# Expose the port gunicorn will run on
+# Set the environment variable for the volume
+ENV MOUNT_PATH=/app/volume
+
+# Create the volume directory
+RUN mkdir -p $MOUNT_PATH
+
+# Expose the port the app runs on
 EXPOSE 8000
 
-# Run gunicorn when the container launches
+# Run the application with Gunicorn
 CMD ["gunicorn", "--bind", ":8000", "--timeout", "180", "app:app"]
