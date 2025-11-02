@@ -64,7 +64,8 @@ python app.py
 ## Cahier des charges
 
 ![charge_1](https://github.com/user-attachments/assets/aa0d8716-70fc-40de-98e3-9a2aa5f333e5)
-![charge_2](https://github.com/user-attachments/assets/981dfeb0-ea55-4bca-b54e-2fcde34ef018)
+![charge 2](https://github.com/user-attachments/assets/177a3d8d-04e9-4ee7-b29c-0d9a7fc16167)
+
 
 
 <br>
