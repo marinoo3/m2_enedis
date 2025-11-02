@@ -34,7 +34,7 @@ Le backend, construit avec Flask, utilise des blueprints pour structurer les dif
 
 ## REST API
 
-L’API, également développée avec Flask, expose publiquement les modèles de machine learning. Elle est accessible depuis la route `/api/v1` et comprend deux endpoints qui permettent d’inférence sur les modèle avec les variables renseignées par l’utilisateur. Renvoi le résultat au format JSON.
+L'API, également développée avec Flask, expose publiquement les modèles de machine learning. Elle est accessible depuis la route /api/v1 et comprend deux endpoints qui permettent de faire de l'inférence sur les modèles avec les variables renseignées par l'utilisateur. Elle renvoie le résultat au format JSON.
 
 ## Packages utilisés
 

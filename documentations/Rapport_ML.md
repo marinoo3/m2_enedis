@@ -2,9 +2,7 @@
 
 ## 1. Introduction et Contexte
 
-### 1.1 Objectif du projet
-
-Ce projet vise à développer une application web permettant de **prédire la performance énergétique des logements** en Haute-Savoie (département 74) ainsi qu'essayer de prédire le Diagnostic de Performance Énergétique (DPE). L'application doit fournir deux types de prédictions :
+Ce projet vise à développer une application web permettant de prédire la performance énergétique des logements en France ainsi que d'estimer le Diagnostic de Performance Énergétique (DPE). L'application fournit deux types de prédictions :
 
 1. **Régression** : Estimation de la consommation énergétique annuelle kWhep/an
 2. **Classification** : Détection des "passoires énergétiques" (logements classés F ou G)
@@ -36,8 +34,7 @@ La sélection des features a été réalisée en deux phases distinctes.
 
 #### **Phase 1 : Sélection statistique (36 features)**
 
-Dans un premier temps, avec un jeu de données contenant 236 variables, une première séléction "théorique" a été effectuée en utilisant des méthodes statistiques classiques
-ce qui a permis de réduire le nombre de variables à 36. certaines variables utilisés directement ou indirectement pour le calcul du DPE on été écartés également afin d'éviter le **data leakage**.
+Le jeu de données initial comportait 236 variables. Une première phase de sélection a été réalisée en appliquant plusieurs méthodes statistiques détaillées ci-dessous (analyse de corrélation, test du Chi-2 et calcul du VIF), ce qui a permis de réduire le nombre de variables à 36. Les variables utilisées directement ou indirectement pour le calcul du DPE ont également été écartées afin d'éviter le **data leakage**.
 ensuite, ces 36 variables ont servi de base pour établir une performance de référence pour les modèles.
 une fois cette étape réalisée, les variables ont été réduites d'avantage pour se limiter a des features plus "user-friendly" pour l'application web.
 
@@ -81,13 +78,13 @@ Pour l'application web, une sélection plus drastique a été nécessaire en pri
 **Features retenues (9 au total)** :
 | Feature | Type | Source | Exemple |
 |---------|------|--------|---------|
-| `surface_habitable_logement` | Numérique | Saisie utilisateur | 75.0 |
+| `surface_habitable_logement` | Numérique | Saisie utilisateur | 75 |
 | `periode_construction` | Catégorielle | Saisie utilisateur | `1975-1989` |
 | `type_batiment` | Catégorielle | Saisie utilisateur (type bâtiment) | `appartement` |
 | `qualite_isolation_enveloppe` | Catégorielle | Saisie utilisateur | `moyenne` |
 | `type_energie_principale_chauffage` | Catégorielle | Saisie utilisateur | `electricite` |
-| `logement_traversant` (`traversant`) | Binaire (oui/non) | Saisie utilisateur (optionnel) | `non` |
-| `protection_solaire_exterieure` | Binaire (oui/non) | Saisie utilisateur (optionnel) | `oui` |
+| `logement_traversant` (`traversant`) | Binaire (oui/non) | Saisie utilisateur | `non` |
+| `protection_solaire_exterieure` | Binaire (oui/non) | Saisie utilisateur | `oui` |
 | `zone_climatique` | Catégorielle | Auto-calculé (code postal) | `H1a` |
 | `classe_altitude` | Catégorielle | Auto-calculé (code postal) | `400-800` |
 
@@ -449,5 +446,8 @@ L'application permettra aux utilisateurs de :
 3. **Prioriser les travaux** de rénovation énergétique via l'importance des features
 4. **Anticiper les coûts** énergétiques annuels avec une précision acceptable
 
+### 5.4 Bilan final
+
+Nous avons développé deux modèles Random Forest pour prédire la consommation énergétique et détecter les passoires énergétiques à partir de seulement 9 variables accessibles aux utilisateurs (contre 236 initialement). Le modèle de régression affiche une erreur moyenne de ±35 000 kWhep/an avec un R² de 0.59 : cela reste correct pour une estimation approximative, mais necessiterait d'être complété par des données supplémentaires pour une prédiction plus précise (ex : Conso energetique finale, conso energetique par m2, etc...). Le modèle de classification détecte correctement 90% des vraies passoires énergétiques (F/G) avec un ROC-AUC de 0.93, ce qui en fait un excellent outil de détection. En résumé : la classification est performante pour identifier les passoires, tandis que la régression fournit un ordre de grandeur satisfaisant de la consommation, compte tenu de la forte simplification du modèle (9 variables sur les 236 présentes dans le jeu de données).
 
 
