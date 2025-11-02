@@ -58,6 +58,13 @@ searchInput.addEventListener('change', async function(event) {
     const results = await provider.search({ query: address + ', France' });
     place = results[0];
 
+    // remove previous point
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
     // Add point marker to map
     map.fitBounds(place.bounds);
     const marker = L.marker([place.y, place.x]).addTo(map);
