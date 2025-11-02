@@ -9,9 +9,10 @@ const mapElement = document.querySelector('#map');
 // Form
 const form = document.querySelector('#predict-form');
 let place = null;
-// DPE
-const dpeElement = document.querySelector('.result .dpe');
-const euroElement = document.querySelector('.result .consommation .euro');
+// Result
+const resultElement = document.querySelector('.result');
+const dpeElement = resultElement.querySelector('.dpe');
+const euroElement = resultElement.querySelector('.consommation .euro');
 
 
 dpeElement
@@ -85,6 +86,10 @@ form.addEventListener('submit', async function(event) {
     formValues['longitude'] = place.x;
 
     // Call python to predict results
+    resultElement.classList.add('loading');
     const result = await fetchPredict(formValues);
+    resultElement.classList.remove('loading');
+
+    // Display results
     updateResult(result);
 })

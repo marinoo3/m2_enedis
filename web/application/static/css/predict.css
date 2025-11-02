@@ -37,6 +37,8 @@ h2 {
         border: solid 1px var(--border-color);
         padding: 2rem;
         border-radius: var(--border-radius);
+        position: relative;
+        overflow: hidden;
     }
 
     .dpe {
@@ -118,6 +120,24 @@ h2 {
     }
 
 } 
+
+
+.lds-ring {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: var(--border-color);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+}
+
+.content.result.loading .lds-ring {
+    display: flex;
+}
 
 
 
