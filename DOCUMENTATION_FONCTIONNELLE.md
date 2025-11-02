@@ -37,7 +37,7 @@
 
 ### Page "Statistiques"
 
-**Intérêt** : Analyse approfondie de l'impact de l'altitude sur la consommation énergétique en Haute-Savoie (74) à travers 5 visualisations interactives. Exploite 200 000 logements DPE enrichis avec données d'élévation IGN.
+**Intérêt** : Analyse approfondie de l'impact de l'altitude sur la consommation énergétique en Haute-Savoie (74) à travers 5 visualisations interactives. Exploite 200 000 logements DPE de Haute-Savoie incluant les données d'altitude.
 
 **Graphiques** :
 
