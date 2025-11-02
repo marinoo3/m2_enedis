@@ -46,35 +46,24 @@ L'API, également développée avec Flask, expose publiquement les modèles de m
 - **scikit-learn** : Bibliothèque de machine learning pour la création et l'entraînement des modèles.
 - **plotly** : Outil de création de graphiques interactifs intégrés dans l'interface de l'application.
 
-
-## Exécuter l'app en local
+## Executer l'app en local avec Docker
 
 1. Aller dans le dossier `web`
 ```bash
 cd web
 ```
 
-2. Installer les dépendances
+2. Construire l'image Docker
 ```bash
-pip install -r requirements.txt
+docker build -t france-energie .
 ```
 
-3. Créer un dossier pour stocker le volume et renseigner son emplacement dans la variable d'environnement `MOUNT_PATH`
-> macOS / linux
+3. Lancer l'image Docker
 ```bash
-mkdir volume
-export MOUNT_PATH="volume"
-```
-> Windows
-```bash
-mkdir volume
-set MOUNT_PATH="volume"
+docker run -p 8000:8000 france-energie
 ```
 
-4. Lancer l'app
-```bash
-python app.py
-```
+4. L'application est hébergée sur le port `8000`, ouvrir un navigateur et se rendre à l'adresse http://0.0.0.0:8000/
 
 ## Structure de l'application
 ```bash
