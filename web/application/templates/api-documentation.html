@@ -24,7 +24,7 @@
             <div class="content documentation">
                 <h1>Documentation</h1>
                 <section class="description">
-                    <p>Cette API permet d'évaluer la performance énergétique des logements situés dans le département du Rhône. Elle est conçue pour obtenir rapidement une estimation du coût annuel de chauffage ainsi qu'une prédiction de l’étiquette DPE (Diagnostic de Performance Énergétique) d’un bien immobilier.</p>
+                    <p>Cette API permet d'évaluer la performance énergétique des logements situés dans le département du Rhône. Elle est conçue pour obtenir rapidement une estimation de la consommation annuelle de chauffage ainsi qu'une prédiction des logements passoires (étiquette F-G).</p>
                     <div class="api-url">
                         <div><p>URL :</p></div>
                         <p class="text-light">https://france-energie.koyeb.app/api/v1</p>
@@ -39,18 +39,81 @@
                         </div>
                         <div class="parameters">
                             <p>Paramètres :</p>
-                            <ul>
+                            <ul class="params-list">
                                 <li>
-                                    <span class="key">valeur_1</span>
-                                    <label>Description du parametre ici</label>
+                                    <span class="key">surface_habitable_logement</span>
+                                    <label>{int} - Surface du logement en m²</label>
                                 </li>
                                 <li>
-                                    <span class="key">valeur_2</span>
-                                    <label>Description du parametre ici</label>
+                                    <span class="key">altitude</span>
+                                    <label>{int} - Altitude en m</label>
                                 </li>
                                 <li>
-                                    <span class="key">valeur_3</span>
-                                    <label>Description du parametre ici</label>
+                                    <span class="key">annee_construction</span>
+                                    <label>{int} - Année de construction du logement</label>
+                                </li>
+                                <li>
+                                    <span class="key">zone_climatique</span>
+                                    <label>{string} - Zone climatique du département selon la réglementation environnementale RE2020
+                                        <br>Valeurs possibles :
+                                        <ul class="value-list">
+                                            <li>H1a</li>
+                                            <li>H1b</li>
+                                            <li>H1c</li>
+                                            <li>H2a</li>
+                                            <li>H2b</li>
+                                            <li>H2c</li>
+                                            <li>H2d</li>
+                                            <li>H3</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">type_batiment</span>
+                                    <label>{string} - Le type de bâtiment
+                                        <br>Valeurs possibles :
+                                        <ul class="value-list">
+                                            <li>appartement</li>
+                                            <li>immeuble</li>
+                                            <li>maison</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">qualite_isolation_enveloppe</span>
+                                    <label>{string} - La qualité de l'enveloppe thermique du bâtiment
+                                        <br>Valeurs possibles :
+                                        <ul class="value-list">
+                                            <li>très bonne</li>
+                                            <li>bonne</li>
+                                            <li>moyenne</li>
+                                            <li>insuffisante</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">type_energie_principale_chauffage</span>
+                                    <label>{string} - Le type d'énergie utilisé pour le chauffage
+                                        <br>Valeurs possibles : 
+                                        <ul class="value-list">
+                                            <li>Bois – Bûches, Bois – Granulés (pellets) ou briquettes</li>
+                                            <li>Bois – Plaquettes d’industrie</li>
+                                            <li>Bois – Plaquettes forestières</li>
+                                            <li>Butane, Charbon</li>
+                                            <li>Fioul domestique</li>
+                                            <li>GPL, Propane</li>
+                                            <li>Réseau de Chauffage urbain</li>
+                                            <li>Réseau de Froid Urbain</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">logement_traversant</span>
+                                    <label>{bool} - Le logement est-il traversant (possibilité d'ouvrir les portes ou fenêtres de deux façades d'orientations différentes) ? <b>[0 ; 1]</b></label>
+                                </li>
+                                <li>
+                                    <span class="key">protection_solaire_exterieure</span>
+                                    <label>{bool} - Le logement est-il équipé d'une protection solaire ? <b>[0 ; 1]</b></label>
                                 </li>
                             </ul>
                         </div>
@@ -65,18 +128,81 @@
                         </div>
                         <div class="parameters">
                             <p>Paramètres :</p>
-                            <ul>
+                            <ul class="params-list">
                                 <li>
-                                    <span class="key">valeur_1</span>
-                                    <label>Description du parametre ici</label>
+                                    <span class="key">surface_habitable_logement</span>
+                                    <label>{int} - Surface du logement en m²</label>
                                 </li>
                                 <li>
-                                    <span class="key">valeur_2</span>
-                                    <label>Description du parametre ici</label>
+                                    <span class="key">altitude</span>
+                                    <label>{int} - Altitude en m</label>
                                 </li>
                                 <li>
-                                    <span class="key">valeur_3</span>
-                                    <label>Description du parametre ici</label>
+                                    <span class="key">annee_construction</span>
+                                    <label>{int} - Année de construction du logement</label>
+                                </li>
+                                <li>
+                                    <span class="key">zone_climatique</span>
+                                    <label>{string} - Zone climatique du département selon la réglementation environnementale RE2020
+                                        <br>Valeurs possibles :
+                                        <ul class="value-list">
+                                            <li>H1a</li>
+                                            <li>H1b</li>
+                                            <li>H1c</li>
+                                            <li>H2a</li>
+                                            <li>H2b</li>
+                                            <li>H2c</li>
+                                            <li>H2d</li>
+                                            <li>H3</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">type_batiment</span>
+                                    <label>{string} - Le type de bâtiment
+                                        <br>Valeurs possibles :
+                                        <ul class="value-list">
+                                            <li>appartement</li>
+                                            <li>immeuble</li>
+                                            <li>maison</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">qualite_isolation_enveloppe</span>
+                                    <label>{string} - La qualité de l'enveloppe thermique du bâtiment
+                                        <br>Valeurs possibles :
+                                        <ul class="value-list">
+                                            <li>très bonne</li>
+                                            <li>bonne</li>
+                                            <li>moyenne</li>
+                                            <li>insuffisante</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">type_energie_principale_chauffage</span>
+                                    <label>{string} - Le type d'énergie utilisé pour le chauffage
+                                        <br>Valeurs possibles : 
+                                        <ul class="value-list">
+                                            <li>Bois – Bûches, Bois – Granulés (pellets) ou briquettes</li>
+                                            <li>Bois – Plaquettes d’industrie</li>
+                                            <li>Bois – Plaquettes forestières</li>
+                                            <li>Butane, Charbon</li>
+                                            <li>Fioul domestique</li>
+                                            <li>GPL, Propane</li>
+                                            <li>Réseau de Chauffage urbain</li>
+                                            <li>Réseau de Froid Urbain</li>
+                                        </ul>
+                                    </label>
+                                </li>
+                                <li>
+                                    <span class="key">logement_traversant</span>
+                                    <label>{bool} - Le logement est-il traversant (possibilité d'ouvrir les portes ou fenêtres de deux façades d'orientations différentes) ? <b>[0 ; 1]</b></label>
+                                </li>
+                                <li>
+                                    <span class="key">protection_solaire_exterieure</span>
+                                    <label>{bool} - Le logement est-il équipé d'une protection solaire ? <b>[0 ; 1]</b></label>
                                 </li>
                             </ul>
                         </div>
@@ -91,9 +217,15 @@
                         <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
                         <pre>
 curl -G "https://france-energie.koyeb.app/api/v1/consommation_chauffage" \
-    --data-urlencode "valeur_1=30 rue de la republique, lyon" \
-    --data-urlencode "valeur_2=55" \
-    --data-urlencode "valeur_3=2024"
+    --data-urlencode "surface_habitable_logement=75" \
+    --data-urlencode "altitude=125" \
+    --data-urlencode "annee_construction=2010" \
+    --data-urlencode "zone_climatique=H1a" \
+    --data-urlencode "type_batiment=appartement" \
+    --data-urlencode "qualite_isolation_enveloppe=très bonne" \
+    --data-urlencode "type_energie_principale_chauffage=Bois – Bûches" \
+    --data-urlencode "logement_traversant=1" \
+    --data-urlencode "protection_solaire_exterieure=1"
                         </pre>
                     </div>
                 </div>
@@ -108,9 +240,15 @@ base_url = "https://france-energie.koyeb.app/api/v1"
 endpoint = "/consommation_chauffage"
 
 params = {
-    'valeur_1': "30 rue de la republique, lyon",
-    'valeur_2': 55,
-    'valeur_3': 2024
+    'surface_habitable_logement': 75,
+    'altitude': 125,
+    'annee_construction': 2010,
+    'zone_climatique': 'H1a',
+    'type_batiment': 'appartement',
+    'qualite_isolation_enveloppe': 'très bonne',
+    'type_energie_principale_chauffage': 'Bois – Bûches',
+    'logement_traversant': 1,
+    'protection_solaire_exterieure': 1
 }
 
 response = requests.get(base_url + endpoint, params=params)
@@ -130,9 +268,15 @@ endpoint <- "/consommation_chauffage"
 response <- GET(
     url = paste0(base_url, endpoint),
     query = list(
-    valeur_1 = "30 rue de la republique, lyon",
-    valeur_2 = 55,
-    valeur_3 = 2024
+        surface_habitable_logement = 75,
+        altitude = 125,
+        annee_construction = 2010,
+        zone_climatique = "H1a",
+        type_batiment = "appartement",
+        qualite_isolation_enveloppe = "très bonne",
+        type_energie_principale_chauffage = "Bois – Bûches",
+        logement_traversant = 1,
+        protection_solaire_exterieure = 1
     )
 )
                         </pre>

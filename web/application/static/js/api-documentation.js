@@ -1,5 +1,5 @@
 let baseURL = 'https://france-energie.koyeb.app/api/v1'
-// baseURL = 'api/v1' // TRY IT OUT ONLY !!!
+baseURL = 'api/v1' // TRY IT OUT ONLY !!!
 
 // Playground
 const statusCodeElement = document.querySelector('.status-code');

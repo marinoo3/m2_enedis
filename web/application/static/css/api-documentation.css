@@ -194,7 +194,7 @@ section.description {
             display: inline-block;
         }
 
-        .parameters li {
+        .parameters ul.params-list > li {
 
             border-top: solid 1px var(--border-color);
             padding-top: .5rem;
@@ -211,8 +211,14 @@ section.description {
             }
 
             label {
+
                 margin-left: 4px;
                 display: block;
+
+                .value-list > li {
+                    margin-left: 25px;
+                    list-style: disc;                 
+                }
             }
 
         }

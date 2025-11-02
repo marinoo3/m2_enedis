@@ -54,6 +54,7 @@ h2 {
                 margin-left: -100%;
                 opacity: .2;
                 transition: margin .5s ease;
+                filter: saturate(0);
             }
         }
 
@@ -85,6 +86,7 @@ h2 {
 
         .etiquettes li.non-passoire img {
             opacity: 1;
+            filter: inherit;
         }
 
         .is-passoire p.non-passoire {
@@ -95,6 +97,7 @@ h2 {
 
         .etiquettes li.passoire img {
             opacity: 1;
+            filter: inherit;
         }
 
         .is-passoire p.passoire {
