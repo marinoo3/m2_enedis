@@ -5,6 +5,7 @@
 
 .content {
     padding: 2rem;
+    overflow-y: auto;
 }
 
 h1 {
