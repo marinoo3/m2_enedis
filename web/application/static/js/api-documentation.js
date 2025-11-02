@@ -47,8 +47,6 @@ function getRequestsURL(endpoint, values) {
 // Function to request an API call
 async function requestsAPI(url) {
 
-    console.log(url);
-
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -99,6 +97,9 @@ playgroundTabs.forEach(tab => {
 
         // Empty response preview
         jsonContainer.textContent = '//';
+        // Empty status code
+        statusCodeElement.textContent = "";
+        statusCodeElement.dataset.status = "none";
 
         const endpoint = tab.dataset.view;
         playgroundRequestsForms.dataset.tabView = endpoint;
@@ -116,12 +117,16 @@ playgroundRequestsForms.addEventListener('submit', async function(event) {
 
     event.preventDefault();
 
+    statusCodeElement.textContent = "loading";
+    statusCodeElement.dataset.status = "loading";
+
     const [endpoint, values] = getSubFormValues();
     const url = getRequestsURL(endpoint, values);
     const response = await requestsAPI(url);
 
     if (!response) {
-        statusCodeElement.textContent = "";
+        statusCodeElement.textContent = "error";
+        statusCodeElement.dataset.status = "error";
         return
     }
     

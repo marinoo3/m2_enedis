@@ -32,7 +32,6 @@ h1 {
 
 .method {
 
-    display: inline-block;
     border: solid 1px var(--blue);
     border-radius: 6px;
     padding: 0 6px;
@@ -83,9 +82,18 @@ h1 {
 #base-url {
 
     margin: 3rem 0;
+    display: flex;
+    gap: .5rem;
+
+    .scroller {
+        overflow-x: auto;
+    }
+    .scroller::-webkit-scrollbar {
+        display: none;
+    }
 
     #requests-url {
-        display: inline-block;
+        text-wrap: nowrap;
     }
 }
 
@@ -139,12 +147,19 @@ h1 {
 
         .status-code {
             padding: 4px 8px;
+            margin: 0px !important;
             border-radius: var(--border-radius);
-            background-color: var(--wrong);
+            background-color: var(--bad);
             display: table;
             margin-bottom: .5rem;
             font-size: .8rem;
             font-weight: 600;
+        }
+        .status-code[data-status="none"] {
+            display: none;
+        }
+        .status-code[data-status="loading"] {
+            background-color: var(--neutral);
         }
         .status-code[data-status="200"] {
             background-color: var(--good);

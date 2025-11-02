@@ -299,7 +299,9 @@ response <- GET(
                     <div class="method">
                         <p>GET</p>
                     </div>
-                    <p id="requests-url" class="text-light">https://france-energie.koyeb.app/api/v1/consommation_chauffage</p>
+                    <div class="scroller">
+                        <p id="requests-url" class="text-light">https://france-energie.koyeb.app/api/v1/consommation_chauffage</p>
+                    </div>
                 </section>
                 <section id="requests">
                     <form action="" data-tab-view="consommation_chauffage">
@@ -463,7 +465,7 @@ response <- GET(
                         <div class="container">
                             <div class="head">
                                 <h2>Réponse</h2>
-                                <p class="status-code"></p>
+                                <p class="status-code" data-status="none"></p>
                             </div>
                             <div class="json-wrapper code">
                                 <img src="{{ url_for('static', filename='images/copy.svg') }}" alt="" class="copy-button" height="20px">
