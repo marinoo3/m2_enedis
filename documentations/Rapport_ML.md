@@ -447,7 +447,14 @@ L'application permettra aux utilisateurs de :
 
 ### 5.4 Bilan final
 
-Nous avons développé deux modèles Random Forest pour prédire la consommation énergétique et détecter les passoires énergétiques à partir de seulement 9 variables accessibles aux utilisateurs (contre 236 initialement). Le modèle de régression affiche une erreur moyenne de ±35 000 kWhep/an avec un R² de 0.59 : cela reste correct pour une estimation approximative, mais necessiterait d'être complété par des données supplémentaires pour une prédiction plus précise (ex : Conso energetique finale, conso energetique par m2, etc...). Le modèle de classification détecte correctement 90% des vraies passoires énergétiques (F/G) avec un ROC-AUC de 0.93, ce qui en fait un excellent outil de détection. En résumé : la classification est performante pour identifier les passoires, tandis que la régression fournit un ordre de grandeur satisfaisant de la consommation, compte tenu de la forte simplification du modèle (9 variables sur les 236 présentes dans le jeu de données).
+Nous avons développé deux modèles **Random Forest** pour prédire la consommation énergétique et détecter les passoires énergétiques à partir de seulement **9 variables** accessibles aux utilisateurs (contre 236 initialement). 
+
+Le **modèle de régression** affiche une erreur moyenne de ±35 000 kWhep/an avec un R² de 0.59 : cela reste correct pour une estimation approximative, mais necessiterait d'être complété par des données supplémentaires pour une prédiction plus précise (ex. conso energetique finale, conso energetique par m2, etc...). 
+
+Le **modèle de classification** détecte correctement 90% des vraies passoires énergétiques (F/G) avec un ROC-AUC de 0.93, ce qui en fait un excellent outil de détection. 
+
+**En résumé** : la classification est performante pour identifier les passoires, tandis que la régression fournit un ordre de grandeur satisfaisant de la consommation, compte tenu de la forte simplification du modèle (9 variables sur les 236 présentes dans le jeu de données).
+
 
 
 
