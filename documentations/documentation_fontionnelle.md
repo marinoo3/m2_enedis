@@ -10,25 +10,34 @@
 
 ## Pages de l'application
 
+### Page "Contexte"
+
+**Intérêt** : Introduction et présentation du projet France Énergie. Cette page présente le contexte du projet, développé dans le cadre du Master 2 SISE. 
+
+**Utilisation** : Point d'entrée informatif pour comprendre la mission et les objectifs de l'application.
+
+---
+
 ### Page "Carte"
 
-**Intérêt** : Point d'entrée principal offrant une vue géographique des données de consommation énergétique par commune.
+**Intérêt** : Vue géographique interactive des données de consommation énergétique par commune avec modes de visualisation multiples (heat map ou points), recherche de lieux, filtres avancés et export des cartes.
 
 **Fonctionnalités** :
-- Cartographie interactive Leaflet avec heatmap de consommation ou clustering de points (navigation, zoom, info-bulle)
+- **Modes de visualisation** : Basculer entre vue "Heat Map" (carte de chaleur) et "Points" (marqueurs individuels)
+- **Barre de recherche** : Recherche d'un lieu spécifique (commune, adresse) avec positionnement automatique sur la carte
+- Cartographie interactive Leaflet (navigation, zoom, déplacement)
+- **Métriques disponibles** : Consommation totale (MWh) ou Consommation par habitant (MWh)
 - Tableau des communes avec 8 colonnes : code commune, nom, année, logements, densité population, altitude, consommation totale (MWh), consommation par habitant (MWh)
-- **Filtres dynamiques** : code de commune (input), année (select), densité de population (slider 0-28220), altitude (slider 0-4808m)
+- **Filtres dynamiques** : code de commune, année (2018-2024), densité de population (slider 0-28220), altitude (slider 0-4808m)
 - Téléchargement de la carte en PNG
-- Recherche de lieux depuis la barre de recherche
-- Requête de données plus précise au zoom
 
-**Utilisation** : Visualisation de la heatmap pour identifier les zones de forte/faible consommation ou du clustering de points pour avoir des informations sur des adresses. Utilisation des filtres (sliders et champs) pour affiner l'affichage du tableau des communes.
+**Utilisation** : Saisir un lieu dans la barre de recherche ou naviguer manuellement. Basculer entre heat map et points selon les besoins d'analyse. Utiliser les filtres pour cibler des communes spécifiques. Télécharger les visualisations pour rapports.
 
 ---
 
 ### Page "Statistiques"
 
-**Intérêt** : Analyse approfondie de l'impact de l'altitude sur la consommation énergétique en Haute-Savoie (74) à travers 5 visualisations interactives. Exploite 200 000 logements DPE enrichis avec données d'élévation IGN.
+**Intérêt** : Analyse approfondie de l'impact de l'altitude sur la consommation énergétique en Haute-Savoie (74) à travers 5 visualisations interactives. Exploite 200 000 logements DPE de Haute-Savoie incluant les données d'altitude.
 
 **Graphiques** :
 
@@ -62,34 +71,46 @@
 
 ### Page "Prédictions"
 
-**Intérêt** : _[En développement]_ Prédire la classe DPE et la consommation énergétique d'un logement via modèles de machine learning.
+**Intérêt** : Prédire la classe DPE et la consommation énergétique d'un logement via modèles de machine learning entraînés sur les données ADEME et Enedis.
 
-**Fonctionnalités prévues** : Formulaire de saisie (surface, année construction, chauffage, isolation, localisation, altitude) | Prédiction classe DPE (classification) et consommation (régression) | Affichage étiquette DPE colorée, coût annuel, recommandations
+**Fonctionnalités** :
 
-**Utilisation** : Saisie caractéristiques → prédiction instantanée DPE et consommation sans DPE officiel payant.
+**Partie Saisie - Informations du logement** :
+- **Adresse ou code postal** : Recherche avec carte interactive associée pour localisation précise
+- **Surface habitable** : En m²
+- **Année de construction** : Saisie numérique
+- **Type de bâtiment** : Menu déroulant (maison, appartement, etc.)
+- **Type d'énergie de chauffage** : Menu déroulant (électricité, gaz, fioul, bois, etc.)
+- **Logement traversant** : Menu déroulant (oui/non)
+- **Isolation extérieure** : Menu déroulant (oui/non)
+
+**Partie Prédictions** (affichage après validation, quelques secondes de traitement) :
+- **Étiquette DPE** : Classification A à G avec indication "Passoire thermique" (F-G) ou "Non passoire" (A-E)
+- **Consommation estimée de chauffage** : En kWh/an
+
+**Utilisation** : Remplir le formulaire avec les caractéristiques du logement. Valider et patienter quelques secondes pour obtenir l'étiquette DPE prédite et la consommation estimée, sans nécessiter de DPE officiel payant.
 
 ---
 
 ### Page "API"
 
-**Intérêt** : _[En développement]_ Documentation API REST pour accès programmatique aux modèles de prédiction.
+**Intérêt** : API REST permettant d'évaluer la performance énergétique des logements situés dans le département du Rhône (69). Obtenir rapidement une estimation du coût annuel de chauffage et une prédiction de l'étiquette DPE d'un bien immobilier de manière programmatique.
 
-**Fonctionnalités prévues** : Documentation endpoints, exemples JSON, authentification, limites de taux
+**Fonctionnalités** :
+- **Documentation** : URL de l'API et 2 endpoints GET disponibles (`/consommation_chauffage` et `/etiquette_dpe`)
+- **Exemples de code** : cURL, Python et R pour faciliter l'intégration
+- **Playground interactif** :
+  - 2 onglets : "Consommation de chauffage" et "Étiquette DPE"
+  - Formulaire de paramètres (surface habitable, altitude, année construction, zone climatique, type bâtiment, etc.)
+  - Exécution en temps réel des requêtes GET
+  - Affichage instantané de la réponse JSON
 
-**Utilisation** : Intégration des prédictions dans applications tierces.
+**Utilisation** : Consulter les endpoints disponibles dans la section Documentation. Copier les exemples de code (cURL, Python, R) pour intégrer l'API dans vos applications. Tester les requêtes directement dans le playground en renseignant les paramètres du logement.
 
 ---
 
 ### Page "À propos"
 
-**Intérêt** : Contexte du projet, sources de données et stack technique.
+**Intérêt** : Accès au dépôt GitHub du projet pour consulter le code source, la documentation technique et contribuer au développement.
 
-**Contenu** : Présentation projet M2 SISE, mission Enedis (impact DPE sur consommations), sources (APIs ADEME/Enedis, data.gouv), technologies (Python, Flask, Leaflet, Plotly, scikit-learn, Docker, Koyeb), crédits open source
-
----
-
-## Fonctionnalités transversales
-
-- **Interactivité** : Interface responsive, graphiques Plotly (zoom, survol), filtres dynamiques temps réel
-- **Design** : Palette DPE officielle (vert A → rouge G), iconographie, typographie claire
-- **Technologies** : Backend Python/Flask, Frontend HTML/CSS/JS, Leaflet, Plotly, Pandas/NumPy, scikit-learn, Docker/Koyeb
+**Utilisation** : Redirection vers le repository Git du projet contenant le code source, les modèles de machine learning, la documentation technique et les instructions d'installation pour déploiement local ou contribution au projet.
