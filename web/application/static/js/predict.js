@@ -15,9 +15,6 @@ const dpeElement = resultElement.querySelector('.dpe');
 const euroElement = resultElement.querySelector('.consommation .euro');
 
 
-dpeElement
-
-
 // Function to requests python predict
 async function fetchPredict(values) {
 
@@ -84,6 +81,10 @@ form.addEventListener('submit', async function(event) {
     // Add coordinates to formValues
     formValues['latitude'] = place.y;
     formValues['longitude'] = place.x;
+
+    // Clear previous results
+    dpeElement.dataset.selection = "";
+    euroElement.textContent = "--";
 
     // Call python to predict results
     resultElement.classList.add('loading');
